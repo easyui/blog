@@ -1,4 +1,5 @@
 # React Native Tips
+---------------
 
 ## React Native项目启动顺序
 
@@ -17,7 +18,7 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 - 在index.js中会先加载cli.js模块然后运行其run方法。在cli.js模块中做的工作和上面分析的iOS中的cli.js做的工作是一样的。
 - 待server启动成功后，才会运行到Android native code,所以运行封装好的Unix executable是不会导致资源失效的，因为资源生成代码已经在react-native run-android命令运行之前被执行过了。
 
-[^1]:Markdown是一种纯文本标记语言
+> sadasdasd
 
 
 

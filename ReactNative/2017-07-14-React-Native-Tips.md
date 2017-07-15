@@ -1,7 +1,7 @@
 # React Native Tips
 
 
-## React Native项目启动顺序
+## :smile:React Native项目启动顺序
 
 ### iOS中React Native项目启动顺序：
 - 在启动React Native Xcode项目时，会先加载项目所依赖的React项目，接着运行React项目中事先定义好的run script phase，最后运行packger.sh。
@@ -20,10 +20,10 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 
 > thx: [React-Native痛点解析之开发环境搭建及扩展](http://www.infoq.com/cn/articles/react-native-solution-dev-environment)
 
-## Text元素在Text里边，可以考虑为inline， 如果单独在View里边，那就是Block。
+## :smile:Text元素在Text里边，可以考虑为inline， 如果单独在View里边，那就是Block。
 
 
-## 在React Native中尺寸是没有单位的，它代表了设备独立像素。
+## :smile:在React Native中尺寸是没有单位的，它代表了设备独立像素。
 ```
 <View style={ {width:100,height:100,margin:40,backgroundColor:'gray'}}>
         <Text style={ {fontSize:16,margin:20}}>尺寸</Text>

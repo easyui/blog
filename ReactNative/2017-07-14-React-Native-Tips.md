@@ -1,7 +1,7 @@
 # React Native Tips
----------------
 
-## React Native项目启动顺序
+
+- ## React Native项目启动顺序
 
 ### iOS中React Native项目启动顺序：
 - 在启动React Native Xcode项目时，会先加载项目所依赖的React项目，接着运行React项目中事先定义好的run script phase，最后运行packger.sh。
@@ -18,7 +18,7 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 - 在index.js中会先加载cli.js模块然后运行其run方法。在cli.js模块中做的工作和上面分析的iOS中的cli.js做的工作是一样的。
 - 待server启动成功后，才会运行到Android native code,所以运行封装好的Unix executable是不会导致资源失效的，因为资源生成代码已经在react-native run-android命令运行之前被执行过了。
 
-> sadasdasd
+> thx: [React-Native痛点解析之开发环境搭建及扩展](http://www.infoq.com/cn/articles/react-native-solution-dev-environment)
 
 
 

@@ -3,6 +3,7 @@
 
 ## React Native项目启动顺序
 
+   <
 ### iOS中React Native项目启动顺序：
 - 在启动React Native Xcode项目时，会先加载项目所依赖的React项目，接着运行React项目中事先定义好的run script phase，最后运行packger.sh。
 - 其中packger.sh中我们看到如下的代码：
@@ -19,7 +20,7 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 - 待server启动成功后，才会运行到Android native code,所以运行封装好的Unix executable是不会导致资源失效的，因为资源生成代码已经在react-native run-android命令运行之前被执行过了。
 
 > thx: [React-Native痛点解析之开发环境搭建及扩展](http://www.infoq.com/cn/articles/react-native-solution-dev-environment)
-
+   >
 
 ## Text元素在Text里边，可以考虑为inline， 如果单独在View里边，那就是Block。
 

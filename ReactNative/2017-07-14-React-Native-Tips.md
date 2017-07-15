@@ -1,7 +1,7 @@
 # React Native Tips
 
 
-- ## React Native项目启动顺序
+## React Native项目启动顺序
 
 ### iOS中React Native项目启动顺序：
 - 在启动React Native Xcode项目时，会先加载项目所依赖的React项目，接着运行React项目中事先定义好的run script phase，最后运行packger.sh。
@@ -21,9 +21,14 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 > thx: [React-Native痛点解析之开发环境搭建及扩展](http://www.infoq.com/cn/articles/react-native-solution-dev-environment)
 
 
+## Text元素在Text里边，可以考虑为inline， 如果单独在View里边，那就是Block。
 
 
-这是一个一级标题
-============================
-这是一个二级标题
---------------------------------------------------
+## 在React Native中尺寸是没有单位的，它代表了设备独立像素。
+```
+<View style={ {width:100,height:100,margin:40,backgroundColor:'gray'}}>
+        <Text style={ {fontSize:16,margin:20}}>尺寸</Text>
+</View>
+```
+上述代码，运行在Android上时，View的长和宽被解释成：100dp 100dp单位是dp，字体被解释成16sp 单位是sp，运行在iOS上时尺寸单位被解释称了pt，这些单位确保了布局在任何不同dpi的手机屏幕上显示不会发生改变。可以通过Dimensions 来获取宽高，PixelRatio 获取密度，如果想使用百分比，可以通过获取屏幕宽度手动计算。
+

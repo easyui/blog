@@ -34,10 +34,57 @@ var add_the_handlers = function (nodes) {
 - 数字 0
 - 数字 NaN
 
-## :smile:布尔值为false
+## :smile:可以通过函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象。
 ```javascript
+//demo1
 Function.prototype.method = function (name, func) {
     this.prototype[name] = func;
     return this;
 };
+
+String.method('deentityify', function (  ) {
+    var entity = {
+        quot: '"',
+        lt:   '<',
+        gt:   '>'
+    };
+
+// Return the deentityify method.
+    return function (  ) {
+        return this.replace(/&([^&;]+);/g,
+            function (a, b) {
+                var r = entity[b];
+                return typeof r === 'string' ? r : a;
+            }
+        );
+    };
+}(  ));
+
+document.writeln(
+    '&lt;&quot;&gt;'.deentityify(  ));  // <">
+    
+//demo2
+var serial_maker = function (  ) {
+    var prefix = '';
+    var seq = 0;
+    return {
+        set_prefix: function (p) {
+            prefix = String(p);
+        },
+        set_seq: function (s) {
+            seq = s;
+        },
+        gensym: function (  ) {
+            var result = prefix + seq;
+            seq += 1;
+            return result;
+        }
+    };
+}(  );
+
+var seqer = serial_maker(  );
+seqer.set_prefix = 'Q';
+seqer.set_seq = 1000;
+var unique = seqer.gensym(  );    // unique is "Q1000"
+
 ```

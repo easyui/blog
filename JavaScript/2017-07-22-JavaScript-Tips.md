@@ -1,7 +1,19 @@
 # JavaScript Tips
 
 
-## :smile:在React Native中尺寸是没有单位的，它代表了设备独立像素。
+## :smile:内部函数能访问外部函数的实际变量而无须复制！
+
+```javascript
+//错误例子
+var add_the_handlers = function (nodes) {
+    var i;
+    for (i = 0; i < nodes.length; i += 1) {
+        nodes[i].onclick = function (e) {
+            alert(i);//alert出来的永远是节点的数量
+        }
+    }
+};
+```
 
 ```javascript
 Function.prototype.method = function (name, func) {

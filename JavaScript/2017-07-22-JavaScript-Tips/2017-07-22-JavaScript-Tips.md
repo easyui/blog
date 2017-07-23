@@ -145,6 +145,6 @@ function foo() {
 4、不可以使用call()，apply()，bind()这些方法改变 this 的指向。
 
 ## :smile: 比较运算
-![比较运算](变焦运算符.png)
+![比较运算](比较运算符.png)
 
 

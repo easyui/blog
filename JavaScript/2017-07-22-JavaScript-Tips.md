@@ -34,6 +34,9 @@ var add_the_handlers = function (nodes) {
 - 数字 0
 - 数字 NaN
 
+## :smile:七个数据类型：
+undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）、ES6 引入了一种新的原始数据类型Symbol。
+
 ## :smile:可以通过函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象。
 ```javascript
 //demo1

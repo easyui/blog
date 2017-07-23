@@ -157,7 +157,7 @@ for (var score in scores) {
 //total 是 ‘00123456’ 
 ```
 
-数组的遍历
+**数组的遍历**
 
 | 循环方式 | 遍历对象 | 副作用
 |-|-|-|
@@ -166,7 +166,7 @@ for (var score in scores) {
 | forEach| 		| 不方便break，continue，return
 | for...of| 	内部通过调用 Symbol.iterator 方法，实现遍历获得键值	| 不可遍历普通的对象，因为没有 Iterator 接口
 
-ES6对象的遍历
+**ES6对象的遍历**
 
 | 循环方式 | 遍历对象
 |-|-|
@@ -177,5 +177,33 @@ ES6对象的遍历
 | Reflect.ownKeys(obj) | 返回一个数组，包含对象自身的所有属性，不管属性名是 Symbol 或者字符串或者是否可枚举
 | Reflect.enumerate(obj) | 返回一个 Iterator对象，遍历对象自身的和继承的所有可枚举属性(不包含 Symbol 属性)，与 for...in循环相同
 
+**数字遍历对空值的处理**
+
+在 ES5 中：
+
+|方法 | 针对空缺
+| forEach() | 遍历时跳过空缺
+| every() | 遍历时跳过空缺
+| some() | 遍历时跳过空缺
+| map() | 遍历时跳过空缺，但是最终结果会保留空缺
+| filter() | 去除空缺
+| join() | 把空缺，undefined，null转化为空字符串
+| toString() | 把空缺，undefined，null转化为空字符串
+| sort() | 排序时保留空缺
+| apply() | 把每个空缺转化为undefined
+
+在 ES6 中：规定，遍历时不跳过空缺，空缺都转化为undefined
+
+| 方法 | 针对空缺
+| Array.from() | 空缺都转化为undefined
+| ...(扩展运算符有) | 空缺都转化为undefined
+| copyWithin() | 连空缺一起复制
+| fill() | 遍历时不跳过空缺，视空缺为正常的元素
+| for...of | 遍历时不跳过空缺
+| entries() | 空缺都转化为undefined
+| keys() | 空缺都转化为undefined
+| values() | 空缺都转化为undefined
+| find() | 空缺都转化为undefined
+| findIndex() | 空缺都转化为undefined p0p0
 
 

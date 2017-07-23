@@ -163,8 +163,6 @@ for (var score in scores) {
 |-|-|-|
 | :for | : | :写法比较麻烦
 | :for-in | :索引值(键名)，而非数组元素 | :遍历所有(非索引)属性，以及继承过来的属性（可以用hasOwnProperty()方法排除继承属性），主要是为遍历对象而设计的，不适用于遍历数组
-
-
 | :forEach| :		| :不方便break，continue，return
 | :for...of| :	内部通过调用 Symbol.iterator 方法，实现遍历获得键值	| :不可遍历普通的对象，因为没有 Iterator 接口
 

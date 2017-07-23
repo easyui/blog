@@ -167,6 +167,7 @@ for (var score in scores) {
 | for...of| 	内部通过调用 Symbol.iterator 方法，实现遍历获得键值	| 不可遍历普通的对象，因为没有 Iterator 接口
 
 ES6对象的遍历
+
 | 循环方式 | 遍历对象
 |-|-|
 | for...in | 循环遍历对象自身的和继承的可枚举属性（不包含Symbol属性））

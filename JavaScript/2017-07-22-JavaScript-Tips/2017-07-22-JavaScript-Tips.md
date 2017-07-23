@@ -182,6 +182,7 @@ for (var score in scores) {
 在 ES5 中：
 
 |方法 | 针对空缺
+|-|-|
 | forEach() | 遍历时跳过空缺
 | every() | 遍历时跳过空缺
 | some() | 遍历时跳过空缺
@@ -195,6 +196,7 @@ for (var score in scores) {
 在 ES6 中：规定，遍历时不跳过空缺，空缺都转化为undefined
 
 | 方法 | 针对空缺
+|-|-|
 | Array.from() | 空缺都转化为undefined
 | ...(扩展运算符有) | 空缺都转化为undefined
 | copyWithin() | 连空缺一起复制

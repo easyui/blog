@@ -144,3 +144,7 @@ function foo() {
 3、不可以使用 yield 命令，不能作为 Generator 函数。
 4、不可以使用call()，apply()，bind()这些方法改变 this 的指向。
 
+## :smile: 比较运算
+![比较运算](变焦运算符.png)
+
+

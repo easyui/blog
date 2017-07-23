@@ -93,3 +93,28 @@ var unique = seqer.gensym(  );    // unique is "Q1000"
 ```
 
 ## :smile: 在JavaScript无法重载或者自定义运算符，包括等号。
+
+## :smile: 函数声明和变量声明的提升
+先举一个函数提升的例子。
+```javascript
+function foo() {
+  bar();
+  function bar() {
+    ……
+  }
+}
+```
+var 变量也具有提升的特性。但是把函数赋值给变量以后，提升的效果就会消失。
+```javascript
+function foo() {
+  bar(); // error！
+  var bar = function () {
+    ……
+  }
+}
+```
+上述函数就没有提升效果了。
+**函数声明是做了完全提升，变量声明只是做了部分提升。变量的声明才有提升的作用，赋值的过程并不会提升，赋值还在原地。**
+**如果变量和函数都存在提升的情况，那么函数提升优先级更高。**
+
+

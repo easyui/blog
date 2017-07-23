@@ -137,3 +137,10 @@ function foo() {
 }
 ```
 
+## :smile: 箭头函数this
+箭头函数根本就没有自己的 this，导致内部的 this 就是外层代码块的 this，正因为这个特性，也导致了以下的情况都不能使用箭头函数：
+1、不能当做构造函数，不能使用 new 命令，因为没有 this，否则会抛出一个错误。
+2、不可以使用 argument 对象，该对象在函数体内不存在，非要使用就只能用 rest 参数代替。也不能使用 super，new.target 。
+3、不可以使用 yield 命令，不能作为 Generator 函数。
+4、不可以使用call()，apply()，bind()这些方法改变 this 的指向。
+

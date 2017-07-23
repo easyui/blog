@@ -91,3 +91,5 @@ seqer.set_seq = 1000;
 var unique = seqer.gensym(  );    // unique is "Q1000"
 
 ```
+
+## :smile: 在JavaScript无法重载或者自定义运算符，包括等号。

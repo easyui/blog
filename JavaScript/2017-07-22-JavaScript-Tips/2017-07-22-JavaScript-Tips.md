@@ -167,6 +167,14 @@ for (var score in scores) {
 | for...of| 	内部通过调用 Symbol.iterator 方法，实现遍历获得键值	| 不可遍历普通的对象，因为没有 Iterator 接口
 
 ES6对象的遍历
+| 循环方式 | 遍历对象
+|-|-|
+| for...in | 循环遍历对象自身的和继承的可枚举属性（不包含Symbol属性））
+| Object.key(obj) | 返回一个数组，包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性)
+| Object.getOwnPropertyNames(obj) | 返回一个数组，包含对象自身的所有属性(不含 Symbol 属性，但是包含不可枚举的属性)
+| Object.getOwnPropertySymbols(obj) | 返回一个数组，包含对象自身的所有 Symbol 属性
+| Reflect.ownKeys(obj) | 返回一个数组，包含对象自身的所有属性，不管属性名是 Symbol 或者字符串或者是否可枚举
+| Reflect.enumerate(obj) | 返回一个 Iterator对象，遍历对象自身的和继承的所有可枚举属性(不包含 Symbol 属性)，与 for...in循环相同
 
 
 

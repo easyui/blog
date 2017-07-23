@@ -120,4 +120,20 @@ function foo() {
 
 **ES6中引入了 let 和 const 关键字，使用这两个关键字就不会有变量提升了。**
 
+## :smile: ES6引入了块作用域，立即执行函数表达式（IIFE）不再必要了。
+```javascript
+//ES6之前，
+// IIFE 写法
+(function () {
+  var tmp = ...;
+  ...
+}());
+
+//ES6
+// 块级作用域写法
+{
+  let tmp = ...;
+  ...
+}
+```
 

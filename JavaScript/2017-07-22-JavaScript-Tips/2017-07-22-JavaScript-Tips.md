@@ -147,4 +147,16 @@ function foo() {
 ## :smile: 比较运算
 ![比较运算](比较运算符.png)
 
+## :smile:  for-in 遍历数组得到的是数组索引字符串
+```javascript
+var scores = [ 11,22,33,44,55,66,77 ];
+var total = 0;
+for (var score in scores) {
+  total += score;
+}
+//total 是 ‘00123456’ 
+```
+
+
+
 

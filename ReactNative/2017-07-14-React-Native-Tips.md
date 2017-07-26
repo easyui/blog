@@ -31,3 +31,5 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 ```
 上述代码，运行在Android上时，View的长和宽被解释成：100dp 100dp单位是dp，字体被解释成16sp 单位是sp，运行在iOS上时尺寸单位被解释称了pt，这些单位确保了布局在任何不同dpi的手机屏幕上显示不会发生改变。可以通过Dimensions 来获取宽高，PixelRatio 获取密度，如果想使用百分比，可以通过获取屏幕宽度手动计算。
 
+## :smile:ListView组件中：scrollTo({x: 0, y: 100, animated: true})在iOS滚动到指定位置没问题，但是在android滚动到没有渲染过的位置就会滚动不准，可以加个initialListSize={cell个数}解决android的问题。
+

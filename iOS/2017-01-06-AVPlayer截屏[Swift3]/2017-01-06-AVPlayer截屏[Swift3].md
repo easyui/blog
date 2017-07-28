@@ -67,10 +67,15 @@
 
 
 [详细代码](https://github.com/easyui/EZPlayer/blob/master/EZPlayer/EZPlayer.swift)
+
 thx:
+
 [使用AVPlayer播放m3u8视频时，实现视频截图](http://blog.csdn.net/hherima/article/details/53576872)
+
 [iOS 小坑记录：如何给 AVPlayer 截图](http://darktechlabs.com/2016/07/15/iOS-%E5%B0%8F%E5%9D%91%E8%AE%B0%E5%BD%95%EF%BC%9A%E5%A6%82%E4%BD%95%E7%BB%99-AVPlayer-%E6%88%AA%E5%9B%BE/)
+
 [iOS获取m3u8流媒体的视频截图](http://www.jianshu.com/p/bd30ce34a76f)
+
 [Real-time Video Processing Using AVPlayerItemVideoOutput](https://developer.apple.com/library/content/samplecode/AVBasicVideoOutput/Introduction/Intro.html)
 
 

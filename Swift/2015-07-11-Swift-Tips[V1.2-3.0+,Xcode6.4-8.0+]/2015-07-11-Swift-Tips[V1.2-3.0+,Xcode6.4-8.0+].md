@@ -1,4 +1,5 @@
 # Swift Tips(version1.2 xcode6.4)
+
 ## :smile:颜色转图片
 ```swift
 extension UIImage{  
@@ -29,9 +30,6 @@ override func supportedInterfaceOrientations() -> Int {
 }  
 ```
 
-## :smile:七个数据类型：
-undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）、ES6 引入了一种新的原始数据类型Symbol。
-
 ## :smile:Swift调用oc枚举不识别
 ```swift
 typedef NS_ENUM(NSInteger, EZCameraState)  
@@ -61,7 +59,7 @@ typedef NS_ENUM(NSInteger, EZCameraState)
 
 ## :smile:  在子类必须实现的方法中调用这个函数fatalError("方法未实现")。使用了fatalError方法的地方编译可过。但是在运行的时候会报错！
 
-## :smile: swift1.2中没有appearanceWhenContainedIn:方法 http://justsee.iteye.com/blog/2227009
+## :smile: swift1.2中没有appearanceWhenContainedIn:方法 [详细](https://github.com/easyui/blog/blob/master/Swift/2015-07-13-Swift-appearanceWhenContainedIn%5BVersion1.2,Xcode6.4%5D.md)
 
 ## :smile: Swift单例
 ```swift

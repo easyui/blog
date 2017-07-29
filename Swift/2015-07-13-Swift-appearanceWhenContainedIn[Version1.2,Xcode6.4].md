@@ -4,6 +4,7 @@ Swift1.2中没有oc中对应的方法：
 ```
 
 解决方法：
+
 在swift项目中新建oc类如下：
 ```swift
 #import <UIKit/UIKit.h>  

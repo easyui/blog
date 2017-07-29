@@ -41,7 +41,9 @@ Swift1.2中没有oc中对应的方法：
 ```
 那Swift就可以调用了！
 
+
 BTW：
+
 在Xcode7beta，swift2中提供此方法：
 ```Swift
 @available(iOS 9.0, *)  

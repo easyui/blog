@@ -97,5 +97,6 @@ struct StructSingleton{
 
 # Swift Tips(version2.0+ xcode7.0+) 
 
+
 # Swift Tips(version3.0+ xcode8.0+) 
 

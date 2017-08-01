@@ -97,9 +97,8 @@ struct StructSingleton{
 
 # Swift Tips(version2.0+ xcode7.0+) 
 ## :smile:
+![参数传递限制](参数传递限制.png)
 
-
- 
 ## :smile:打印多重Optional
 ```swift
 var literalNil: String?? = nil
@@ -133,7 +132,7 @@ nil
 }
 ```
 ## :smile:Protocol扩展
-
+![Protocol扩展](Protocol扩展.png)
 
 ## :smile:Swift 2.2 已将协议中 associated types 的关键字由 typealias 替换为 associatedtype
  

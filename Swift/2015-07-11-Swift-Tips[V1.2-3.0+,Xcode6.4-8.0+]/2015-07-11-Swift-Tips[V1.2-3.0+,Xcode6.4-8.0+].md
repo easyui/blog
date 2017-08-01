@@ -96,7 +96,63 @@ struct StructSingleton{
 ```
 
 # Swift Tips(version2.0+ xcode7.0+) 
+## :smile:
 
+
+ 
+## :smile:打印多重Optional
+```swift
+var literalNil: String?? = nil
+
+//对于上面变量po只会输出nil
+(lldb) po literalNil 
+nil
+
+//但使用 fr v -r 或 fr v -R 可以打印详细信息
+(lldb) fr v -r  literalNil
+(String??) literalNil = nil
+(lldb) fr v -R  literalNil
+(Swift.Optional<Swift.Optional<Swift.String>>) literalNil = None {
+  Some = Some {
+    Some = {
+      _core = {
+        _baseAddress = {
+          _rawValue = 0x0000000000000000
+        }
+        _countAndFlags = {
+          value = 0
+        }
+        _owner = None {
+          Some = {
+            instance_type = 0x0000000000000000
+          }
+        }
+      }
+    }
+  }
+}
+```swift
+## :smile:Protocol扩展
+
+
+## :smile:Swift 2.2 已将协议中 associated types 的关键字由 typealias 替换为 associatedtype
+ 
+## :smile:Swift 2.2 ==比较符支持元组类型
+ 
+## :smile:Swift 2.2 增加#if swift 语法判断当前swift版本
+```swift
+#if swift(>=2.2)  
+  
+#else  
+  
+#endif 
+```
+ 
+## :smile: Swift 2.2 从 Swift 2.2 开始我们使用 #selector 来从暴露给 Objective-C 的代码中获取一个 selector。类似地，在 Swift 里对应原来 SEL 的类型是一个叫做 Selector 的结构体。
+ 
+## :smile:Swift 2.2 func 参数修饰var废弃，若要参数还是可变的话只能使用inout关键字
+ 
+## :smile:Swift 2.2 #file#line#column#function编译标记替代原来的 __FILE__  __LINE__ __COLUMN__ __FUNCTION__
 
 # Swift Tips(version3.0+ xcode8.0+) 
 

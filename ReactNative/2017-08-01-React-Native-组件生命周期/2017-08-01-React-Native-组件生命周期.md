@@ -30,11 +30,9 @@
 
 这里会初始化一些默认的属性，通常会将固定的内容放在这个过程中进行初始化和赋值，一个控件可以利用this.props获取在这里初始化它的属性，由于组件初始化后，再次使用该组件不会调用getDefaultProps函数，所以组件自己不可以自己修改props（即：props可认为是只读的），只可由其他组件调用它时在外部修改。
 
-1）
-执行propTypes确定props的类型
+1）执行propTypes确定props的类型
 
-2）
-执行defaultProps初始化props的默认值
+2）执行defaultProps初始化props的默认值
 
 ```javascript
 //es6

@@ -203,14 +203,16 @@ demoUI：
 ![demoUI](demoUI.png)
 
 组件大致结构是：
-
+```
 <owen>
   <Button/>
   <LocationButton>
       <ButtonInLocal/>
   </LocationButton>
 </owen>
+```
 
+依次点击上面组件后的执行结果：
 ```javascript
 //启动app
 -----Button: propTypes   //最外层的先初始化props ，启动app后props只会执行一次！

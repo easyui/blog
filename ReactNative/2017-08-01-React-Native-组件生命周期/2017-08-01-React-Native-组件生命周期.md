@@ -1,4 +1,4 @@
-##组件属性(props)
+## 组件属性(props)
 
 它是组件的不可变属性（组件自己不可以自己修改props）。
 
@@ -8,7 +8,7 @@
 组件自己不可以自己修改props（即：props可认为是只读的），只可由其他组件调用它时在外部修改。
 
 
-##组件状态(state)
+## 组件状态(state)
 
 它是组件的内部状态属性，主要用来存储组件自身需要的数据。
 
@@ -19,12 +19,12 @@
 需要注意的是render方法是被异步调用的，这可以保证同步的多个setState方法只会触发一次render，这样做是有利于提高性能的。
 
 
-##组件的生命周期
+## 组件的生命周期
 
 对于组件的生命周期来说一般分为四个阶段，分别为：
 创建阶段、实例化阶段、运行(更新)阶段、销毁阶段。
 
-###1、创建阶段
+### 1、创建阶段
 
 该阶段主要发生在创建组件类的时候，在这个阶段中会初始化组件的props属性类型和默认属性。
 
@@ -53,7 +53,7 @@ export default class owen extends Component {
 }
 ...
 ```
-###2、实例化阶段
+### 2、实例化阶段
 
 该阶段主要发生在组件类被调用(实例化)的时候。
 
@@ -101,7 +101,7 @@ render是一个组件必须有的方法，形式为一个函数，渲染界面�
   }
 ```
   
-###3、运行(更新)阶段
+### 3、运行(更新)阶段
 
 1) componentWillReceiveProps(nextProps)
 
@@ -157,7 +157,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 > componentWillMount、componentDidMount和componentWillUpdate、componentDidUpdate可以对应起来。区别在于，前者只有在挂载的时候会被调用；而后者在以后的每次更新渲染之后都会被调用。
 
 
-####组件更新的方式总结
+#### 组件更新的方式总结
 
 1、首次渲染Initial Render，即首次加载组件
 
@@ -169,7 +169,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 
  ![组件的4种更新方式](组件的4种更新方式.png)
  
-###4、销毁阶段
+### 4、销毁阶段
 
 该阶段主要发生组件销亡的时候，触发componentWillUnmount。当组件需要从DOM中移除的时候，通常需要做一些取消事件绑定，移除虚拟DOM中对应的组件数据结构，销毁一些无效的定时器、网络请求等工作，都可以在这个方法中处理。
 ```javascript
@@ -177,7 +177,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
   }
 ```
 
-##总结
+## 总结
 
  生命周期的回调函数总结：
 | 生命周期 | 调用次数 | 能否使用 setSate()
@@ -198,7 +198,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
   ![组件的生命周期流程](组件的生命周期流程.png)
 
 
-##实践(rn0.46.0,es6)
+## 实践(rn0.46.0,es6)
 
  
  

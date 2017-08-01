@@ -327,6 +327,8 @@ demoUI：
  - [ButtonInLocal.js](ButtonInLocal.js)
 
 
+> 感谢: [6) React Native 组件生命周期(ES6)](http://www.jianshu.com/p/72f8c1da0b65)
+
  
 
 

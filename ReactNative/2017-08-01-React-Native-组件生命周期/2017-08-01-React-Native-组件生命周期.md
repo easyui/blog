@@ -198,6 +198,123 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 
 
 ## 实践(rn0.46.0,es6)
+demoUI：
+![demoUI](demoUI.png)
+
+组件大致结构是：
+<owen>
+  <Button/>
+  <LocationButton>
+      <ButtonInLocal/>
+  </LocationButton>
+</owen>
+
+```javascrpit
+//启动app
+-----Button: propTypes   //最外层的先初始化props ，启动app后props只会执行一次！
+-----Button: defaultProps
+-----ButtonInLocal: propTypes
+-----ButtonInLocal: defaultProps
+-----LocationButton: propTypes
+-----LocationButton: defaultProps
+-----owen: propTypes
+-----owen: defaultProps
+-----owen: constructor
+-----owen: componentWillMount
+-----owen: render
+-----Button: constructor
+-----Button: componentWillMount
+-----Button: render
+-----LocationButton: constructor
+-----LocationButton: componentWillMount
+-----LocationButton: render
+-----ButtonInLocal: constructor
+-----ButtonInLocal: componentWillMount
+-----ButtonInLocal: render
+-----Button: componentDidMount //render执行往后从上往下，从外到里的顺序执行（除了owen）
+-----ButtonInLocal: componentDidMount
+-----LocationButton: componentDidMount
+-----owen: componentDidMount
+//改变Button的state值
+-----Button: shouldComponentUpdate
+-----Button: componentWillUpdate
+-----Button: render
+-----Button: componentDidUpdate
+//改变owen的state值同时改变Button的props值
+-----owen: shouldComponentUpdate
+-----owen: componentWillUpdate
+-----owen: render
+-----Button: componentWillReceiveProps
+-----Button: shouldComponentUpdate
+-----Button: componentWillUpdate
+-----Button: render
+-----LocationButton: componentWillReceiveProps
+-----LocationButton: shouldComponentUpdate
+-----LocationButton: componentWillUpdate
+-----LocationButton: render
+-----ButtonInLocal: componentWillReceiveProps
+-----ButtonInLocal: shouldComponentUpdate
+-----ButtonInLocal: componentWillUpdate
+-----ButtonInLocal: render
+-----Button: componentDidUpdate
+-----ButtonInLocal: componentDidUpdate
+-----LocationButton: componentDidUpdate
+-----owen: componentDidUpdate
+//删除Button组件
+-----owen: shouldComponentUpdate
+-----owen: componentWillUpdate
+-----owen: render
+-----LocationButton: componentWillReceiveProps
+-----LocationButton: shouldComponentUpdate
+-----LocationButton: componentWillUpdate
+-----LocationButton: render
+-----ButtonInLocal: componentWillReceiveProps
+-----ButtonInLocal: shouldComponentUpdate
+-----ButtonInLocal: componentWillUpdate
+-----ButtonInLocal: render
+-----Button: componentWillUnmount //删除的组件在render后执行
+-----ButtonInLocal: componentDidUpdate
+-----LocationButton: componentDidUpdate
+-----owen: componentDidUpdate
+//Button组件添加回来
+-----owen: shouldComponentUpdate
+-----owen: componentWillUpdate
+-----owen: render
+-----Button: constructor
+-----Button: componentWillMount
+-----Button: render
+-----LocationButton: componentWillReceiveProps
+-----LocationButton: shouldComponentUpdate
+-----LocationButton: componentWillUpdate
+-----LocationButton: render
+-----ButtonInLocal: componentWillReceiveProps
+-----ButtonInLocal: shouldComponentUpdate
+-----ButtonInLocal: componentWillUpdate
+-----ButtonInLocal: render
+-----Button: componentDidMount
+-----ButtonInLocal: componentDidUpdate
+-----LocationButton: componentDidUpdate
+-----owen: componentDidUpdate
+//强制刷新owen组件
+-----owen: componentWillUpdate  //owen组件直接从此方法开始执行
+-----owen: render
+-----Button: componentWillReceiveProps
+-----Button: shouldComponentUpdate
+-----Button: componentWillUpdate
+-----Button: render
+-----LocationButton: componentWillReceiveProps
+-----LocationButton: shouldComponentUpdate
+-----LocationButton: componentWillUpdate
+-----LocationButton: render
+-----ButtonInLocal: componentWillReceiveProps
+-----ButtonInLocal: shouldComponentUpdate
+-----ButtonInLocal: componentWillUpdate
+-----ButtonInLocal: render
+-----Button: componentDidUpdate
+-----ButtonInLocal: componentDidUpdate
+-----LocationButton: componentDidUpdate
+-----owen: componentDidUpdate
+```
 
  
  

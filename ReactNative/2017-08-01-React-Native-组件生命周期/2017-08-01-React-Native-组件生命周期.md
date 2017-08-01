@@ -199,9 +199,11 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 
 ## 实践(rn0.46.0,es6)
 demoUI：
+
 ![demoUI](demoUI.png)
 
 组件大致结构是：
+
 <owen>
   <Button/>
   <LocationButton>
@@ -209,7 +211,7 @@ demoUI：
   </LocationButton>
 </owen>
 
-```javascrpit
+```javascript
 //启动app
 -----Button: propTypes   //最外层的先初始化props ，启动app后props只会执行一次！
 -----Button: defaultProps

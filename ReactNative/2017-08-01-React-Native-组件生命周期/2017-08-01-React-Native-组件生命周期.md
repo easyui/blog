@@ -178,6 +178,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 ## 总结
 
  生命周期的回调函数总结：
+ 
 | 生命周期 | 调用次数 | 能否使用 setSate()
 |-|-|-|
 | propTypes | 1(全局调用一次) | 否

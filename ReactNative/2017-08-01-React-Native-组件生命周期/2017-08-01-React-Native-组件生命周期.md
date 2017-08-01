@@ -321,7 +321,7 @@ demoUI：
 ```
 
  相关代码：
- - [index.ios.js](View.js)
+ - [index.ios.js](index.ios.js)
  - [Button.js](Button.js)
  - [LocationButton.js](LocationButton.js)
  - [ButtonInLocal.js](ButtonInLocal.js)

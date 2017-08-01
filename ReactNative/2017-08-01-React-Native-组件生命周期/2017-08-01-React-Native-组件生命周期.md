@@ -1,4 +1,5 @@
 ##组件属性(props)
+
 它是组件的不可变属性（组件自己不可以自己修改props）。
 
 组件自身定义了一组props作为对外提供的接口，展示一个组件时只需要指定props作为节点的属性。
@@ -8,6 +9,7 @@
 
 
 ##组件状态(state)
+
 它是组件的内部状态属性，主要用来存储组件自身需要的数据。
 
 初始化时可能由props来决定，之后就完全由组件自身去维护。
@@ -18,10 +20,12 @@
 
 
 ##组件的生命周期
+
 对于组件的生命周期来说一般分为四个阶段，分别为：
 创建阶段、实例化阶段、运行(更新)阶段、销毁阶段。
 
 ###1、创建阶段
+
 该阶段主要发生在创建组件类的时候，在这个阶段中会初始化组件的props属性类型和默认属性。
 
 这里会初始化一些默认的属性，通常会将固定的内容放在这个过程中进行初始化和赋值，一个控件可以利用this.props获取在这里初始化它的属性，由于组件初始化后，再次使用该组件不会调用getDefaultProps函数，所以组件自己不可以自己修改props（即：props可认为是只读的），只可由其他组件调用它时在外部修改。
@@ -50,6 +54,7 @@ export default class owen extends Component {
 ...
 ```
 ###2、实例化阶段
+
 该阶段主要发生在组件类被调用(实例化)的时候。
 
 1) constructor(props)
@@ -97,6 +102,7 @@ render是一个组件必须有的方法，形式为一个函数，渲染界面�
 ```
   
 ###3、运行(更新)阶段
+
 1) componentWillReceiveProps(nextProps)
 
 父组件发生render的时候子组件就会调用，不管props有没有更新，也不管父子组件之间有没有数据交换。
@@ -152,6 +158,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 
 
 ####组件更新的方式总结
+
 1、首次渲染Initial Render，即首次加载组件
 
 2、调用this.setState，状态发生改变（并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）
@@ -163,6 +170,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
  ![组件的4种更新方式](组件的4种更新方式.png)
  
 ###4、销毁阶段
+
 该阶段主要发生组件销亡的时候，触发componentWillUnmount。当组件需要从DOM中移除的时候，通常需要做一些取消事件绑定，移除虚拟DOM中对应的组件数据结构，销毁一些无效的定时器、网络请求等工作，都可以在这个方法中处理。
 ```javascript
   componentWillUnmount() {
@@ -170,6 +178,7 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 ```
 
 ##总结
+
  生命周期的回调函数总结：
 | 生命周期 | 调用次数 | 能否使用 setSate()
 |-|-|-|

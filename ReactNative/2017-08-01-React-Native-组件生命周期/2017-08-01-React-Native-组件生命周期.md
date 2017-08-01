@@ -55,7 +55,7 @@ export default class owen extends Component {
 
 该阶段主要发生在组件类被调用(实例化)的时候。
 
-1) constructor(props)
+1)constructor(props)
 这里是对控件的一些状态进行初始化，组件每次初始化都会被调用，所以可以将控制控件的状态的一些变量放在这里初始化，如控件上显示的文字，可以通过this.state来获取值，通过this.setState来修改state值。
 ```javascript
   constructor(props) {
@@ -68,7 +68,7 @@ export default class owen extends Component {
   }
 ```
 
-2) componentWillMount()
+2)componentWillMount()
 
 准备加载组件。
 
@@ -78,7 +78,7 @@ export default class owen extends Component {
  componentWillMount() {   
  }
 ```
-3) render()
+3)render()
 
 render是一个组件必须有的方法，形式为一个函数，渲染界面，并返回JSX或其他组件来构成DOM，和Android的XML布局、WPF的XAML布局类似，只能返回一个顶级元素。
 ```javascript
@@ -91,7 +91,7 @@ render是一个组件必须有的方法，形式为一个函数，渲染界面�
   }
 ```
 
-4) componentDidMount()
+4)componentDidMount()
 
 调用了render方法后，组件加载成功并被成功渲染出来以后所执行的hook函数，一般会将网络请求等加载数据的操作，放在这个函数里进行，来保证不会出现UI上的错误。可以在这里使用refs!
 ```javascript
@@ -101,7 +101,7 @@ render是一个组件必须有的方法，形式为一个函数，渲染界面�
   
 ### 3、运行(更新)阶段
 
-1) componentWillReceiveProps(nextProps)
+1)componentWillReceiveProps(nextProps)
 
 父组件发生render的时候子组件就会调用，不管props有没有更新，也不管父子组件之间有没有数据交换。
 
@@ -114,7 +114,7 @@ render是一个组件必须有的方法，形式为一个函数，渲染界面�
  }
 ```
 
-2) shouldComponentUpdate(nextProps, nextState)
+2)shouldComponentUpdate(nextProps, nextState)
 
 返回布尔值，决定是否需要更新组件。
 
@@ -129,7 +129,7 @@ render是一个组件必须有的方法，形式为一个函数，渲染界面�
     return true
   }
 ```
-3) componentWillUpdate(nextProps, nextState)
+3)componentWillUpdate(nextProps, nextState)
 
 shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准更新组件，并调用 componentWillUpdate()。
 输入参数与 shouldComponentUpdate 一样，在这个回调中，可以做一些在更新界面之前要做的事情。需要特别注意的是，在这个函数里面，你就不能使用 this.setState 来修改状态。这个函数调用之后，就会把 nextProps 和 nextState 分别设置到 this.props 和 this.state 中。紧接着这个函数，就会调用 render() 来更新界面了。
@@ -139,11 +139,11 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
   }
 ```
 
-4) render()
+4)render()
 
 再确定需要更新组件时，调用render，根据diff算法，渲染界面，生成需要更新的虚拟DOM数据。
 
-5) componentDidUpdate()
+5)componentDidUpdate()
 
 虚拟DOM同步到DOM中后，执行该方法，可以在这个方法中做DOM操作。
 除了首次render之后调用componentDidMount，其它render结束之后都是调用componentDidUpdate。
@@ -157,13 +157,13 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
 
 #### 组件更新的方式总结
 
-1、首次渲染Initial Render，即首次加载组件
+1)首次渲染Initial Render，即首次加载组件
 
-2、调用this.setState，状态发生改变（并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）
+2)调用this.setState，状态发生改变（并不是一次setState会触发一次render，React可能会合并操作，再一次性进行render）
 
-3、父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）
+3)父组件发生更新（一般就是props发生改变，但是就算props没有改变或者父子组件之间没有数据交换也会触发render）
 
-4、调用this.forceUpdate，强制更新
+4)调用this.forceUpdate，强制更新
 
  ![组件的4种更新方式](组件的4种更新方式.png)
  

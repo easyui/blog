@@ -15,5 +15,23 @@ fix：
 
 3. 重启服务npm start
 
+## :smile:自定义组件报错 has no propType for native prop
+解决办法就是在定义js组件属性时，加上:
+```javascript
+// rn0.44
+import { ViewPropTypes } from "react-native";
+propTypes: {
+    ...ViewPropTypes,
+}
+
+// < rn0.44
+var View = React.View;
+/* later... */
+propTypes: {
+    ...View.propTypes,
+    myProp: PropTypes.string
+}
+```
+
 
 

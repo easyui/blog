@@ -138,5 +138,5 @@ propTypes: {
 
 
 
-> 相关原来来自RN0.46.0 [factoryWithTypeCheckers.js](factoryWithTypeCheckers.js) [factoryWithThrowingShims.js](factoryWithThrowingShims.js)
+> 相关源码来自RN0.46.0 [factoryWithTypeCheckers.js](factoryWithTypeCheckers.js) [factoryWithThrowingShims.js](factoryWithThrowingShims.js)
 

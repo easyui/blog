@@ -168,8 +168,9 @@ shouldComponentUpdate返回true或者调用forceUpdate之后，就会开始准�
  ![组件的4种更新方式](组件的4种更新方式.png)
  
  > 特殊的setNativeProps 
- > 让组件做到局部刷新 有时候我们需要直接改动组件并触发局部的刷新，但不使用state或是props。 
-setNativeProps 方法可以理解为web的直接修改dom。使用该方法修改 View 、 Text 等 RN自带的组件 ，则不会触发组件的 componentWillReceiveProps 、 shouldComponentUpdate 、componentWillUpdate 等组件生命周期中的方法。
+ > 
+ > 让组件做到局部刷新有时候我们需要直接改动组件并触发局部的刷新，但不使用state或是props。 
+ > setNativeProps 方法可以理解为直接修改dom。使用该方法修改 View 、 Text 等 RN自带的组件 ，则不会触发组件的 componentWillReceiveProps 、 shouldComponentUpdate 、componentWillUpdate、render、componentDidUpdate 等组件生命周期中的方法。
  
 ### 4、销毁阶段
 

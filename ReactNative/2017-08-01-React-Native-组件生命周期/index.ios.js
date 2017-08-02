@@ -4,8 +4,9 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+import React, { Component ,PropTypes} from 'react';
 import Button from './Button';
 import LocationButton from './LocationButton';
 
@@ -56,17 +57,21 @@ export default class owen extends Component {
     owen.easyLog('render')
     return (
       <View style={styles.container}>
-        {this.state.showButton ? <Button
+        {this.state.showButton ? <Button 
+          ref={'buttonRef'}
           label={this.state.name}
           style={{ borderColor: 'red', borderWidth: 3 }}
         /> : null}
-        <Text style={styles.welcome} onPress={() => { this.setState({ name: (new Date().getTime()).toString() }) }}>
+        <Text ref={'www'} style={styles.welcome} onPress={() => { this.setState({ name: (new Date().getTime()).toString() }) }}>
           改变上面button props
         </Text>
         <Text style={styles.instructions} onPress={() => { this.setState({ showButton: !this.state.showButton }) }}>
           button show开关
         </Text>
         <LocationButton onGetCoords={(time) => { this.forceUpdate() }} />
+          <Text style={styles.instructions} onPress={() => { this.refs.www.setNativeProps({style:{borderColor: 'black'}})}}>
+          setNativeProps是个例外
+        </Text>
       </View>
     );
   }

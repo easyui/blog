@@ -138,6 +138,5 @@ propTypes: {
 
 
 
-> 相关原来来自RN0.46.0
- - [index.ios.js](index.ios.js)
- - [Button.js](Button.js)
+> 相关原来来自RN0.46.0 [factoryWithTypeCheckers.js](factoryWithTypeCheckers.js) [factoryWithThrowingShims.js](factoryWithThrowingShims.js)
+

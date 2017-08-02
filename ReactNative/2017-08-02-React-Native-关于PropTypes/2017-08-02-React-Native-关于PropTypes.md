@@ -6,7 +6,7 @@
 一般组件很少需要对外公开方法（例外：工具类的静态方法等），唯一的交互途径就是props。所以说它也是父组件与子组件通信的桥梁。
 组件自己不可以自己修改props（即：props可认为是只读的），只可由其他组件调用它时在外部修改。
 
-### 创建阶段
+### props的创建阶段
 在创建组件类的时候，在这个阶段中会初始化组件的props属性类型和默认属性。
 
 这里会初始化一些默认的属性，通常会将固定的内容放在这个过程中进行初始化和赋值，一个控件可以利用this.props获取在这里初始化它的属性，由于组件初始化后，再次使用该组件不会调用getDefaultProps函数，所以组件自己不可以自己修改props（即：props可认为是只读的），只可由其他组件调用它时在外部修改。
@@ -36,14 +36,14 @@ export default class owen extends Component {
 
 
 ## React.PropTypes
-### 提供很多验证器 (validator) 来验证传入props数据的有效性。当向 props 传入无效数据时，JavaScript 控制台会抛出警告.
+### React.PropTypes提供很多验证器 (validator) 来验证传入props数据的有效性。当向 props 传入无效数据时，JavaScript 控制台会抛出警告.
 
-### 源码
-从：
+### 源码：
+**从：**
 
-import {PropTypes} from 'react';
+import {PropTypes} from 'react'
 
-到：
+**到：**
 
 projectName/node_modules/react/index.js
 ```javascript
@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = require('./cjs/react.development.js');
 }
 ```
-到： 
+**到：** 
 
 projectName/node_modules/react/cjs/react.development.js 
 ```javascript
@@ -69,7 +69,7 @@ Object.defineProperty(React, 'PropTypes', {
       }
     });
 ```
-到：
+**到：**
 
 projectName/node_modules/prop-types/index.js
 ```javascript
@@ -81,7 +81,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ```
 
-到目的：
+**到目的：**
 
 projectName/node_modules/prop-types/factoryWithTypeCheckers.js
 ```javascript
@@ -113,7 +113,10 @@ projectName/node_modules/prop-types/factoryWithTypeCheckers.js
   };
 ...
 ```
-在指定类型后使用isRequired在声明 prop 是必传的
+
+在指定类型后使用isRequired可声明 prop 是必传的 ，e.g. React.PropTypes.element.isRequired
+
+
 
 
 

@@ -117,9 +117,23 @@ projectName/node_modules/prop-types/factoryWithTypeCheckers.js
 在指定类型后使用isRequired可声明 prop 是必传的 ，e.g. React.PropTypes.element.isRequired
 
 
+## React Native 自定义组件报错 has no propType for native prop
+解决办法就是在定义js组件属性时，加上:
+```javascript
+// rn0.44
+import { ViewPropTypes } from "react-native";
+propTypes: {
+    ...ViewPropTypes,
+}
 
-
-
+// < rn0.44
+var View = React.View;
+/* later... */
+propTypes: {
+    ...View.propTypes,
+    myProp: PropTypes.string
+}
+```
 
 
 

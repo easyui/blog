@@ -139,4 +139,5 @@ propTypes: {
 
 
 > 相关原来来自RN0.46.0
-
+ - [index.ios.js](index.ios.js)
+ - [Button.js](Button.js)

@@ -21,7 +21,25 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 > thx: [React-Native痛点解析之开发环境搭建及扩展](http://www.infoq.com/cn/articles/react-native-solution-dev-environment)
 
 ## :smile:Text元素在Text里边，可以考虑为inline， 如果单独在View里边，那就是Block。
+```
+<Text>
+  <Text>First part and </Text>
+  <Text>second part</Text>
+</Text>
+// Text container: all the text flows as if it was one
+// |First part |
+// |and second |
+// |part       |
 
+<View>
+  <Text>First part and </Text>
+  <Text>second part</Text>
+</View>
+// View container: each text is its own block
+// |First part |
+// |and        |
+// |second part|
+```
 
 ## :smile:在React Native中尺寸是没有单位的，它代表了设备独立像素。
 ```

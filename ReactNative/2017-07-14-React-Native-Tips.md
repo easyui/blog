@@ -33,3 +33,4 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 
 ## :smile:ListView组件中：scrollTo({x: 0, y: 100, animated: true})在iOS滚动到指定位置没问题，但是在android滚动到没有渲染过的位置就会滚动不准，可以加个initialListSize={cell个数}解决android的问题。
 
+## :smile:TouchableHighlight只支持一个子节点，如果你希望包含多个子组件，用一个View来包装它们。

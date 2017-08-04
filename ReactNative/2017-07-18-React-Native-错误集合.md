@@ -48,7 +48,30 @@ fetch_and_unpack folly-2016.09.26.00.tar.gz https://github.com/facebook/folly/ar
 
 - 最后重新clean ，运行项目。
 
+## :smile:Cannot update during an existing state transition
+在render这种需要props和state进行渲染的方法中，不能再对props和state进行更新。React会在props和state改变的时候调用 render进行DOM diff然后渲染，如果在渲染过程中再对props和states进行更改，就陷入死循环了。
 
+例如：
+```
+一般的 ListView 中每个 Row 的点击会对应一个 onPress 的事件，例如 push 到下一个 View，这种情况使用 onPress={this.handlePress} ，然后在 handlePress 里进行响应的操作就 OK 了。
+
+在显示 Github 时间线的时候，每个 Row 里会提到多个用户名和仓库名，点击用户名和仓库名时需要做不同的处理。最容易想到的方法就是给 handlePress 传递参数了，如果使用下面的代码：
+
+ var action = <View style={styles.action}>
+                <Text>{actionDescription}</Text>
+                <TouchableOpacity onPress={this.goToUser(this.props.data.name)}><Text>data.payload.member.login</Text></TouchableOpacity>
+              <Text> to </Text>
+点击时同样会报
+
+ Error: Invariant Violation: setState(...): Cannot update ...
+因为上面的写法等于是在渲染的时候执行了 this.goToUser，会导致 state 改变。 onPress 应该传递进一个函数，这个函数会在点击的时候执行。一种可行的写法是使用匿名函数封装：
+
+ <TouchableOpacity onPress={()=>{
+   this.goToUser(this.props.data.name)
+  }}>
+ </TouchableOpacity>
+这样就不会在渲染的时候跑里面的函数，也就避免了冲突。
+```
 
 
 

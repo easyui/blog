@@ -52,3 +52,33 @@ node "$THIS_DIR/../local-cli/cli.js" start "$@"
 ## :smile:ListView组件中：scrollTo({x: 0, y: 100, animated: true})在iOS滚动到指定位置没问题，但是在android滚动到没有渲染过的位置就会滚动不准，可以加个initialListSize={cell个数}解决android的问题。
 
 ## :smile:TouchableHighlight只支持一个子节点，如果你希望包含多个子组件，用一个View来包装它们。
+
+## :smile:
+```
+写法1：
+
+<XXView xxxx={this.xxA.bind(this)} />
+
+写法2：
+
+constructor(props) {
+    super(props);
+    this.xxA= this.xxA.bind(this);
+  }
+  
+写法3：
+
+xxA = ()=>{};
+<XXView xxxx={this.xxA} />
+
+写法4：
+
+<XXView xxxx={()=>this.xxA()} />
+```
+1和4的问题在于，由于绑定是在render中执行，而render是会执行多次的，每次bind和箭头函数都会产生一个新的函数，因而带来了额外的开销。如果父组件重新render后，给到子组件的属性是一个新的函数实例，而并非完全相同的实例，这样即使子组件是pure-rendering component，也不能起到优化作用。
+
+2和3避免了每次产生新的函数，2和3都在this上绑定了bind后的实例，所以重新render也不会导致子组件属性变化，显然3的写法更简洁。
+
+所有首选3，但是当2，3需要绑定一些预置的参数时（也就是偏函数的概念），这时候2和3貌似都是不行的，此时1和4就派上用处了，看f8源码，在预置参数的时候便是用的行内bind的方式。
+
+

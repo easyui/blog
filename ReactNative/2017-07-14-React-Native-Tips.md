@@ -115,3 +115,12 @@ react-native bundle --entry-file index.ios.js --bundle-output ./bundle/ios/index
 - 打包命令中的路径(文件夹一定要存在)
 - 必须用 Create folder references 的方式引入图片的 assets ，否则引用不到图片
 - 不能用 main.jsbundle 来命名打包后的文件，否则会出现问题
+
+## :smile:
+<View style={{ flex: 1, backgroundColor: 'blue' }} />这样实现一个占位符，backgroundColor是无效的。只有View组件里有子组件才有效。
+
+
+
+
+
+

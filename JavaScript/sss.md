@@ -38,7 +38,11 @@ console.log( a ); // 3 console.log( global.a ); // 2
 });
 ```
 函数表达式 def 定义在片段的第二部分，然后当作参数(这个参数也叫作 def)被传递进 IIFE 函数定义的第一部分中。最后，参数 def(也就是传递进去的函数)被调用，并将 window 传入当作 global 参数的值。
-## :smile:P 
+## :smile:P30 块作用域
+- with 关键字。它不仅是一个难于理解的结构，同时也是块作用域的一 个例子(块作用域的一种形式)，用 with 从对象中创建出的作用域仅在 with 声明中而非外 部作用域中有效。
+- JavaScript 的 ES3 规范中规定 try/catch 的 catch 分句会创建一个块作
+用域，其中声明的变量仅在 catch 内部有效。
+- ES6中let和const 关键字可以将变量绑定到所在的任意作用域中(通常是 { 为其声明的变量隐式地了所在的块作用域。
 ## :smile:P
 ## :smile:P 
 ## :smile:P

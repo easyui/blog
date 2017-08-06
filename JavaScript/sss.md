@@ -50,7 +50,30 @@ console.log( a ); // 3 console.log( global.a ); // 2
 
 最后，this 关注函数如何调用，这就表明了 this 机制和动态作用域之间的关系多么紧密。
 ## :smile:P63 IIFE 和 try/catch 并不是完全等价的，因为如果将一段代码中的任意一部分拿出来 用函数进行包裹，会改变这段代码的含义，其中的 this、return、break 和 contine 都会 发生变化。IIFE 并不是一个普适的解决方案，它只适合在某些情况下进行手动操作。
-## :smile:P
+## :smile:P函数声明会被提升，但是函数表达式却不会被提升。 
+```
+foo(); // 不是 ReferenceError, 而是 TypeError!
+var foo = function bar() { // ...
+};
+```
+这段程序中的变量标识符 foo() 被提升并分配给所在作用域(在这里是全局作用域)，因此 foo() 不会导致 ReferenceError。但是 foo 此时并没有赋值(如果它是一个函数声明而不 是函数表达式，那么就会赋值)。foo() 由于对 undefined 值进行函数调用而导致非法操作， 因此抛出 TypeError 异常。
+
+同时也要记住，即使是具名的函数表达式，名称标识符在赋值之前也无法在所在作用域中使用:
+```
+foo(); // TypeError
+bar(); // ReferenceError
+var foo = function bar() { // ...
+};
+```
+这个代码片段经过提升后，实际上会被理解为以下形式:
+```
+var foo;
+foo(); // TypeError
+bar(); // ReferenceError
+foo = function() {
+var bar = ...self... // ...
+}
+```
 ## :smile:P
 ## :smile:P 
 ## :smile:P

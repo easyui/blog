@@ -43,6 +43,25 @@ console.log( a ); // 3 console.log( global.a ); // 2
 - JavaScript 的 ES3 规范中规定 try/catch 的 catch 分句会创建一个块作
 用域，其中声明的变量仅在 catch 内部有效。
 - ES6中let和const 关键字可以将变量绑定到所在的任意作用域中(通常是 { 为其声明的变量隐式地了所在的块作用域。
+一个 let 可以发挥优势的典型例子就是之前讨论的 for 循环。
+```
+for (let i=0; i<10; i++) { 
+   console.log( i );
+}
+console.log( i ); // ReferenceError
+```
+for 循环头部的 let 不仅将 i 绑定到了 for 循环的块中，事实上它将其重新绑定到了循环 的每一个迭代中，确保使用上一个循环迭代结束时的值重新进行赋值。
+下面通过另一种方式来说明每次迭代时进行重新绑定的行为: 
+```
+{
+   let j;
+   for (j=0; j<10; j++) {
+   let i = j; // 每个迭代重新绑定!
+             console.log( i );
+   }
+}
+```
+
 ## :smile:P59 
 事实上 JavaScript 并不具有动态作用域。它只有词法作用域，简单明了。 但是 this 机制某种程度上很像动态作用域。
 

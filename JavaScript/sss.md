@@ -50,7 +50,7 @@ console.log( a ); // 3 console.log( global.a ); // 2
 
 最后，this 关注函数如何调用，这就表明了 this 机制和动态作用域之间的关系多么紧密。
 ## :smile:P63 IIFE 和 try/catch 并不是完全等价的，因为如果将一段代码中的任意一部分拿出来 用函数进行包裹，会改变这段代码的含义，其中的 this、return、break 和 contine 都会 发生变化。IIFE 并不是一个普适的解决方案，它只适合在某些情况下进行手动操作。
-## :smile:P函数声明会被提升，但是函数表达式却不会被提升。 
+## :smile:P39 函数声明会被提升，但是函数表达式却不会被提升。 
 ```
 foo(); // 不是 ReferenceError, 而是 TypeError!
 var foo = function bar() { // ...

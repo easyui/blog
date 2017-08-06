@@ -74,7 +74,28 @@ foo = function() {
 var bar = ...self... // ...
 }
 ```
-## :smile:P
+## :smile:P41
+尽管重复的 var 声明会被忽略掉，但出现在后面的函数声明还是可以覆盖前面的。 
+```
+foo(); // 3
+function foo() { console.log( 1 );
+}
+var foo = function() { console.log( 2 );
+};
+function foo() { console.log( 3 );
+}
+```
+虽然这些听起来都是些无用的学院理论，但是它说明了在同一个作用域中进行重复定义是 非常糟糕的，而且经常会导致各种奇怪的问题。
+一个普通块内部的函数声明通常会被提升到所在作用域的顶部，这个过程不会像下面的代 码暗示的那样可以被条件判断所控制:
+```
+foo(); // "b"
+var a = true; if (a) {
+function foo() { console.log("a"); } }
+else {
+function foo() { console.log("b"); }
+}
+```
+但是需要注意这个行为并不可靠，在 JavaScript 未来的版本中有可能发生改变，因此应该 尽可能避免在块内部声明函数。
 ## :smile:P 
 ## :smile:P
 ## :smile:P

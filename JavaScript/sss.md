@@ -43,6 +43,7 @@ console.log( a ); // 3 console.log( global.a ); // 2
 - JavaScript 的 ES3 规范中规定 try/catch 的 catch 分句会创建一个块作
 用域，其中声明的变量仅在 catch 内部有效。
 - ES6中let和const 关键字可以将变量绑定到所在的任意作用域中(通常是 { 为其声明的变量隐式地了所在的块作用域。
+
 一个 let 可以发挥优势的典型例子就是之前讨论的 for 循环。
 ```
 for (let i=0; i<10; i++) { 

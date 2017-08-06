@@ -13,7 +13,10 @@ function foo(str) { "use strict";
 foo( "var a = 2" );
 ```
                  
-## :smile:P 
+## :smile:P18 
+JavaScript中 还 有 其 他 一 些 功 能 效 果 和eval(..)很 相 似。setTimeout(..)和 setInterval(..) 的第一个参数可以是字符串，字符串的内容可以被解释为一段动态生成的 函数代码。这些功能已经过时且并不被提倡。不要使用它们!
+
+new Function(..) 函数的行为也很类似，最后一个参数可以接受代码字符串，并将其转 化为动态生成的函数(前面的参数是这个新生成的函数的形参)。这种构建函数的语法比 eval(..) 略微安全一些，但也要尽量避免使用。
 ## :smile:P
 ## :smile:P 
 ## :smile:P

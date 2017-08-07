@@ -150,7 +150,7 @@ for (let i=1; i<=5; i++) { setTimeout( function timer() {
 
 最后，this 关注函数如何调用，这就表明了 this 机制和动态作用域之间的关系多么紧密。
 ## :smile:P63 IIFE 和 try/catch 并不是完全等价的，因为如果将一段代码中的任意一部分拿出来 用函数进行包裹，会改变这段代码的含义，其中的 this、return、break 和 contine 都会 发生变化。IIFE 并不是一个普适的解决方案，它只适合在某些情况下进行手动操作。
-## :smile:P 
+## :smile:P65 简单来说，箭头函数在涉及 this 绑定时的行为和普通函数的行为完全不一致。它放弃了所 有普通 this 绑定的规则，取而代之的是用当前的词法作用域覆盖了 this 本来的值。
 ## :smile:P
 ## :smile:P
 ## :smile:P 

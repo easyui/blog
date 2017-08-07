@@ -111,8 +111,9 @@ function foo() { console.log("b"); }
 ## :smile:P50 
 可以对这段代码进行一些改进:
 ```
-for (var i=1; i<=5; i++) { (function(j) {
-setTimeout( function timer() { console.log( j );
+for (var i=1; i<=5; i++) { 
+(function(j) {
+           setTimeout( function timer() { console.log( j );
              }, j*1000 );
          })( i );
 }

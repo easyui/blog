@@ -245,3 +245,17 @@ if (!Function.prototype.softBind) {
 
 ES6 中的箭头函数并不会使用四条标准的绑定规则，而是根据当前的词法作用域来决定 this，具体来说，箭头函数会继承外层函数调用的 this 绑定(无论 this 绑定到什么)。这 其实和 ES6 之前代码中的 self = this 机制一样。
 ## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P

@@ -204,7 +204,7 @@ baz.val; // p1p2
      
 4. 如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到 全局对象。
      var bar = foo()
-## :smile:P
+## :smile:P97 在 JavaScript 中创建一个空对象最简单的方法都是 Object.create(null) (详细介绍请看第5章)。Object.create(null)和{}很像，但是并不会创建Object.prototype 这个委托，所以它比 {}“更空”
 ## :smile:P
 ## :smile:P 
 ## :smile:P

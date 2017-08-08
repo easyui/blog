@@ -205,8 +205,28 @@ baz.val; // p1p2
 4. 如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到 全局对象。
      var bar = foo()
 ## :smile:P97 在 JavaScript 中创建一个空对象最简单的方法都是 Object.create(null) (详细介绍请看第5章)。Object.create(null)和{}很像，但是并不会创建Object.prototype 这个委托，所以它比 {}“更空”
-## :smile:P
-## :smile:P 
+## :smile:P98 问题在于，硬绑定会大大降低函数的灵活性，使 用硬绑定之后就无法使用隐式绑定或者显式绑定来修改 this。
+## :smile:P98
+如果可以给默认绑定指定一个全局对象和 undefined 以外的值，那就可以实现和硬绑定相 同的效果，同时保留隐式绑定或者显式绑定修改 this 的能力。
+
+可以通过一种被称为软绑定的方法来实现我们想要的效果:
+```
+if (!Function.prototype.softBind) { 
+  Function.prototype.softBind = function(obj) {
+  var fn = this;
+  // 捕获所有 curried 参数
+  var curried = [].slice.call( arguments, 1 ); 
+  var bound = function() {
+    return fn.apply(
+      (!this || this === (window || global)) ? obj : this curried.concat.apply( curried, arguments )
+      );
+   };
+   bound.prototype = Object.create( fn.prototype );
+   return bound; 
+   };
+}
+```
+除了软绑定之外，softBind(..) 的其他原理和 ES5 内置的 bind(..) 类似。它会对指定的函 数进行封装，首先检查调用时的 this，如果 this 绑定到全局对象或者 undefined，那就把 指定的默认对象 obj 绑定到 this，否则不会修改 this。此外，这段代码还支持可选的柯里 化(详情请查看之前和 bind(..) 相关的介绍)。
 ## :smile:P
 ## :smile:P
 ## :smile:P 

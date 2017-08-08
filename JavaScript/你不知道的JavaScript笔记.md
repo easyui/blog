@@ -227,7 +227,7 @@ if (!Function.prototype.softBind) {
 }
 ```
 除了软绑定之外，softBind(..) 的其他原理和 ES5 内置的 bind(..) 类似。它会对指定的函 数进行封装，首先检查调用时的 this，如果 this 绑定到全局对象或者 undefined，那就把 指定的默认对象 obj 绑定到 this，否则不会修改 this。此外，这段代码还支持可选的柯里 化(详情请查看之前和 bind(..) 相关的介绍)。
-## :smile:P
-## :smile:P
+## :smile:P99 箭头函数不使用 this 的四种标准规则，而是根据外层(函数或者全局)作用域来决 定 this。
+## :smile:P100 箭头函数的绑定无法被修改。(new 也不 行!)
 ## :smile:P 
 ## :smile:P

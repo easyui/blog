@@ -244,8 +244,9 @@ if (!Function.prototype.softBind) {
 一定要注意，有些调用可能在无意中使用默认绑定规则。如果想“更安全”地忽略 this 绑 定，你可以使用一个 DMZ 对象，比如 ø = Object.create(null)，以保护全局对象。
 
 ES6 中的箭头函数并不会使用四条标准的绑定规则，而是根据当前的词法作用域来决定 this，具体来说，箭头函数会继承外层函数调用的 this 绑定(无论 this 绑定到什么)。这 其实和 ES6 之前代码中的 self = this 机制一样。
-## :smile:P
-## :smile:P
+## :smile:P103 简单基本类型(string、boolean、number、null 和 undefined)本身并不是对象。 null 有时会被当作一种对象类型，但是这其实只是语言本身的一个 bug，即对 null 执行 typeof null 时会返回字符串 "object"。1 实际上，null 本身是基本类型。
+## :smile:P103 实际上，JavaScript 中有许多特殊的对象子类型，我们可以称之为复杂基本类型。
+函数就是对象的一个子类型(从技术角度来说就是“可调用的对象”)。JavaScript 中的函 数是“一等公民”，因为它们本质上和普通的对象一样(只是可以调用)，所以可以像操作 其他对象一样操作函数(比如当作另一个函数的参数)。
 ## :smile:P
 ## :smile:P
 ## :smile:P

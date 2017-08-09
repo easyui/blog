@@ -248,9 +248,9 @@ ES6 中的箭头函数并不会使用四条标准的绑定规则，而是根据�
 ## :smile:P103 实际上，JavaScript 中有许多特殊的对象子类型，我们可以称之为复杂基本类型。
 函数就是对象的一个子类型(从技术角度来说就是“可调用的对象”)。JavaScript 中的函 数是“一等公民”，因为它们本质上和普通的对象一样(只是可以调用)，所以可以像操作 其他对象一样操作函数(比如当作另一个函数的参数)。
 ## :smile:P105 null 和 undefined 没有对应的构造形式，它们只有文字形式。相反，Date 只有构造，没有文字形式。
-## :smile:P
-## :smile:P
-## :smile:P
+## :smile:P110 由于 Object.assign(..) 就是使用 = 操作符来赋值，所 以源对象属性的一些特性(比如 writable)不会被复制到目标对象。
+## :smile:P113 要注意有一个小小的例外:即便属性是 configurable:false，我们还是可以 把 writable 的状态由 true 改为 false，但是无法由 false 改为 true。
+## :smile:P113 configurable:false 还会禁止删除这个属性。
 ## :smile:P
 ## :smile:P
 ## :smile:P

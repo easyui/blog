@@ -74,5 +74,67 @@ fetch_and_unpack folly-2016.09.26.00.tar.gz https://github.com/facebook/folly/ar
 ```
 这样就不会在渲染的时候跑里面的函数，也就避免了冲突。
 
+## :smile:WebView加载网页出现：WebKitErrorDomain code101 错误
+### iOS环境下
+加载有些网页的时候会出现一下
+
+![WebKitErrorDomain101](WebKitErrorDomain101.jpeg)
+
+然后正常显示网页。
+
+但是我测试在UIWebView、safari上加载都是正常的。
+
+起初我是通过renderError返回null让错误页面不显示：
+```javascript
+    renderError={(e) => {
+            if (e === 'WebKitErrorDomain') {
+              return null
+            }
+          }}
+```
+
+后来通过测试发现出现问题的网页中有私有协议导致的，这些是有协议一般是网页和native交互所定义的。
+
+但是为什么iOS UIWebView不会显示出错呢？UIWebView 应该是内部过滤掉非标准的url 相当于在 webView:shouldStartLoadWithRequest: navigationType:里面return NO。显然facebook在设计这个框架的时候并没有自动处理这些交互请求，需要我们自己处理。
+
+在iOS端可以通过onShouldStartLoadWithRequest很容易的解决：
+```javascript
+    <WebView
+          ref='webView'
+          automaticallyAdjustContentInsets={false}
+          style={styles.webView}
+          source={{ uri: 'http://mall.iqiyi.com' }}
+          scalesPageToFit
+          renderError={(e) => {
+            if (e === 'WebKitErrorDomain') {
+              return null
+            }
+          }}
+          onLoadEnd={(e) => this.onLoadEnd(e)}
+          onShouldStartLoadWithRequest={(event) => {
+            if (event.url.startsWith('http://') || event.url.startsWith('https://')) {
+              return true;
+            } else {
+            // return false
+              Linking.canOpenURL(event.url)
+                .then(supported => {
+                  if (supported) {
+                    return Linking.openURL(url);
+                  } else {
+                    return false;
+                  }
+                }).catch(err => {
+                  return false;
+                })
+            }
+          }} />
+```
+
+
+
+
+
+
+
 
 

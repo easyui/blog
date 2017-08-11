@@ -156,6 +156,7 @@ fetch_and_unpack folly-2016.09.26.00.tar.gz https://github.com/facebook/folly/ar
 a标签点击之后会把send的内容通过onBridgeMessage回调函数返回给RN。再在里面处理即可。
 
 > [[iOS] WebView should handle custom URL scheme correctly #9037](https://github.com/facebook/react-native/issues/9037)
+
   [React Native WebView踩坑记](http://www.jianshu.com/p/f963839fca1a)
   [react-native之 WebView 异常bug](http://leonhwa.com/blog/0014905236320002ebb3db97fe64fb3bb6f047eafb1c5de000)
 

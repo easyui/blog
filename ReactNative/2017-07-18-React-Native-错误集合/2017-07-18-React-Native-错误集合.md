@@ -129,6 +129,35 @@ fetch_and_unpack folly-2016.09.26.00.tar.gz https://github.com/facebook/folly/ar
             }
           }} />
 ```
+在android平台并没有onShouldStartLoadWithRequest这个方法，这意味着android下webView与RN交互变得有点麻烦，在不改变java代码的情况下很难处理。
+不过github上有个开源的框架[react-native-webview-bridge](https://github.com/alinz/react-native-webview-bridge)使用它可以方便网页和RN之间的数据交换。
+```javascript
+     <WebViewBridge
+                   ref="webviewbridge"
+                   style={styles.webView}
+                   automaticallyAdjustContentInsets={false}
+                   onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest}
+                   onBridgeMessage={this._onBridgeMessage.bind(this)}
+                   startInLoadingState={true}
+                   domStorageEnabled={true}
+                   javaScriptEnabled={true}
+                   injectedJavaScript={injectScript}
+               >
+     </WebViewBridge>
+```
+在网页加载的时候注入js代码injectScript如下代码
+```javascript
+ $(function () {
+         $("a").click(function(){
+           WebViewBridge.send(this.href.toString());
+         });
+   });
+```
+a标签点击之后会把send的内容通过onBridgeMessage回调函数返回给RN。再在里面处理即可。
+
+> [[iOS] WebView should handle custom URL scheme correctly #9037](https://github.com/facebook/react-native/issues/9037)
+  [React Native WebView踩坑记](http://www.jianshu.com/p/f963839fca1a)
+  [react-native之 WebView 异常bug](http://leonhwa.com/blog/0014905236320002ebb3db97fe64fb3bb6f047eafb1c5de000)
 
 
 

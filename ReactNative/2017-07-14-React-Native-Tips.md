@@ -121,7 +121,8 @@ react-native bundle --entry-file index.ios.js --bundle-output ./bundle/ios/index
 
 ## :smile: <=iOS8不支持Number.parseInt()，可用Math.floor()代替。
 
-
-
-
+## :smile: 例如在“¥100”价格上设置中划线，中划线在¥和100中的位置高低不同，请确认使用的是英文“¥”而不是中文“￥”
+```javascript
+<Text style={{textDecorationLine: "line-through",fontSize: 12,color: '#999999'}} >¥{(Math.floor(item.originalPrice) || 0) / 100}</Text>
+```
 

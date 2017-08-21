@@ -294,6 +294,7 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 ## :smile:P132 在传统的面向类的语言中 super 还有一个功能，就是从子类的构造函数中通过 super 可以直接调用父类的构造函数。通常来说这没什么问题，因为对于真正 的类来说，构造函数是属于类的。然而，在 JavaScript 中恰好相反——实际 上“类”是属于构造函数的(类似 Foo.prototype... 这样的类型引用)。由于 JavaScript 中父类和子类的关系只存在于两者构造函数对应的 .prototype 对象 中，因此它们的构造函数之间并不存在直接联系，从而无法简单地实现两者的 相对引用(在 ES6 的类中可以通过 super 来“解决”这个问题，参见附录 A)。
 ## :smile:P134 在继承或者实例化时，JavaScript 的对象机制并不会自动执行复制行为。简单来说， JavaScript 中只有对象，并不存在可以被实例化的“类”。一个对象并不会被复制到其他对象，它们会被关联起来。
 ## :smile:P140 混入模式(无论显式还是隐式)可以用来模拟类的复制行为，但是通常会产生丑陋并且脆 弱的语法，比如显式伪多态(OtherObj.methodName.call(this, ...))，这会让代码更加难 懂并且难以维护。
+## :smile:P142 JavaScript 中的对象有一个特殊的 [[Prototype]] 内置属性，其实就是对于其他对象的引用。几乎所有的对象在创建时 [[Prototype]] 属性都会被赋予一个非空的值。
 ## :smile:P144 如果属性名 foo 既出现在 myObject 中也出现在 myObject 的 [[Prototype]] 链上层，那 么就会发生屏蔽。myObject 中包含的 foo 属性会屏蔽原型链上层的所有 foo 属性，因为 myObject.foo 总是会选择原型链中最底层的 foo 属性。
 ## :smile:P145 如果 foo 不直接存在于 myObject 中而是存在于原型链上层时 myObject.foo = "bar" 会出现的三种情况。
 1. 如果在[[Prototype]]链上层存在名为foo的普通数据访问属性(参见第3章)并且没 有被标记为只读(writable:false)，那就会直接在 myObject 中添加一个名为 foo 的新 属性，它是屏蔽属性。

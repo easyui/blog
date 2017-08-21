@@ -318,7 +318,16 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
      Bar.prototype Object.setPrototypeOf( Bar.prototype, Foo.prototype );
 ```
 如果忽略掉 Object.create(..) 方法带来的轻微性能损失(抛弃的对象需要进行垃圾回 收)，它实际上比 ES6 及其之后的方法更短而且可读性更高。不过无论如何，这是两种完 全不同的语法。
-## :smile:P
+## :smile:P156
+var a = new Foo();
+
+我们如何通过内省找出 a 的“祖先”(委托关联)呢?第一种方法是站在“类”的角度来 判断:
+
+a instanceof Foo; // true
+
+instanceof 操作符的左操作数是一个普通的对象，右操作数是一个函数。instanceof 回答的问题是:在 a 的整条 [[Prototype]] 链中是否有指向 Foo.prototype 的对象?
+
+可惜，这个方法只能处理对象(a)和函数(带 .prototype 引用的 Foo)之间的关系。如 果你想判断两个对象(比如 a 和 b)之间是否通过 [[Prototype]] 链关联，只用 instanceof 无法实现。
 ## :smile:P
 ## :smile:P
 ## :smile:P

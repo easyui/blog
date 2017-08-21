@@ -287,8 +287,10 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 所有的普通对象都可以通过对于Object.prototype的委托(参见第5章)来访问 hasOwnProperty(..)， 但 是 有 的 对 象 可 能 没 有 连 接 到 Object.prototype( 通 过 Object. create(null) 来创建——参见第 5 章)。在这种情况下，形如 myObejct.hasOwnProperty(..) 就会失败。
 
 这时可以使用一种更加强硬的方法来进行判断:Object.prototype.hasOwnProperty. call(myObject,"a")，它借用基础的 hasOwnProperty(..) 方法并把它显式绑定(参见第 2 章)到 myObject 上。
-## :smile:P
-## :smile:P
+## :smile:P119
+看起来 in 操作符可以检查容器内是否有某个值，但是它实际上检查的是某 个属性名是否存在。对于数组来说这个区别非常重要，4 in [2, 4, 6]的结 果并不是你期待的True，因为[2, 4, 6]这个数组中包含的属性名是0、1、 2，没有 4。
+## :smile:P120
+在数组上应用 for..in 循环有时会产生出人意料的结果，因为这种枚举不 仅会包含所有数值索引，还会包含所有可枚举属性。最好只在对象上应用 for..in 循环，如果要遍历数组就使用传统的 for 循环来遍历数值索引。
 ## :smile:P
 ## :smile:P
 ## :smile:P

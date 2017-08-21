@@ -285,6 +285,7 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 如果对象中不存在这个属性，[[Put]] 操作会更加复杂。我们会在第 5 章讨论 [[Prototype]] 时详细进行介绍。
 ## :smile:P119
 所有的普通对象都可以通过对于Object.prototype的委托(参见第5章)来访问 hasOwnProperty(..)， 但 是 有 的 对 象 可 能 没 有 连 接 到 Object.prototype( 通 过 Object. create(null) 来创建——参见第 5 章)。在这种情况下，形如 myObejct.hasOwnProperty(..) 就会失败。
+
 这时可以使用一种更加强硬的方法来进行判断:Object.prototype.hasOwnProperty. call(myObject,"a")，它借用基础的 hasOwnProperty(..) 方法并把它显式绑定(参见第 2 章)到 myObject 上。
 ## :smile:P
 ## :smile:P

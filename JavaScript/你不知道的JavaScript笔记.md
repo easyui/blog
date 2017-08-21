@@ -276,6 +276,32 @@ Object.seal(..) 会创建一个“密封”的对象，这个方法实际上会�
 所以，密封之后不仅不能添加新属性，也不能重新配置或者删除任何现有属性(虽然可以 修改属性的值)。
 ## :smile:P114 冻结
 Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一个现有对象上调用 Object.seal(..) 并把所有“数据访问”属性标记为 writable:false，这样就无法修改它们 的值。
+## :smile:P117 
+如果已经存在这个属性，[[Put]] 算法大致会检查下面这些内容。
+1. 属性是否是访问描述符(参见3.3.9节)?如果是并且存在setter就调用setter。
+2. 属性的数据描述符中writable是否是false?如果是，在非严格模式下静默失败，在
+严格模式下抛出 TypeError 异常。
+3. 如果都不是，将该值设置为属性的值。
+如果对象中不存在这个属性，[[Put]] 操作会更加复杂。我们会在第 5 章讨论 [[Prototype]] 时详细进行介绍。
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
 ## :smile:P
 ## :smile:P
 ## :smile:P

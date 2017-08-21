@@ -328,7 +328,17 @@ a instanceof Foo; // true
 instanceof 操作符的左操作数是一个普通的对象，右操作数是一个函数。instanceof 回答的问题是:在 a 的整条 [[Prototype]] 链中是否有指向 Foo.prototype 的对象?
 
 可惜，这个方法只能处理对象(a)和函数(带 .prototype 引用的 Foo)之间的关系。如 果你想判断两个对象(比如 a 和 b)之间是否通过 [[Prototype]] 链关联，只用 instanceof 无法实现。
-## :smile:P
+## :smile:P157 __proto__ 实际上并不存在于你正在使用的对象中 (本例中是 a)。实际上，它和其他的常用函数(.toString()、.isPrototypeOf(..)，等等)一样，存在于内置的 Object.prototype 中。(它们是不可枚举的，参见第 2 章。)
+此外，.__proto__ 看起来很像一个属性，但是实际上它更像一个 getter/setter(参见第 3章)。
+
+.__proto__的实现大致上是这样的(对象属性的定义参见第3章):
+```
+Object.defineProperty( Object.prototype, "__proto__", { get: function() {
+return Object.getPrototypeOf( this ); },
+set: function(o) {
+// ES6 中的 setPrototypeOf(..) Object.setPrototypeOf( this, o ); return o;
+} });
+```
 ## :smile:P
 ## :smile:P
 ## :smile:P

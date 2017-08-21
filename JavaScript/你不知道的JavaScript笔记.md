@@ -310,7 +310,14 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 ## :smile:P146 所有的函数默认都会拥有一个 名为 prototype 的公有并且不可枚举(参见第 3 章)的属性，它会指向另一个对象。
 ## :smile:P150 在 JavaScript 中对于“构造函数”最准确的解释是，所有带 new 的函数调用。 函数不是构造函数，但是当且仅当使用 new 时，函数调用会变成“构造函数调用”。
 ## :smile:P149-151 Foo.prototype 默认(在代码中第一行声明时!)有一个公有并且不可枚举(参见第 3 章) 的属性 .constructor，这个属性引用的是对象关联的函数(本例中是 Foo)。a.constructor 只是通过默认的 [[Prototype]] 委托指向 Foo。
-## :smile:P
+## :smile:P155 我们来对比一下两种把 Bar.prototype 关联到 Foo.prototype 的方法: 
+```
+// ES6 之前需要抛弃默认的 Bar.prototype
+     Bar.ptototype = Object.create( Foo.prototype );
+// ES6 开始可以直接修改现有的 
+     Bar.prototype Object.setPrototypeOf( Bar.prototype, Foo.prototype );
+```
+如果忽略掉 Object.create(..) 方法带来的轻微性能损失(抛弃的对象需要进行垃圾回 收)，它实际上比 ES6 及其之后的方法更短而且可读性更高。不过无论如何，这是两种完 全不同的语法。
 ## :smile:P
 ## :smile:P
 ## :smile:P

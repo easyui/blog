@@ -309,6 +309,34 @@ Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一�
 第二种情况可能是最令人意外的，只读属性会阻止 [[Prototype]] 链下层 隐式创建(屏蔽)同名属性。这样做主要是为了模拟类属性的继承。你可 以把原型链上层的 foo 看作是父类中的属性，它会被 myObject 继承(复 制)，这样一来 myObject 中的 foo 属性也是只读，所以无法创建。但是一定 要注意，实际上并不会发生类似的继承复制(参见第 4 章和第 5 章)。这看 起来有点奇怪，myObject 对象竟然会因为其他对象中有一个只读 foo 就不 能包含 foo 属性。更奇怪的是，这个限制只存在于 = 赋值中，使用 Object. defineProperty(..) 并不会受到影响。
 ## :smile:P146 所有的函数默认都会拥有一个 名为 prototype 的公有并且不可枚举(参见第 3 章)的属性，它会指向另一个对象。
 ## :smile:P150 在 JavaScript 中对于“构造函数”最准确的解释是，所有带 new 的函数调用。 函数不是构造函数，但是当且仅当使用 new 时，函数调用会变成“构造函数调用”。
+## :smile:P149-151 Foo.prototype 默认(在代码中第一行声明时!)有一个公有并且不可枚举(参见第 3 章) 的属性 .constructor，这个属性引用的是对象关联的函数(本例中是 Foo)。a.constructor 只是通过默认的 [[Prototype]] 委托指向 Foo。
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
+## :smile:P
 ## :smile:P
 ## :smile:P
 ## :smile:P

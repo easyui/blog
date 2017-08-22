@@ -397,9 +397,26 @@ b1.speak();
 b2.speak();
 ```
 这段代码中我们同样利用 [[Prototype]] 把 b1 委托给 Bar 并把 Bar 委托给 Foo，和上一段 代码一模一样。我们仍然实现了三个对象之间的关联。
-## :smile:P
-## :smile:P
-## :smile:P
+## :smile:P190 class字面语法不能声明属性(只能声明方法)。看起来这是一种限制，但是它会排除掉许多不好的情况，如果没有这种限制的话，原型链末端的“实例”可能会意外地获取 其他地方的属性(这些属性隐式被所有“实例”所“共享”)。所以，class 语法实际上 可以帮助你避免犯错。
+## :smile:P190 class 基本上只是现有 [[Prototype]](委托!)机制的一种语法糖。也就是说，class 并不会像传统面向类的语言一样在声明时静态复制所有行为。如果你 (有意或无意)修改或者替换了父“类”中的一个方法，那子“类”和所有实例都会受到影响，因为它们在定义时并没有进行复制，只是使用基于 [[Prototype]] 的实时委托:
+```
+class C {
+    constructor() {
+        this.num = Math.random();
+    }
+    rand() {
+        console.log("Random: " + this.num);
+    }
+}
+var c1 = new C();
+c1.rand(); // "Random: 0.4324299..."
+C.prototype.rand = function () {
+    console.log("Random: " + Math.round(this.num * 1000));
+};
+var c2 = new C(); c2.rand(); // "Random: 867"
+c1.rand(); // "Random: 432" ——噢!
+```
+## :smile:P191 class 语法无法定义类成员属性(只能定义方法)
 ## :smile:P
 ## :smile:P
 ## :smile:P

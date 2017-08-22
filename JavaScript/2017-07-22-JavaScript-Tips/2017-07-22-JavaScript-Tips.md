@@ -208,4 +208,7 @@ for (var score in scores) {
 | find() | 空缺都转化为undefined
 | findIndex() | 空缺都转化为undefined p0p0
 
+## :smile: 
+只有函数对象才有prototype属性;
 
+所有对象都有constructor属性和__proto__属性(对象从原型对象中继承这个属性)

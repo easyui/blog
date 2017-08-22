@@ -351,7 +351,52 @@ this.setID(ID);XYZ中的方法首先会寻找XYZ自身是否有setID(..)，但�
 很遗憾(并不是非常出乎意料，但是有点烦人)这种方法是被禁止的。如果你引用了一个 两边都不存在的属性或者方法，那就会在 [[Prototype]] 链上产生一个无限递归的循环。 但是如果所有的引用都被严格限制的话，B 是可以委托 A 的，反之亦然。因此，互相委托 理论上是可以正常工作的，在某些情况下这是非常有用的。
 
 之所以要禁止互相委托，是因为引擎的开发者们发现在设置时检查(并禁止!)一次无限 循环引用要更加高效，否则每次从对象中查找属性时都需要进行检查。
-## :smile:P
+## :smile:P170
+现在你已经明白了“类”和“委托”这两种设计模式的理论区别，接下来我们看看它们在思维模型方面的区别。
+
+我们会通过一些示例(Foo、Bar)代码来比较一下两种设计模式(面向对象和对象关联) 具体的实现方法。下面是典型的(“原型”)面向对象风格:
+```
+function Foo(who) {
+this.me = who;
+}
+Foo.prototype.identify = function () {
+    return "I am " + this.me;
+};
+function Bar(who) {
+    Foo.call(this, who);
+}
+Bar.prototype = Object.create(Foo.prototype);
+Bar.prototype.speak = function () {
+    alert("Hello, " + this.identify() + ".");
+};
+var b1 = new Bar("b1");
+var b2 = new Bar("b2"); b1.speak();
+b2.speak();
+```
+子类 Bar 继承了父类 Foo，然后生成了 b1 和 b2 两个实例。b1 委托了 Bar.prototype，后者委托了 Foo.prototype。这种风格很常见，你应该很熟悉了。
+
+下面我们看看如何使用对象关联风格来编写功能完全相同的代码:
+```
+Foo = {
+    init: function (who) {
+        this.me = who;
+    },
+    identify: function () {
+        return "I am " + this.me;
+    }
+};
+Bar = Object.create(Foo);
+Bar.speak = function () {
+    alert("Hello, " + this.identify() + ".");
+};
+var b1 = Object.create(Bar);
+b1.init("b1");
+var b2 = Object.create(Bar);
+b2.init("b2");
+b1.speak();
+b2.speak();
+```
+这段代码中我们同样利用 [[Prototype]] 把 b1 委托给 Bar 并把 Bar 委托给 Foo，和上一段 代码一模一样。我们仍然实现了三个对象之间的关联。
 ## :smile:P
 ## :smile:P
 ## :smile:P

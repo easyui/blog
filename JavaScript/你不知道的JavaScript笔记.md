@@ -340,7 +340,10 @@ set: function(o) {
 // ES6 中的 setPrototypeOf(..) Object.setPrototypeOf( this, o ); return o;
 } });
 ```
-## :smile:P
+## :smile:P167
+在上面的代码中，id和label数据成员都是直接存储在XYZ上(而不是Task)。通常 来说，在 [[Prototype]] 委托中最好把状态保存在委托者(XYZ、ABC)而不是委托目标(Task)上。
+
+this.setID(ID);XYZ中的方法首先会寻找XYZ自身是否有setID(..)，但是XYZ中并没 有这个方法名，因此会通过 [[Prototype]] 委托关联到 Task 继续寻找，这时就可以找到 setID(..) 方法。此外，由于调用位置触发了 this 的隐式绑定规则(参见第 2 章)，因 此虽然 setID(..) 方法在 Task 中，运行时 this 仍然会绑定到 XYZ，这正是我们想要的。 在之后的代码中我们还会看到 this.outputID()，原理相同。
 ## :smile:P
 ## :smile:P
 ## :smile:P

@@ -417,7 +417,7 @@ var c2 = new C(); c2.rand(); // "Random: 867"
 c1.rand(); // "Random: 432" ——噢!
 ```
 ## :smile:P191 class 语法无法定义类成员属性(只能定义方法)
-## :smile:P
+## :smile:P193 出于性能考虑，super并不像this一样是晚绑定(late bound，或者说 动态绑定)的，它在 [[HomeObject]].[[Prototype]] 上，[[HomeObject]] 会在创建时静态 绑定。
 ## :smile:P
 ## :smile:P
 ## :smile:P

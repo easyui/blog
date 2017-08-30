@@ -140,3 +140,27 @@ propTypes: {
 
 > 相关源码来自RN0.46.0 [factoryWithTypeCheckers.js](factoryWithTypeCheckers.js) [factoryWithThrowingShims.js](factoryWithThrowingShims.js)
 
+> In 15.5, instead of accessing PropTypes from the main React object, install the prop-types package and import them from there:
+```
+// Before (15.4 and below)
+import React from 'react';
+
+class Component extends React.Component {
+  render() {
+    return <div>{this.props.text}</div>;
+  }
+}
+
+Component.propTypes = {
+  text: React.PropTypes.string.isRequired,
+}
+
+// After (15.5)
+import React from 'react';
+import PropTypes from 'prop-types';
+```
+> 从React15.5还使用React.PropTypes会有警告：
+```
+Warning: PropTypes has been moved to a separate package. Accessing React.PropTypes is no longer supported and will be removed completely in React 16. Use the prop-types package on npm instead. (https://fb.me/migrating-from-react-proptypes)
+```
+

@@ -137,11 +137,12 @@ propTypes: {
 
 
 
-
+PS:
+1、
 > 相关源码来自RN0.46.0 [factoryWithTypeCheckers.js](factoryWithTypeCheckers.js) [factoryWithThrowingShims.js](factoryWithThrowingShims.js)
-
+2、
 > In 15.5, instead of accessing PropTypes from the main React object, install the prop-types package and import them from there:
-> ```
+```
 // Before (15.4 and below)
 import React from 'react';
 

@@ -125,4 +125,11 @@ react-native bundle --entry-file index.ios.js --bundle-output ./bundle/ios/index
 ```javascript
 <Text style={{textDecorationLine: "line-through",fontSize: 12,color: '#999999'}} >¥{(Math.floor(item.originalPrice) || 0) / 100}</Text>
 ```
+## :smile: React Native 读取本地的json文件
+自 React Native 0.4.3，你可以以导入的形式，来读取本地的json文件，导入的文件可以作为一个js对象使用。
+```
+var langsData = require('../../../res/data/langs.json');
 
+//ES6/ES2015
+import langsData from '../../../res/data/langs.json'
+```

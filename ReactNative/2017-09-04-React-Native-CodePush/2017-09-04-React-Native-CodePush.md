@@ -21,7 +21,7 @@ CodePush 可以进行实时的推送代码更新：
 * 在终端输入 `npm install -g code-push-cli`，就可以安装了。  
 * 安装完毕后，输入 `code-push -v`查看版本，如看到版本代表成功。(我安装的是2.0.2-beta)
 
-### 创建一个CodePush 账号  
+### 注册CodePush账号  
 * 在终端输入`code-push register`，会在浏览器注册页面让你选择授权账号（我选择了github登录）。  
 * 授权通过之后，CodePush会告诉你“access key”，复制此key到终端即可完成注册。  
 * 然后终端输入`code-push login`进行登陆，登陆成功后，你的session文件将会写在 /Users/你的用户名/.code-push.config。  

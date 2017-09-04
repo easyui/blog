@@ -108,8 +108,40 @@ CodePush官方提供RNPM、CocoaPods与手动三种在iOS项目中集成CodePush
 
 至此，iOS的配置完成。
 
+## 使用CodePush进行热更新  
+在使用CodePush更新你的应用之前需要，先配置一下更新控制策略，即：  
 
- 
+* 什么时候检查更新？（在APP启动的时候？在设置页面添加一个检查更新按钮？）
+* 什么时候可以更新，如何将更新呈现给终端用户？  
+
+### 发布更新
+CodePush支持两种发布更新的方式，一种是通过`code-push release-react`简化方式，另外一种是通过`code-push release`的复杂方式。
+
+>第一种方式：通过`code-push release-react`发布更新
+
+这种方式将打包与发布两个命令合二为一，可以说大大简化了我们的操作流程，建议大家多使用这种方式来发布更新。
+
+命令格式：
+```
+code-push release-react <appName> <platform>
+```
+
+eg:
+```
+code-push release-react MyApp-iOS ios
+code-push release-react MyApp-Android android
+```
+
+更多参数配置：
+
+```
+code-push release-react MyApp-iOS ios  --t 1.0.0 --dev false --d Production --des "1.优化操作流程" --m true
+```
+其中参数--t为二进制(.ipa与apk)安装包的的版本；--dev为是否启用开发者模式(默认为false)；--d是要发布更新的环境分Production与Staging(默认为Staging)；--des为更新说明；--m 是强制更新。
+
+关于`code-push release-react`更多可选的参数，可以在终端输入`code-push release-react`进行查看。
+
+另外，我们可以通过`code-push deployment ls <appName>`来查看发布详情与此次更新的安装情况。
  
 
 

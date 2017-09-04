@@ -45,7 +45,9 @@ CodePush 可以进行实时的推送代码更新：
 比如你执行`code-push  add demoapp ios react-native`，注册完成之后会返回一套deployment key，该key在后面步骤中会用到：
 
 ![在CodePush服务器注册app成功](在CodePush服务器注册app成功.png)
+
 https://mobile.azure.com/apps 也可以看到你注册的app：
+
 ![网页查看](网页查看.png)
 
 如果你的应用分为Android和iOS版，那么在向CodePush注册应用的时候需要注册两个App获取两套deployment key，app名字不能相同，所以可以选择`-ios,-android`区分。如：
@@ -54,7 +56,7 @@ code-push  add demoapp-ios ios react-native
 code-push  add demoapp-android android react-native
 ```
 
-**PS.相关命令**   
+**相关命令**   
 
 * `code-push app add` 在账号里面添加一个新的app  
 * `code-push app remove` 或者 rm 在账号里移除一个app  
@@ -82,10 +84,10 @@ CodePush官方提供RNPM、CocoaPods与手动三种在iOS项目中集成CodePush
 >在终端运行此命令之后，终端会提示让你输入ios和android的deployment key，可以不输入直接单击enter跳过，等会在项目中配置。
 
 **配置Deployment Key**：
-1、 选择`Build Settings`页签 ➜ 单击 + 按钮然后选择添加`User-Defined Setting` 
-2、 然后输入CODEPUSH_KEY(名称可以自定义)，设置2个deployment key
+1. 选择`Build Settings`页签 ➜ 单击 + 按钮然后选择添加`User-Defined Setting` 
+2. 然后输入CODEPUSH_KEY(名称可以自定义)，设置2个deployment key
 ![设置deploymentkey.png](设置deploymentkey.png)
-3、 打开 Info.plist文件，在CodePushDeploymentKey列的Value中输入`$(CODEPUSH_KEY)`
+3. 打开 Info.plist文件，在CodePushDeploymentKey列的Value中输入`$(CODEPUSH_KEY)`
 
 至此，iOS的配置完成。
 

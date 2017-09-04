@@ -26,7 +26,7 @@ CodePush 可以进行实时的推送代码更新：
 * 授权通过之后，CodePush会告诉你“access key”，复制此key到终端即可完成注册。  
 * 然后终端输入`code-push login`进行登陆，登陆成功后，你的session文件将会写在 /Users/你的用户名/.code-push.config。  
 
-**相关命令**  
+**用户操作相关命令**  
 
 * `code-push login` 登陆  
 * `code-push loout` 注销  
@@ -56,7 +56,7 @@ code-push  add demoapp-ios ios react-native
 code-push  add demoapp-android android react-native
 ```
 
-**相关命令**   
+**app管理相关命令**   
 
 * `code-push app add` 在账号里面添加一个新的app  
 * `code-push app remove` 或者 rm 在账号里移除一个app  
@@ -117,7 +117,7 @@ CodePush官方提供RNPM、CocoaPods与手动三种在iOS项目中集成CodePush
 ### 发布更新
 CodePush支持两种发布更新的方式，一种是通过`code-push release-react`简化方式，另外一种是通过`code-push release`的复杂方式。
 
-**第一种方式：通过`code-push release-react`发布更新**
+#### 第一种方式：通过`code-push release-react`发布更新
 
 这种方式将打包与发布两个命令合二为一，可以说大大简化了我们的操作流程，建议大家多使用这种方式来发布更新。
 
@@ -143,10 +143,40 @@ code-push release-react MyApp-iOS ios  --t 1.0.0 --dev false --d Production --de
 
 另外，我们可以通过`code-push deployment ls <appName>`来查看发布详情与此次更新的安装情况。
  
- **第二中方式：通过`code-push release`发布更新**
+#### 第二中方式：通过`code-push release`发布更新
  
- 需要先执行`react-native bundle`打包资源：
- 
+需要先执行`react-native bundle`打包资源：
+
+```
+react-native bundle --entry-file index.ios.js --bundle-output ./bundles/main.jsbundle --platform ios --assets-dest ./bundles --dev false
+```
+**bundle资源放入项目：**
+
+![打包资源](打包资源.png)
+
+**bundle资源通过CodePush发布更新，在终端输入：** 
+`code-push release <应用名称> <Bundles所在目录> <对应的应用版本> --deploymentName： 更新环境
+--description： 更新描述  --mandatory： 是否强制更新`
+  
+eg:  
+`code-push release Demoapp ./bundles/index.android.bundle 1.0.6 --deploymentName Production  --description "1.支持文章缓存。" --mandatory true`
+
+**注意：**  
+1. CodePush默认是更新 staging 环境的，如果是staging，则不需要填写 deploymentName。     
+2. 如果有 mandatory 则Code Push会根据mandatory 是true或false来控制应用是否强制更新。默认情况下mandatory为false即不强制更新。      
+3. 对应的应用版本（targetBinaryVersion）是指当前app的版本(对应build.gradle中设置的versionName "1.0.6")，也就是说此次更新的js/images对应的是app的那个版本。不要将其理解为这次js更新的版本。
+如客户端版本是 1.0.6，那么我们对1.0.6的客户端更新js/images，targetBinaryVersion填的就是1.0.6。     
+4. 对于对某个应用版本进行多次更新的情况，CodePush会检查每次上传的 bundle，如果在该版本下如1.0.6已经存在与这次上传完全一样的bundle(对应一个版本有两个bundle的md5完全一样)，那么CodePush会拒绝此次更新。
+5. 在终端输入 `code-push deployment history <appName> Staging` 可以看到Staging版本更新的时间、描述等等属性。  
+
+**部署APP相关命令**
+* code-push deployment add <appName> 部署  
+* code-push deployment rename <appName> 重命名  
+* code-push deployment rm <appName> 删除部署  
+* code-push deployment ls <appName> 列出应用的部署情况  
+* code-push deployment ls <appName> -k 查看部署的key  
+* code-push deployment history <appName> <deploymentNmae> 查看历史版本(Production 或者 Staging)    
+
 
 
 

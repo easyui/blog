@@ -26,7 +26,7 @@ CodePush 可以进行实时的推送代码更新：
 * 授权通过之后，CodePush会告诉你“access key”，复制此key到终端即可完成注册。  
 * 然后终端输入`code-push login`进行登陆，登陆成功后，你的session文件将会写在 /Users/你的用户名/.code-push.config。  
 
-**PS.相关命令**  
+**相关命令**  
 
 * `code-push login` 登陆  
 * `code-push loout` 注销  
@@ -43,6 +43,7 @@ CodePush 可以进行实时的推送代码更新：
   app add MyApp android cordova       Adds app "MyApp", indicating that it's an Android Cordova app
 ```
 比如你执行`code-push  add demoapp ios react-native`，注册完成之后会返回一套deployment key，该key在后面步骤中会用到：
+
 ![在CodePush服务器注册app成功](在CodePush服务器注册app成功.png)
 https://mobile.azure.com/apps 也可以看到你注册的app：
 ![网页查看](网页查看.png)

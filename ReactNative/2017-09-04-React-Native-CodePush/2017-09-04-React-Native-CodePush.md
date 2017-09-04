@@ -117,7 +117,7 @@ CodePush官方提供RNPM、CocoaPods与手动三种在iOS项目中集成CodePush
 ### 发布更新
 CodePush支持两种发布更新的方式，一种是通过`code-push release-react`简化方式，另外一种是通过`code-push release`的复杂方式。
 
->第一种方式：通过`code-push release-react`发布更新
+**第一种方式：通过`code-push release-react`发布更新**
 
 这种方式将打包与发布两个命令合二为一，可以说大大简化了我们的操作流程，建议大家多使用这种方式来发布更新。
 
@@ -142,6 +142,10 @@ code-push release-react MyApp-iOS ios  --t 1.0.0 --dev false --d Production --de
 关于`code-push release-react`更多可选的参数，可以在终端输入`code-push release-react`进行查看。
 
 另外，我们可以通过`code-push deployment ls <appName>`来查看发布详情与此次更新的安装情况。
+ 
+ **第二中方式：通过`code-push release`发布更新**
+ 
+ 需要先执行`react-native bundle`打包资源：
  
 
 

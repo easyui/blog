@@ -86,7 +86,11 @@ CodePush官方提供RNPM、CocoaPods与手动三种在iOS项目中集成CodePush
 **配置Deployment Key**：
 1. 选择`Build Settings`页签 ➜ 单击 + 按钮然后选择添加`User-Defined Setting` 
 2. 然后输入CODEPUSH_KEY(名称可以自定义)，设置2个deployment key
+
 ![设置deploymentkey.png](设置deploymentkey.png)
+
+>提示：你可以通过`code-push deployment ls <APP_NAME> -k`命令来查看deployment key。
+
 3. 打开 Info.plist文件，在CodePushDeploymentKey列的Value中输入`$(CODEPUSH_KEY)`
 
 至此，iOS的配置完成。

@@ -234,6 +234,7 @@ eg:
 让React Native通过CodePush去获取bundle包即可。
 
 >不可以模拟器调试：
+
 ![不可以模拟器调试](不可以模拟器调试.png)
 
 2. 打包bundle,并且把bundle和assets放入项目：

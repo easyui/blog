@@ -270,7 +270,7 @@ $ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --descript
 `codePush.sync(options: Object, syncStatusChangeCallback: function(syncStatus: Number),
 downloadProgressCallback: function(progress: DownloadProgress)): Promise<Number>;`  
 通过调用该方法CodePush会帮我们自动完成检查更新，下载，安装等一系列操作。除非我们需要自定义UI表现，不然直接用这个方法就可以了。    
-**sync方法，提供了如下属性以允许你定制sync方法的默认行为**  
+**options参数是个字典** 
 
 * deploymentKey （String）： 部署key，指定你要查询更新的部署秘钥，默认情况下该值来自于Info.plist(Ios)和MianActivity.java(Android)文件，你可以通过设置该属性来动态查询不同部署key下的更新。
 * installMode (codePush.InstallMode)： 安装模式，用在向CodePush推送更新时没有设置强制更新(mandatory为true)的情况下，默认codePush.InstallMode.ON_NEXT_RESTART即下一次启动的时候安装。  
@@ -287,6 +287,8 @@ downloadProgressCallback: function(progress: DownloadProgress)): Promise<Number>
 	* title (String) - 要显示的更新通知的标题. Defaults to “Update available”.
 
 eg:  
+**syncStatusChangeCallbac是监听更新状态变化的回调** 
+**downloadProgressCallback是下载更新包的回调** 
 
 ```javascript  
 codePush.sync({
@@ -313,8 +315,9 @@ codePush.sync({
 但在如下四种情况下，CodePush将不会立即重启应用：  
 1. 自上一次`disallowRestart`被调用，没有新的更新。  
 2. 有更新，但`installMode`为`InstallMode.ON_NEXT_RESTART`的情况下。  
-3. 有更新，但`installMode`为`InstallMode.ON_NEXT_RESUME`，并且程序一直处于前台，并没有从后台切换到前台的情况下。   
-4. 自从上次`disallowRestart`被调用，没有再调用`restartApp`。
+3. 有更新，但`installMode`为`InstallMode.ON_NEXT_RESUME`，并且程序一直处于前台，并没有从后台切换到前台的情况下。
+4. 有更新，但`installMode`为`InstallMode.ON_NEXT_SUSPEND`，并且程序一直处于前台且活跃状体 。   
+5. 自从上次`disallowRestart`被调用，没有再调用`restartApp`。
 
 **codePush.checkForUpdate**
 
@@ -325,7 +328,7 @@ codePush.sync({
 * null 没有更新   
 通常有如下情况导致RemotePackage为null:  
 	1. 当前APP版本下没有部署新的更新版本。也就是说没有想CodePush服务器推送基于当前版本的有关更新。  
-	2. CodePush上的更新和用户当前所安装的APP版本不匹配。也就是说CodePush服务器上有更新，但该更新对应的APP版本和用户安装的当前版本不对应。  
+	2. CodePush上的更新和用户当前所安装的APP版本不匹配。也就是说CodePush服务器上有更新，但该更新对应的APP版本和用户安装的当前版本不对应。 
 	3. 当前APP已将安装了最新的更新。  
 	4. 部署在CodePush上可用于当前APP版本的更新被标记成了不可用。  
 	5. 部署在CodePush上可用于当前APP版本的更新是"active rollout"状态，并且当前的设备不在有资格更新的百分比的设备之内。  

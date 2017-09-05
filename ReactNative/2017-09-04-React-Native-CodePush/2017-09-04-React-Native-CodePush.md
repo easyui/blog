@@ -15,6 +15,7 @@ CodePush 可以进行实时的推送代码更新：
 * 管理 Alpha，Beta 和生产环境应用  
 * 支持 React Native 和 Cordova  
 * 支持JavaScript 文件与图片资源的更新
+* [回滚更新](http://microsoft.github.io/code-push/docs/cli.html#link-8)
 
 ## 安装与注册CodePush    
 ### 安装 CodePush CLI

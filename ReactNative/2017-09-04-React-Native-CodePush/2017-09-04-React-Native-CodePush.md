@@ -178,6 +178,48 @@ eg:
 * code-push deployment history <appName> <deploymentNmae> 查看历史版本(Production 或者 Staging)    
 
 ## 开发与测试
+### 开发
+上面提到`rnpm link react-native-code-push`执行往后，AppDelegate.m文件更新了：
+
+```
+#import <CodePush/CodePush.h>
+···
+#ifdef DEBUG
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+#else
+    jsCodeLocation = [CodePush bundleURL];
+#endif
+···
+```
+
+下面更新js文件：
+```
+    ···
+    constructor(props) {
+        super(props);
+        registerApp('wx94071fc9a6634781');
+        const appId = 'qlJun5W9xYIdpi1nS8vepcDA-gzGzoHsz';
+        const appKey = 'phlBacJt2JNSXW9RVuKl7KMQ';
+        AV.init({ appId, appKey });
+
+        ConfigManager.shareInstance().fetchAppConfig()
+
+        CodePush.sync({
+            deploymentKey: '12343kvGomTxA-AQtfd1234MxL12342eca8-90e6-428a-89ed-ba750111119f',
+            updateDialog: null,
+            installMode: CodePush.InstallMode.ON_NEXT_RESTART,
+            mandatoryInstallMode: CodePush.InstallMode.ON_NEXT_RESTART,
+        });
+
+    }
+    ···
+    
+    let codePushOptions = { checkFrequency: CodePush.CheckFrequency.MANUAL };
+    App = CodePush(codePushOptions)(App);
+    AppRegistry.registerComponent('miniDeer', () => App);
+```
+这段代码是每次启动app的时候检查更新和下载，如果有更新就下载好了，等下次启动的时候更新。具体js的代码可以参考[https://github.com/Microsoft/react-native-code-push/blob/master/Examples/CodePushDemoApp/demo.js](https://github.com/Microsoft/react-native-code-push/blob/master/Examples/CodePushDemoApp/demo.js)
+
 
 
 

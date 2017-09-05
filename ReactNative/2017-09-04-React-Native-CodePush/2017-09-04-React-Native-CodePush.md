@@ -252,7 +252,161 @@ $ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --descript
 4. 发布成功后就可以启动项目测试，等更新成功后就杀掉app重新启动（不要用xcode run）
 
 
+## JavaScript API 简介
 
+* allowRestart
+* checkForUpdate
+* disallowRestart
+* getUpdateMetadata
+* notifyAppReady
+* restartApp
+* sync
+
+其实我们可以将这些API分为两类，一类是自动模式，一类是手动模式。  
+
+### 自动模式
+`sync`为自动模式，调用此方法CodePush会帮你完成一系列的操作。其它方法都是在手动模式下使用的。    
+**codePush.sync**     
+`codePush.sync(options: Object, syncStatusChangeCallback: function(syncStatus: Number),
+downloadProgressCallback: function(progress: DownloadProgress)): Promise<Number>;`  
+通过调用该方法CodePush会帮我们自动完成检查更新，下载，安装等一系列操作。除非我们需要自定义UI表现，不然直接用这个方法就可以了。    
+**sync方法，提供了如下属性以允许你定制sync方法的默认行为**  
+
+* deploymentKey （String）： 部署key，指定你要查询更新的部署秘钥，默认情况下该值来自于Info.plist(Ios)和MianActivity.java(Android)文件，你可以通过设置该属性来动态查询不同部署key下的更新。
+* installMode (codePush.InstallMode)： 安装模式，用在向CodePush推送更新时没有设置强制更新(mandatory为true)的情况下，默认codePush.InstallMode.ON_NEXT_RESTART即下一次启动的时候安装。  
+* mandatoryInstallMode (codePush.InstallMode):强制更新,默认codePush.InstallMode.IMMEDIATE。（设置这个优先级高于指令发布）
+* minimumBackgroundDuration (Number):该属性用于指定app处于后台多少秒才进行重启已完成更新。默认为0。该属性只在`installMode`为`InstallMode.ON_NEXT_RESUME`情况下有效。  
+* updateDialog (UpdateDialogOptions) :可选的，更新的对话框，默认是null,包含以下属性
+	* appendReleaseDescription (Boolean) - 是否显示更新description，默认false
+	* descriptionPrefix (String) - 更新说明的前缀。 默认是” Description: “
+	* mandatoryContinueButtonLabel (String) - 强制更新的按钮文字. 默认 to “Continue”.
+	* mandatoryUpdateMessage (String) - 强制更新时，更新通知. Defaults to “An update is available that must be installed.”.
+	* optionalIgnoreButtonLabel (String) - 非强制更新时，取消按钮文字. Defaults to “Ignore”.
+	* optionalInstallButtonLabel (String) - 非强制更新时，确认文字. Defaults to “Install”.
+	* optionalUpdateMessage (String) - 非强制更新时，更新通知. Defaults to “An update is available. Would you like to install it?”.
+	* title (String) - 要显示的更新通知的标题. Defaults to “Update available”.
+
+eg:  
+
+```javascript  
+codePush.sync({
+      updateDialog: {
+        appendReleaseDescription: true,
+        descriptionPrefix:'\n\n更新内容：\n',
+        title:'更新',
+        mandatoryUpdateMessage:'',
+        mandatoryContinueButtonLabel:'更新',
+      },
+      mandatoryInstallMode:codePush.InstallMode.IMMEDIATE,
+      deploymentKey: CODE_PUSH_PRODUCTION_KEY,
+    });
+```   
+
+
+### 手动模式
+**codePush.allowRestart**
+
+`codePush.allowRestart(): void;`    
+允许重新启动应用以完成更新。   
+如果一个CodePush更新将要发生并且需要重启应用(e.g.设置了InstallMode.IMMEDIATE模式)，但由于调用了`disallowRestart`方法而导致APP无法通过重启来完成更新，
+可以调用此方法来解除`disallowRestart`限制。  
+但在如下四种情况下，CodePush将不会立即重启应用：  
+1. 自上一次`disallowRestart`被调用，没有新的更新。  
+2. 有更新，但`installMode`为`InstallMode.ON_NEXT_RESTART`的情况下。  
+3. 有更新，但`installMode`为`InstallMode.ON_NEXT_RESUME`，并且程序一直处于前台，并没有从后台切换到前台的情况下。   
+4. 自从上次`disallowRestart`被调用，没有再调用`restartApp`。
+
+**codePush.checkForUpdate**
+
+`codePush.checkForUpdate(deploymentKey: String = null): Promise<RemotePackage>;`  
+向CodePush服务器查询是否有更新。  
+该方法返回Promise，有如下两种值：  
+
+* null 没有更新   
+通常有如下情况导致RemotePackage为null:  
+	1. 当前APP版本下没有部署新的更新版本。也就是说没有想CodePush服务器推送基于当前版本的有关更新。  
+	2. CodePush上的更新和用户当前所安装的APP版本不匹配。也就是说CodePush服务器上有更新，但该更新对应的APP版本和用户安装的当前版本不对应。  
+	3. 当前APP已将安装了最新的更新。  
+	4. 部署在CodePush上可用于当前APP版本的更新被标记成了不可用。  
+	5. 部署在CodePush上可用于当前APP版本的更新是"active rollout"状态，并且当前的设备不在有资格更新的百分比的设备之内。  
+
+*  A RemotePackage instance  
+有更新可供下载。    
+
+eg：
+
+```javascript
+codePush.checkForUpdate()
+.then((update) => {
+    if (!update) {
+        console.log("The app is up to date!");
+    } else {
+        console.log("An update is available! Should we download it?");
+    }
+});  
+```
+
+**codePush.disallowRestart**
+
+`codePush.disallowRestart(): void;`  
+不允许立即重启用于以完成更新。    
+eg:  
+
+```javascript
+class OnboardingProcess extends Component {
+    ...
+
+    componentWillMount() {
+        // Ensure that any CodePush updates which are
+        // synchronized in the background can't trigger
+        // a restart while this component is mounted.
+        codePush.disallowRestart();
+    }
+
+    componentWillUnmount() {
+        // Reallow restarts, and optionally trigger
+        // a restart if one was currently pending.
+        codePush.allowRestart();
+    }
+
+    ...
+}
+```
+
+**codePush.getUpdateMetadata**  
+`codePush.getUpdateMetadata(updateState: UpdateState = UpdateState.RUNNING): Promise<LocalPackage>;`  
+获取当前已安装更新的元数据（描述、安装时间、大小等）。  
+eg:  
+
+```javascript
+// Check if there is currently a CodePush update running, and if
+// so, register it with the HockeyApp SDK (https://github.com/slowpath/react-native-hockeyapp)
+// so that crash reports will correctly display the JS bundle version the user was running.
+codePush.getUpdateMetadata().then((update) => {
+    if (update) {
+        hockeyApp.addMetadata({ CodePushRelease: update.label });
+    }
+});
+
+// Check to see if there is still an update pending.
+codePush.getUpdateMetadata(UpdateState.PENDING).then((update) => {
+    if (update) {
+        // There's a pending update, do we want to force a restart?
+    }
+});
+```  
+
+**codePush.notifyAppReady**  
+`codePush.notifyAppReady(): Promise<void>;`  
+通知CodePush，一个更新安装好了。当你检查并安装更新，（比如没有使用sync方法去handle的时候），这个方法必须被调用。否则CodePush会认为update失败，并rollback当前版本，在app重启时。  
+当使用`sync`方法时，不需要调用本方法，因为`sync`会自动调用。   
+
+**codePush.restartApp**  
+`codePush.restartApp(onlyIfUpdateIsPending: Boolean = false): void;`  
+立即重启app。
+当以下情况时，这个方式是很有用的：   
+1. app 当 调用 `sync` 或 `LocalPackage.install` 方法时，指定的 `install mode `是 `ON_NEXT_RESTART` 或 `ON_NEXT_RESUME时` 。 这两种情况都是当app重启或`resume`时，更新内容才能被看到。   
+2. 在特定情况下，如用户从其它页面返回到APP的首页时，这个时候调用此方法完成过更新对用户来说不是特别的明显。因为强制重启，能马上显示更新内容。
 
 
 

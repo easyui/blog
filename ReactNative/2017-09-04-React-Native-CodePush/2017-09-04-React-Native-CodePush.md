@@ -220,8 +220,31 @@ eg:
 ```
 这段代码是每次启动app的时候检查更新和下载，如果有更新就下载好了，等下次启动的时候更新。具体js的代码可以参考[https://github.com/Microsoft/react-native-code-push/blob/master/Examples/CodePushDemoApp/demo.js](https://github.com/Microsoft/react-native-code-push/blob/master/Examples/CodePushDemoApp/demo.js)
 
-###调试
+### 调试
 **iOS**
+
+1. iOS调试需要在AppDelegate.m中进行如下修改：
+```
+//#ifdef DEBUG
+//    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+//#else
+    jsCodeLocation = [CodePush bundleURL];
+//#endif
+```
+让React Native通过CodePush去获取bundle包即可。
+
+2. 打包bundle,并且把bundle和assets放入项目：
+```
+$ react-native bundle --entry-file index.ios.js --bundle-output ./bundles/main.jsbundle --platform ios --assets-dest ./bundles --dev false
+```
+
+3. 发布更新
+```
+$ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --description "修改了title" --mandatory true
+
+```
+
+4. 发布成功后就可以启动项目测试，等更新成功后就杀掉app重新启动（不要用xcode run）
 
 
 

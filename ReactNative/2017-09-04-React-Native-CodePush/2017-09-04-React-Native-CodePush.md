@@ -254,6 +254,35 @@ $ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --descript
 
 > `$ code-push deployment ls demoApp -k` 可以查看刚才发布的记录
 
+### 测试发布的JS发布到正式版
+使用场景：当你在指定的部署环境下测试更新时，例如Staging，测试通过后，想把这个更新发布到正式生产环境Production中，则可以使用code-push promote MyAppAndroid Staging Production，这时可以修改一些元数据，例如--description、--targetBinaryVersion、--rollout等。
+
+**指令**
+
+code-push promote
+
+–description, –des描述[string] [默认值: null]
+
+–disabled, -x该促进更新，客户端是否可以获得更新[boolean] [默认值: null]
+
+–mandatory, -m是否强制更新[boolean] [默认值:null]
+
+–rollout, -r此促进更新推送用户的百分比[string] [默认值: null]
+
+eg：
+```
+code-push promote MyAppStaging Production
+
+"MyApp"中"Staging"部署的最新更新发布到"Production"部署中
+
+code-push promote MyAppStaging Production –des "Production rollout" -r 25
+
+"MyApp"中"Staging"部署的最新更新发布到"Production"部署中,并且只推送25%的用户
+```
+
+
+### rollback回滚
+使用场景：当你发布的更新测试没通过时，可以回滚到之前的某个版本。code-push rollback MyAppAndroid Production，当执行这个命令时它会在MyAppAndroid上的Production部署上再次发布一个release，这个release的代码和元属性与Production上倒数第二个版本一致。也可以通过可选参数--targetRelease来指定rollback到的版本，例如code-push rollback MyAppAndroid Production --targetRelase v2，则会新建一个release，这个release的代码和元属性与v2相同。
 
 ## JavaScript API 简介
 
@@ -423,6 +452,8 @@ codePush.getUpdateMetadata(UpdateState.PENDING).then((update) => {
 > [code push cli手册](http://microsoft.github.io/code-push/docs/cli.html)
 >
 > [react-native-code-push github](https://github.com/Microsoft/react-native-code-push)
+>
+> [react-native-code-push进阶篇](http://www.jianshu.com/p/6e96c6038d80)
 >
 > [React Native应用部署/热更新-CodePush最新集成总结(新)](https://github.com/crazycodeboy/RNStudyNotes/blob/master/React%20Native%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%E3%80%81%E7%83%AD%E6%9B%B4%E6%96%B0-CodePush%E6%9C%80%E6%96%B0%E9%9B%86%E6%88%90%E6%80%BB%E7%BB%93/Readme.md)
 

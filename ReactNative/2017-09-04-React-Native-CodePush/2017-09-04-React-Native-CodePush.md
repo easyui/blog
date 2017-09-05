@@ -233,12 +233,16 @@ eg:
 ```
 让React Native通过CodePush去获取bundle包即可。
 
+>不可以模拟器调试：
+![不可以模拟器调试](不可以模拟器调试.png)
+
 2. 打包bundle,并且把bundle和assets放入项目：
 ```
 $ react-native bundle --entry-file index.ios.js --bundle-output ./bundles/main.jsbundle --platform ios --assets-dest ./bundles --dev false
 ```
 
 3. 发布更新
+
 ```
 $ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --description "修改了title" --mandatory true
 

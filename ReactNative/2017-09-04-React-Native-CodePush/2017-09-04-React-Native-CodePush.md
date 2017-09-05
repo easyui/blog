@@ -251,6 +251,8 @@ $ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --descript
 
 4. 发布成功后就可以启动项目测试，等更新成功后就杀掉app重新启动（不要用xcode run）
 
+> `$ code-push deployment ls demoApp -k` 可以查看刚才发布的记录
+
 
 ## JavaScript API 简介
 

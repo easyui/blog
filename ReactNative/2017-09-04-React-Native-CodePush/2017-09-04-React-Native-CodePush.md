@@ -254,6 +254,25 @@ $ code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --descript
 
 > `$ code-push deployment ls demoApp -k` 可以查看刚才发布的记录
 
+
+**android**
+1.打包项目
+```
+react-native bundle --entry-file index.android.js --bundle-output ./bundles/index.android.bundle --platform android --assets-dest ./bundles/android --dev false
+
+```
+
+2.发布更新
+```
+code-push release demoApp ./bundles/ 1.0.0 --deploymentName Staging --description "androidtest" --mandatory true
+
+```
+
+3. 发布成功后就可以启动项目测试，等更新成功后就杀掉app重新启动：
+
+为规避这个问题在Android可以将开发环境的调试地址改为一个不可用的地址（摇一摇手机->Dev Settings->Debug server host&port for device->随便写个字母），这样APP就无法连接到NodeJS服务器了，自然也就不能从NodeJS服务器下载bundle进行更新了，它也只能乖乖的等待从CodePush服务器下载更新包进行更新了。
+
+
 ### 测试发布的JS发布到正式版
 使用场景：当你在指定的部署环境下测试更新时，例如Staging，测试通过后，想把这个更新发布到正式生产环境Production中，则可以使用code-push promote MyAppAndroid Staging Production，这时可以修改一些元数据，例如--description、--targetBinaryVersion、--rollout等。
 

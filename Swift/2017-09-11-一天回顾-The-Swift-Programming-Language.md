@@ -162,16 +162,25 @@ var anotherEmptyString = String()  // 初始化方法
 
 :smile:使用startIndex属性可以获取一个String的第一个Character的索引。使用endIndex属性可以获取最后一个Character的后一个位置的索引。因此，endIndex属性不能作为一个字符串的有效下标。如果String是空串，startIndex和endIndex是相等的。
 
-:smile:
+:smile:使用 `characters` 属性的 `indices` 属性会创建一个包含全部索引的范围(`Range`)，用来在一个字符串中访问单个字符。
 
-:smile:
+```swift
+for index in greeting.characters.indices {
+   print("\(greeting[index]) ", terminator: "")
+}
+// 打印输出 "G u t e n   T a g ! "
+```
 
-:smile:
+:smile:注意： 您可以使用 insert(_:at:)、insert(contentsOf:at:)、remove(at:) 和 removeSubrange(_:) 方法在任意一个确认的并遵循 RangeReplaceableCollection 协议的类型里面，如上文所示是使用在 String 中，您也可以使用在 Array、Dictionary 和 Set 中。
 
-:smile:
+:smile:在 Swift 中，字符串和字符并不区分地域(not locale-sensitive)。
 
-:smile:
+## 集合类型 (Collection Types)
+:smile:Swift 的所有基本类型(比如String,Int,Double和Bool)默认都是可哈希化的，可以作为集合的值的类型或者字典的键的类型。没有关联值的枚举成员值(在枚举有讲述)默认也是可哈希化的。
 
+:smile:因为Hashable协议符合Equatable协议，所以遵循该协议的类型也必须提供一个"是否相等"运算符(==)的实现。
+
+## 函数（Functions）
 :smile:
 
 :smile:

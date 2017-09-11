@@ -152,6 +152,28 @@ It also ends with a line break.
 
 在上面的例子中，尽管整个多行字符串字面量都是缩进的（源代码缩进），第一行和最后一行没有以空白字符串开始（实际的变量值）。中间一行的缩进用空白字符串（源代码缩进）比关闭引号(`"""`)之前的空白字符串多，所以，它的行首将有4个空白字符串（实际的变量值）。
 
+:smile:要创建一个空字符串作为初始值，可以将空的字符串字面量赋值给变量，也可以初始化一个新的`String`实例：
+
+```swift
+var emptyString = ""               // 空字符串字面量
+var anotherEmptyString = String()  // 初始化方法
+// 两个字符串均为空并等价。
+```
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
 :smile:
 
 :smile:

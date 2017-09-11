@@ -42,6 +42,24 @@ anyCommonElements([1, 2, 3], [3])
 ## 基础部分（The Basics）
 :smile:注意：C 和 Objective-C 中并没有可选类型这个概念。最接近的是 Objective-C 中的一个特性，一个方法要不返回一个对象要不返回nil，nil表示“缺少一个合法的对象”。然而，这只对对象起作用——对于结构体，基本的 C 类型或者枚举类型不起作用。对于这些类型，Objective-C 方法一般会返回一个特殊值（比如NSNotFound）来暗示值缺失。这种方法假设方法的调用者知道并记得对特殊值进行判断。然而，Swift 的可选类型可以让你暗示任意类型的值缺失，并不需要一个特殊值。
 
+:smile:注意：nil不能用于非可选的常量和变量。如果你的代码中有常量或者变量需要处理值缺失的情况，请把它们声明成对应的可选类型。
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
 :smile:
 
 :smile:

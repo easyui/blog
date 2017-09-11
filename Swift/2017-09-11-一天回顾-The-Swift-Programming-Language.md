@@ -1,4 +1,4 @@
-# 一天回顾 The Swift Programming Language
+# [一天回顾 The Swift Programming Language](https://github.com/numbbbbb/the-swift-programming-language-in-chinese)
 
 ## Swift 初见（A Swift Tour）
 :smile:枚举的关联值是实际值，并不是原始值的另一种表达方法。实际上，如果没有比较有意义的原始值，你就不需要提供原始值。

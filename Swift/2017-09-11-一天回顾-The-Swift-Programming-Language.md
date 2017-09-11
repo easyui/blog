@@ -160,7 +160,7 @@ var anotherEmptyString = String()  // 初始化方法
 // 两个字符串均为空并等价。
 ```
 
-:smile:
+:smile:使用startIndex属性可以获取一个String的第一个Character的索引。使用endIndex属性可以获取最后一个Character的后一个位置的索引。因此，endIndex属性不能作为一个字符串的有效下标。如果String是空串，startIndex和endIndex是相等的。
 
 :smile:
 

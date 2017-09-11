@@ -181,7 +181,7 @@ for index in greeting.characters.indices {
 :smile:因为Hashable协议符合Equatable协议，所以遵循该协议的类型也必须提供一个"是否相等"运算符(==)的实现。
 
 ## 函数（Functions）
-:smile:
+:smile:严格上来说，虽然没有返回值被定义，greet(person:) 函数依然返回了值。没有定义返回类型的函数会返回一个特殊的Void值。它其实是一个空的元组（tuple），没有任何元素，可以写成()。
 
 :smile:
 

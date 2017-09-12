@@ -277,6 +277,26 @@ print(instance.x)
 :smile:你也可以在枚举类型开头加上indirect关键字来表明它的所有成员都是可递归的：
 
 ## 类和结构体
+:smile:与 Objective-C 语言不同的是，Swift 允许直接设置结构体属性的子属性。上面的最后一个例子，就是直接设置了someVideoMode中resolution属性的width这个子属性，以上操作并不需要重新为整个resolution属性设置新值。
+
+:smile:所有结构体都有一个自动生成的成员逐一构造器，用于初始化新结构体实例中成员的属性。新实例中各个属性的初始值可以通过属性的名称传递到成员逐一构造器之中：
+```swift
+let vga = Resolution(width:640, height: 480)
+```
+与结构体不同，类实例没有默认的成员逐一构造器。
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
 :smile:
 
 :smile:

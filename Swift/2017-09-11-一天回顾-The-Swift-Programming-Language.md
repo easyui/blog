@@ -276,6 +276,7 @@ print(instance.x)
 
 :smile:你也可以在枚举类型开头加上indirect关键字来表明它的所有成员都是可递归的：
 
+## 类和结构体
 :smile:
 
 :smile:

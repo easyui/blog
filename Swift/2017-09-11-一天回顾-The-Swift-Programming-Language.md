@@ -285,9 +285,9 @@ let vga = Resolution(width:640, height: 480)
 ```
 与结构体不同，类实例没有默认的成员逐一构造器。
 
-:smile:
+:smile:在 Swift 中，所有的基本类型：整数（Integer）、浮点数（floating-point）、布尔值（Boolean）、字符串（string)、数组（array）和字典（dictionary），都是值类型，并且在底层都是以结构体的形式所实现。
 
-:smile:
+:smile:在 Swift 中，所有的结构体和枚举类型都是值类型。
 
 :smile:
 

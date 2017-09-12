@@ -205,6 +205,68 @@ someFunction(parameterWithoutDefault: 4) // parameterWithDefault = 12
 
 :smile:每个函数都有种特定的函数类型，函数的类型由函数的参数类型和返回类型组成。
 
+## 闭包（Closures）
+:smile:闭包采取如下三种形式之一：
+
+* 全局函数是一个有名字但不会捕获任何值的闭包
+* 嵌套函数是一个有名字并可以捕获其封闭函数域内值的闭包
+* 闭包表达式是一个利用轻量级语法所写的可以捕获其上下文中变量或常量值的匿名闭包
+
+:smile:Swift 的闭包表达式拥有简洁的风格，并鼓励在常见场景中进行语法优化，主要优化如下：
+
+* 利用上下文推断参数和返回值类型
+* 隐式返回单表达式闭包，即单表达式闭包可以省略 `return` 关键字
+* 参数名称缩写
+* 尾随闭包语法
+
+:smile:如果闭包表达式是函数或方法的唯一参数，则当你使用尾随闭包时，你甚至可以把 `()` 省略掉：
+
+```swift
+reversedNames = names.sorted { $0 > $1 }
+```
+
+:smile:函数和闭包都是引用类型。
+
+:smile:当一个闭包作为参数传到一个函数中，但是这个闭包在函数返回之后才被执行，我们称该闭包从函数中逃逸。当你定义接受闭包作为参数的函数时，你可以在参数名之前标注 @escaping，用来指明这个闭包是允许“逃逸”出这个函数的。
+
+:smile:将一个闭包标记为 `@escaping` 意味着你必须在闭包中显式地引用 `self`。比如说，在下面的代码中，传递到 `someFunctionWithEscapingClosure(_:)` 中的闭包是一个逃逸闭包，这意味着它需要显式地引用 `self`。相对的，传递到 `someFunctionWithNonescapingClosure(_:)` 中的闭包是一个非逃逸闭包，这意味着它可以隐式引用 `self`。
+
+
+```swift
+func someFunctionWithNonescapingClosure(closure: () -> Void) {
+    closure()
+}
+
+class SomeClass {
+    var x = 10
+    func doSomething() {
+        someFunctionWithEscapingClosure { self.x = 100 }
+        someFunctionWithNonescapingClosure { x = 200 }
+    }
+}
+
+let instance = SomeClass()
+instance.doSomething()
+print(instance.x)
+// 打印出 "200"
+
+completionHandlers.first?()
+print(instance.x)
+// 打印出 "100"
+```
+
+:smile:自动闭包是一种自动创建的闭包，用于包装传递给函数作为参数的表达式。这种闭包不接受任何参数，当它被调用的时候，会返回被包装在其中的表达式的值。这种便利语法让你能够省略闭包的花括号，用一个普通的表达式来代替显式的闭包。
+
+:smile:let customerProvider = { customersInLine.remove(at: 0) } //customerProvider 的类型不是 String，而是 () -> String，一个没有参数且返回值为 String 的函数。
+
+:smile:
+
+:smile:
+
+:smile:
+
+:smile:
+
 :smile:
 
 :smile:

@@ -289,8 +289,11 @@ let vga = Resolution(width:640, height: 480)
 
 :smile:在 Swift 中，所有的结构体和枚举类型都是值类型。
 
-:smile:
+:smile:Swift 中，许多基本类型，诸如String，Array和Dictionary类型均以结构体的形式实现。这意味着被赋值给新的常量或变量，或者被传入函数或方法中时，它们的值会被拷贝。
 
+Objective-C 中NSString，NSArray和NSDictionary类型均以类的形式实现，而并非结构体。它们在被赋值或者被传入函数或方法时，不会发生值拷贝，而是传递现有实例的引用。
+
+## 属性 (Properties)
 :smile:
 
 :smile:

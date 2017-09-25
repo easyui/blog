@@ -635,17 +635,7 @@ internal class B: A {
 ## 高级运算符
 :smile:在默认情况下，当向一个整数赋予超过它容量的值时，Swift 默认会报错，而不是生成一个无效的数。
 
-:smile:
 
-:smile:
-
-:smile:
-
-:smile:
-
-:smile:
-
-:smile:
 
 
 

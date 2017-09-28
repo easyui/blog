@@ -397,7 +397,7 @@ print(mutableArray)
 在 swift 3 中除了手动添加 @objc 声明函数支持 OC 调用还有另外一种方式：继承 NSObject。class 继承了 NSObject 后，编译器就会默认给这个类中的所有函数都标记为 @objc ，支持 OC 调用。然而在实际项目中，一个 swift 类虽然继承了 NSObject，但是其中还是有很多函数不会在 OC 中被调用，这里有很大的优化空间。于是根据 SE160 的建议，苹果修改了自动添加 @objc 的逻辑：一个继承 NSObject 的 swift 类不再默认给所有函数添加 @objc。只在实现 OC 接口和重写 OC 方法时才自动给函数添加 @objc 标识。
 
 XCode 9会在运行过程中自行检测类中函数是被 OC 调用，然后提示添加 @objc。
-## :smile:
+## :smile:Swift4.0中不再允许复写扩展中的方法(包括实例方法、static方法、class方法)
 
 ## :smile:
 

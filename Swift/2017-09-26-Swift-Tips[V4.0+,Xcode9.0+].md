@@ -38,7 +38,14 @@ AVMetadataKeySpaceCommon -> AVMetadataKeySpace.common
 ## :smile:AVPlayerLayer的videoGravity属性(其实是iOS11的变化)
 swift3
 ```swift
- /*!    	@property		videoGravity    	@abstract		A string defining how the video is displayed within an AVPlayerLayer bounds rect.    	@discusssion	Options are AVLayerVideoGravityResizeAspect, AVLayerVideoGravityResizeAspectFill      					and AVLayerVideoGravityResize. AVLayerVideoGravityResizeAspect is default.     					See <AVFoundation/AVAnimation.h> for a description of these options.     */    open var videoGravity: String  
+ /*!
+    	@property		videoGravity
+    	@abstract		A string defining how the video is displayed within an AVPlayerLayer bounds rect.
+    	@discusssion	Options are AVLayerVideoGravityResizeAspect, AVLayerVideoGravityResizeAspectFill 
+     					and AVLayerVideoGravityResize. AVLayerVideoGravityResizeAspect is default. 
+    					See <AVFoundation/AVAnimation.h> for a description of these options.
+     */
+    open var videoGravity: String  
 ```
 swift4
 ```swift
@@ -356,5 +363,6 @@ print(mutableArray)
 
 
 > 参考
+> 
 > [最全的 Swift 4 新特性解析](http://www.jianshu.com/p/c4f5db08bcab)
 

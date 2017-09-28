@@ -114,7 +114,7 @@ class NSCandidateListTouchBarItem<CandidateType: AnyObject> : NSTouchBarItem {
     var client: (NSView & NSTextInputClient)?
 }
 ```
-## :smile: KVC：新的 Key Paths 语
+## :smile: KVC：新的 Key Paths 语法
 Swift 3 中 Key Paths 的写法：
 ```swift
 class Kid: NSObject {
@@ -161,6 +161,44 @@ ben[keyPath: \Kid.nickname] = "BigBen"
 - 类型安全和类型推断，例如 ben.valueForKeyPath(kidsNameKeyPath) 返回的类型是 Any，ben[keyPath: \Kid.nickname] 直接返回 属性的 类型
 - 可以在所有值类型上使用
 
+## :smile: KVO
+依然只有 NSObject 才能支持 KVO。
+
+Swift 4中的一个对此有影响的改变是继承 NSObject 的 swift class 不再默认全部 bridge 到 OC。
+
+然而 KVO 又是一个纯 OC 的特性，所以如果是 swift class 需要在声明的时候增加 @objcMembers 关键字。否则在运行的时候你会得到一个 error：
+```
+fatal error: Could not extract a String from KeyPath 
+Swift.ReferenceWritableKeyPath
+```
+
+一个好消息是不需要在对象被回收时手动 remove observer。但是这也带来了另外一个容易被忽略的事情：观察的闭包没有被强引用，需要我们自己添加引用，否则当前函数离开后这个观察闭包就会被回收了。KVO 之后返回的是一个 NSKeyValueObservation 实例，需要自己控制这个实例的生命周期。
+```swift
+@objcMembers class OCClass: NSObject {
+    dynamic var name: String
+ 
+    init(name: String) {
+        self.name = name
+    }
+}
+ 
+class ViewController: UIViewController {
+ 
+    var swiftClass: OCClass!
+    var ob: NSKeyValueObservation!
+ 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+ 
+        swiftClass = OCClass(name: "oc")
+        ob = swiftClass.observe(\.name) { (ob, changed) in
+            let new = ob.name
+            print(new)
+        }
+        swiftClass.name = "swift4"
+    }
+}
+```
 ## :smile: 下标支持泛型
 有时候会写一些数据容器，Swift 支持通过下标来读写容器中的数据，但是如果容器类中的数据类型定义为泛型，以前的下标语法就只能返回 Any，在取出值后需要用 as? 来转换类型。Swift 4 定义下标也可以使用泛型了。
 ```swift
@@ -351,8 +389,14 @@ mutableArray.swapAt(1, 2)
 print(mutableArray)
 // 打印结果：[1, 3, 2, 4]
 ```
-## :smile:
+## :smile:自动清除冗余代码减小包大小
+得益于 Swift 的静态语言特性，每个函数的调用在编译期间就可以确定。因此在编译完成后可以检测出没有被调用到的 swift 函数，优化删除后可以减小最后二进制文件的大小。这个功能在 XCode 9 和 Swift 4 中终于被引进。相较于 OC 又多了一个杀手级特性。
 
+那么为什么 OC 做不到这点呢？因为在 OC 中调用函数是在运行时通过发送消息调用的。所以在编译期并不确定这个函数是否被调用到。因为这点在混合项目中引发了另外一个问题：swift 函数怎么知道是否被 OC 调用了呢？出于安全起见，只能保留所有可能会被 OC 调用的 swift 函数（标记为 @objc 的）。
+
+在 swift 3 中除了手动添加 @objc 声明函数支持 OC 调用还有另外一种方式：继承 NSObject。class 继承了 NSObject 后，编译器就会默认给这个类中的所有函数都标记为 @objc ，支持 OC 调用。然而在实际项目中，一个 swift 类虽然继承了 NSObject，但是其中还是有很多函数不会在 OC 中被调用，这里有很大的优化空间。于是根据 SE160 的建议，苹果修改了自动添加 @objc 的逻辑：一个继承 NSObject 的 swift 类不再默认给所有函数添加 @objc。只在实现 OC 接口和重写 OC 方法时才自动给函数添加 @objc 标识。
+
+XCode 9会在运行过程中自行检测类中函数是被 OC 调用，然后提示添加 @objc。
 ## :smile:
 
 ## :smile:
@@ -364,5 +408,13 @@ print(mutableArray)
 
 > 参考
 > 
+> [Swift.org](https://swift.org/)
+> 
+> [swift-evolution](https://github.com/apple/swift-evolution)
+> 
 > [最全的 Swift 4 新特性解析](http://www.jianshu.com/p/c4f5db08bcab)
+> 
+> [iOS 11 的一些玩意儿：Swift 4](https://addicechan.github.io/swift4/)
+>
+> [Swift 4新知：自动清除冗余代码减小包大小](http://www.jianshu.com/p/6c5b45d9d042)
 

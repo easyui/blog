@@ -183,8 +183,7 @@ if (!CMTIME_IS_NUMERIC(duration)){
 ```
 oc中测试CMTime 是否是无效的，或者是一个非数字值的宏：[CMTIME_IS_NUMERIC， CMTIME_IS_INVALID，CMTIME_IS_POSITIVE_INFINITY， CMTIME_IS_INDEFINITE](https://developer.apple.com/documentation/coremedia/cmtime-u58#//apple_ref/c/macro/CMTIME_IS_INVALID)
 
-
-
+> [react-native-video的类似解决](https://github.com/react-native-community/react-native-video/issues/709)
 
 
 

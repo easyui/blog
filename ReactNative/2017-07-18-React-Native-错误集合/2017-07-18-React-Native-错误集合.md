@@ -161,6 +161,7 @@ a标签点击之后会把send的内容通过onBridgeMessage回调函数返回给
 >
 > [react-native之 WebView 异常bug](http://leonhwa.com/blog/0014905236320002ebb3db97fe64fb3bb6f047eafb1c5de000)
 
+## :smile:Error calling RCTEventEmitter.receiveEvent folly::toJson: JSON object value was a NaN or INF
 
 
 

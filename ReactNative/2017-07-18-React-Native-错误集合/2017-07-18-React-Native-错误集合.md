@@ -161,7 +161,29 @@ a标签点击之后会把send的内容通过onBridgeMessage回调函数返回给
 >
 > [react-native之 WebView 异常bug](http://leonhwa.com/blog/0014905236320002ebb3db97fe64fb3bb6f047eafb1c5de000)
 
-## :smile:Error calling RCTEventEmitter.receiveEvent folly::toJson: JSON object value was a NaN or INF
+## :smile:封装native组件向js传递数值时，传递的非数字或极值
+```
+Error calling RCTEventEmitter.receiveEvent folly::toJson: JSON object value was a NaN or INF
+```
+比如获取avplayer中的duration可能返回一个.nan数值，直接传递给js会报这个错误。
+
+fix：
+
+swift
+```swift
+if duration.isNaN {
+   duration = -1
+}
+```
+oc
+```oc
+if (!CMTIME_IS_NUMERIC(duration)){
+   return [NSNumber numberWithFloat:CMTimeGetSeconds(-1)];
+}
+```
+oc中测试CMTime 是否是无效的，或者是一个非数字值的宏：[CMTIME_IS_NUMERIC， CMTIME_IS_INVALID，CMTIME_IS_POSITIVE_INFINITY， CMTIME_IS_INDEFINITE](https://developer.apple.com/documentation/coremedia/cmtime-u58#//apple_ref/c/macro/CMTIME_IS_INVALID)
+
+
 
 
 

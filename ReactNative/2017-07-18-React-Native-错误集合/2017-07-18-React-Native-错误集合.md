@@ -186,6 +186,21 @@ if (!CMTIME_IS_NUMERIC(duration)){
 > [react-native-video的类似解决](https://github.com/react-native-community/react-native-video/commit/f73b7a04843fb5b17fb4fbedbe593c225594ab3b)
 
 
+## :smile: rn0.47.1 升级到 rn0.49.5
+[官方升级指南](https://facebook.github.io/react-native/docs/upgrading.html)
+
+升级后报错：
+```
+...
+Cannot find module 'imurmurhash'
+Cannot find module 'mute-stream'
+...
+```
+安装即可：
+```
+npm install imurmurhash
+npm install mute-stream
+```
 
 
 

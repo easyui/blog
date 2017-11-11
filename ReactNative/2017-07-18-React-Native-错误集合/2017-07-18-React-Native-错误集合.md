@@ -1,4 +1,4 @@
-# React Native Tips
+# React Native 错误集合
 
 
 ## :smile:8081端口占用

@@ -32,6 +32,15 @@ propTypes: {
     myProp: PropTypes.string
 }
 ```
+
+ps： 在"react-native": "0.49.5"中发布一个iOS release（adhoc），如果还是用<rn0.44 会报错：
+
+```
+RCTFatalException: Unhandled JS Exception: undefined is not an object (evaluating 'l.View.propTypes.style')
+```
+
+React-Native-错误集合
+
 ## :smile: iOS运行官方的RNTester（0.47.0），报错 #include <boost/iterator/iterator_adaptor.hpp>
 iOS RN 0.45以上版本所需的第三方编译库(boost等)，这些库在国内下载都非常困难（一般的翻墙工具都很难下载），未来RN不同版本可能依赖不同版本的第三方编译库，具体所需库和版本请查看ios-install-third-party.sh文件：
 ```

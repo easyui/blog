@@ -88,9 +88,60 @@ UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
 UIEdgeInsets(top: 0.0, left: 44.0, bottom: 21.0, right: 44.0)
 
 
+## frame设置布局的时候要考虑safe area
+例如：
+```swift
+let insets = UIApplication.shared.delegate?.window??.safeAreaInsets ?? UIEdgeInsets.zero
+            
+view1.frame = CGRect(
+    x: insets.left,
+    y: insets.top,
+    width:view.bounds.width - insets.left - insets.right,
+    height: 200)
+
+view2.frame = CGRect(
+    x: insets.left,
+    y: screenH - insets.bottom - 200,
+    width:view.bounds.width - insets.left - insets.right,
+    height: 200)
+```
 
 
+## UIViewController的additionalSafeAreaInsets属性可以更改安全区域：
+```
+    /* Custom container UIViewController subclasses can use this property to add to the overlay
+     that UIViewController calculates for the safeAreaInsets for contained view controllers.
+     */
+    @available(iOS 11.0, *)
+    open var additionalSafeAreaInsets: UIEdgeInsets
+```
 
+比如用来测试你的 app 是否支持 iPhone X。在没有 iPhone X 也不方便使用模拟器的时候， 这个设置这个属性来实现：
+```swift
+//竖屏
+additionalSafeAreaInsets.top = 24.0
+additionalSafeAreaInsets.bottom = 34.0
+
+//竖屏, status bar 隐藏
+additionalSafeAreaInsets.top = 44.0
+additionalSafeAreaInsets.bottom = 34.0
+
+//横屏
+additionalSafeAreaInsets.left = 44.0
+additionalSafeAreaInsets.bottom = 21.0
+additionalSafeAreaInsets.right = 44.0
+```
+
+## 安全区域被更改后出发回调
+```swift
+// UIView
+@available(iOS 11.0, *)
+open func safeAreaInsetsDidChange()
+
+//UIViewController
+@available(iOS 11.0, *)
+open func viewSafeAreaInsetsDidChange()
+```
 
 
 

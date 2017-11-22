@@ -218,6 +218,11 @@ PS：micro-task在ES2015规范中称为Job。 其次，macro-task代指task。
 > 在一个事件循环的周期(cycle)中一个 (macro)task 应该从 macrotask 队列开始执行。当这个 macrotask 结束后，所有的 microtasks 将在同一个 cycle 中执行。在 microtasks 执行时还可以加入更多的 microtask，然后一个一个的执行，直到 microtask 队列清空
 
 
+
+
+
+
+
 【参考】
 
 [对event loop事件循环的理解 ](https://github.com/Jmingzi/blog/issues/2)

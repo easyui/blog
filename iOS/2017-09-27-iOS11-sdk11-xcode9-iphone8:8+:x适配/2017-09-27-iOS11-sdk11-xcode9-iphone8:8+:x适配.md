@@ -6,10 +6,10 @@
 ## :smile:AVPlayer中isClosedCaptionDisplayEnabled: Deprecated
 ## :smile:AVPlayerLayer中videoGravity: String --> AVLayerVideoGravity
 
-## App 在 iPhone X 适配全屏
+## :smile:App 在 iPhone X 适配全屏
 如果你的 App 在 iPhone X 上运行发现没有充满屏幕，上下有黑边，说明你没有使用 storyboard 做 LaunchImage，而是用的 Assets。Assets 的解决办法是添加一张尺寸为1125x2436的LaunchImage。
 
-## tableView的section头和尾为0
+## :smile:tableView的section头和尾为0
 iOS11以前想要实现section头和尾为0，代码中把tableView的heightForFooterInSection和heightForHeaderInSection设置成0.1即可：
 
 ```
@@ -39,16 +39,16 @@ _tableView.estimatedSectionFooterHeight = 0;
 
 > PS:iOS11下，如果没有设置estimateRowHeight的值，也没有设置rowHeight的值，那contentSize计算初始值是 44 x cell的个数，如下图：rowHeight和estimateRowHeight都是默认值UITableViewAutomaticDimension 而rowNum = 15；则初始contentSize = 44  15 = 660；
 
-## oc也开始支持新api判断系统版本`@available(iOS 11.0, *) `
+## :smile:oc也开始支持新api判断系统版本`@available(iOS 11.0, *) `
 
-## iPhone X规则
+## :smile:iPhone X规则
 iPhone X 的屏幕宽度同 iPhone 6、iPhone 6s、iPhone 7 和 iPhone 8 的 4.7 英寸屏幕宽度相同，即 375pt。屏幕垂直高度增加了 145pt，这意味着增加了 20% 的可视空间。
 
 > 竖屏规格：1125px × 2436px (375pt × 812pt @3x)
 > 横屏规格：2436px × 1125px (812pt × 375pt @3x)
 
 
-## iPhone X中横屏不会显示statusbar
+## :smile:iPhone X中横屏不会显示statusbar
 在UIViewController中设置了都显示statusbar：
 
 ```swift
@@ -58,7 +58,7 @@ iPhone X 的屏幕宽度同 iPhone 6、iPhone 6s、iPhone 7 和 iPhone 8 的 4.7
 ```
 在除了iPhoneX的其他设备上横屏都能显示statusbar（无论是iOS11还是iOS10等），但是在iPhoneX上横屏是不显示statusbar的。
 
-## iOS 7 之后苹果给 UIViewController 引入了 topLayoutGuide 和 bottomLayoutGuide 两个属性来描述不希望被透明的状态栏或者导航栏遮挡的最高位置(status bar, navigation bar, toolbar, tab bar 等)。这个属性的值是一个 length 属性( topLayoutGuide.length)。 这个值可能由当前的 ViewController 或者 NavigationController 或者 TabbarController 决定。 iOS 11 开始弃用了这两个属性， 并且引入了 Safe Area 这个概念。苹果建议: 不要把 Control 放在 Safe Area 之外的地方。
+## :smile:iOS 7 之后苹果给 UIViewController 引入了 topLayoutGuide 和 bottomLayoutGuide 两个属性来描述不希望被透明的状态栏或者导航栏遮挡的最高位置(status bar, navigation bar, toolbar, tab bar 等)。这个属性的值是一个 length 属性( topLayoutGuide.length)。 这个值可能由当前的 ViewController 或者 NavigationController 或者 TabbarController 决定。 iOS 11 开始弃用了这两个属性， 并且引入了 Safe Area 这个概念。苹果建议: 不要把 Control 放在 Safe Area 之外的地方。
 
 ```swift
  // These objects may be used as layout items in the NSLayoutConstraint API
@@ -69,7 +69,7 @@ iPhone X 的屏幕宽度同 iPhone 6、iPhone 6s、iPhone 7 和 iPhone 8 的 4.7
     open var bottomLayoutGuide: UILayoutSupport { get }
 ```
 
-## UIView 中的 safe area
+## :smile:UIView 中的 safe area
 iOS 11 中 UIViewController 的 topLayoutGuide 和 bottonLayoutGuide 两个属性被 UIView 中的 safeAreaInsets和safeAreaLayoutGuide 替代了，即 insets 或者 layout guide:
 
 ```swift
@@ -105,7 +105,7 @@ UIEdgeInsets(top: 0.0, left: 44.0, bottom: 21.0, right: 44.0)
 
 > PS: safeAreaInsets和safeAreaLayoutGuide属性只有在viewSafeAreaInsetsDidChange()方法时才生效，哪怕你更改additionalSafeAreaInsets属性后也不是马上生效的，也是在viewSafeAreaInsetsDidChange()方法时才生效。所以当UIViewController调用viewDidLoad时它的所有子视图的safeAreaInsets属性都等于UIEdgeInsetsZero,是无法通过当前视图控制器的子视图获取到safeAreaInsets的, 不过获取当前window对象的safeAreaInsets属性用来计算也是可以的, 但是不建议这么做, 一个视图控制器的子视图的处理当然要以它所在的控制器为准。
 
-## frame设置布局的时候要考虑safe area
+## :smile:frame设置布局的时候要考虑safe area
 例如：
 
 ```swift
@@ -125,7 +125,7 @@ view2.frame = CGRect(
 ```
 
 
-## UIViewController的additionalSafeAreaInsets属性可以更改安全区域：
+## :smile:UIViewController的additionalSafeAreaInsets属性可以更改安全区域：
 
 ```
     /* Custom container UIViewController subclasses can use this property to add to the overlay
@@ -152,7 +152,7 @@ additionalSafeAreaInsets.bottom = 21.0
 additionalSafeAreaInsets.right = 44.0
 ```
 
-## 安全区域被更改后出发回调
+## :smile:安全区域被更改后出发回调
 
 ```swift
 // UIView
@@ -182,7 +182,7 @@ viewDidDisappear---Optional("rootVC")---UIEdgeInsets(top: 44.0, left: 0.0, botto
 didMove(toParentViewController:)---UIEdgeInsets(top: 44.0, left: 0.0, bottom: 34.0, right: 0.0)
 ```
 
-## UIScrollView 的 contentInsetAdjustmentBehavior
+## :smile:UIScrollView 的 contentInsetAdjustmentBehavior
 iOS 7 中引入 UIViewController 的 automaticallyAdjustsScrollViewInsets 属性在 iOS11 中被废弃掉了。取而代之的是 UIScrollView 的 contentInsetAdjustmentBehavior
 
 ```swift
@@ -221,7 +221,7 @@ Content Insets Adjustment Behavior
   
   在其他情况下 automoatc 跟 scrollableAxes 一样
 
-## iOS 11 中 UIScrollView 新加了一个属性: adjustedContentInset
+## :smile:iOS 11 中 UIScrollView 新加了一个属性: adjustedContentInset
 
 ```swift
 @available(iOS 11.0, *)
@@ -289,7 +289,7 @@ open func adjustedContentInsetDidChange()
 optional public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 ```
 
-## UITableView的Safe Area
+## :smile:UITableView的Safe Area
 ### iOS11 UITableView新属性insetsContentViewsToSafeArea
 假如你设置一个tableview为VC view的大小相同，但是你会发现把iPhoneX横屏后header、footer和cell中的内容也缩进到安全区域中，但其实cell大小还是原来那么大，是 cell 的 contntView自动缩成安全区域的宽度。这是因为 UITableView 中新引入的属性insetsContentViewsToSafeArea管理的:
 
@@ -323,7 +323,7 @@ UITableViewSeparatorInsetFromAutomaticInsets  //表示separatorInset属性值是
 @property (nonatomic) UICollectionViewFlowLayoutSectionInsetReference sectionInsetReference API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
 ```
 
-## tableview 滑动操作 cell
+## :smile:tableview 滑动操作 cell
 ### 一开始编辑cell可以是实现下面三个代理来实现删除，添加等操作：
 
 ```oc
@@ -367,7 +367,7 @@ UITableViewSeparatorInsetFromAutomaticInsets  //表示separatorInset属性值是
 > PS:iOS11默认是划动可以删除的，如果需要和以前版本交互一样的话，必须实现- ( UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath ，把UISwipeActionsConfiguration对象的performsFirstActionWithFullSwipe属性设置为false
 
 
-## ARKit
+## :smile:ARKit
 ARKit 框架提供了两种 AR 技术，一种是基于3D场景(SceneKit)实现的增强现实，一种是基于2D场景(SpriteKit)实现的增强现实。
 
 要想显示 AR 效果，必须要依赖于苹果的游戏引擎框架（3D引擎 SceneKit，2D引擎 SpriteKit），主要原因是游戏引擎才可以加载物体模型。
@@ -376,20 +376,20 @@ ARKit 框架提供了两种 AR 技术，一种是基于3D场景(SceneKit)实现�
 
 另外需要说明的一点是，ARKit 虽然是 iOS11 新出的框架，但并不是所有的 iOS11 系统都可以使用，而是必须要是处理器 A9 及以上才能够使用，苹果从 iPhone 6S 开始使用 A9 处理器，也就是 iPhone 6 及以前的机型无法使用 ARKit。
 
-## PDFKit
+## :smile:PDFKit
 iOS 11 后苹果在 iOS 平台开放了 PDFKit SDK，这是一个在 MacOS 上已经长期存在的框架，但却在 iOS 上姗姗来迟。可以使用这个框架显示和操作 pdf 文件，你可以使用 PDFKit 实现显示 pdf 文档、显示缩略图、展开大纲和搜索文字等功能。
 
-## Core ML & Vision
+## :smile:Core ML & Vision
 - Core ML 让我们更容易在 App 中使用训练过的模型。
 - Vision 让我们轻松访问苹果的模型，用于面部检测、面部特征点、文字、矩形、条形码和物体。
 
-## IdentityLookup
+## :smile:IdentityLookup
 可以自己开发一个 App Extension 来拦截系统 SMS 和 MMS 的信息。系统的信息 App 在接到未知的人的短信时，会询问所有开启的过滤扩展，如果扩展表示该消息应当被拦截，那么这则信息将不会传递给你。
 
-## DeviceCheck
+## :smile:DeviceCheck
 通过使用 DeviceCheck 你能够在某种程度上追踪到这个手机使用了你开发 App 的情况(即使这个 App 被卸载,或者机器被刷机)。DeviceCheck 允许你通过你的服务器与 Apple 服务器通讯，并为单个设备设置两个 bit 的数据（没错，就是 2bit，00 01 10 11 四种可能）。这样即使 App 被卸载重装，被刷机，App后台照样可以拿到之前设置的状态。
 
-## Drag and Drop
+## :smile:Drag and Drop
 Drag 和 drop 是分开实现的，可以只实现其中一个。分别使用 UIDragInteraction 和 UIDropInteraction 来实现，有点类似于 UIGestureRecognizer，需要添加到 view 上。
 
 实现 drag：
@@ -422,7 +422,7 @@ TableView、CollectionView、TextView、TextField 和 WebView 有内建支持。
 
 和 UIPasteConfiguration 整合（没有发现 UIPasteConfiguration 的信息，应该也是 iOS 11 加入的新类）。
 
-## iOS11 之后 UINavigationBar 和 UIToolbar 支持 Auto Layout ，开发者必须要提供自定义视图的 size。
+## :smile:iOS11 之后 UINavigationBar 和 UIToolbar 支持 Auto Layout ，开发者必须要提供自定义视图的 size。
 如果自定义 titleView 中使用了 Auto Layout，那么通过设置自定义 titleView 的 frame 的方式来设定 size 在某些场景下可能就不再合适了，开发者应该着重注意下自定义 view 内部的约束（具体案例将在下文中阐述）。如图 1 所示，我们可以通过以下三种方式来提供 size：
 
 - 约束自身宽高；
@@ -437,7 +437,7 @@ TableView、CollectionView、TextView、TextField 和 WebView 有内建支持。
 - 利用子视图宽高及间距来约束 titleView；
 
 
-## UITableView在行高优化
+## :smile:UITableView在行高优化
 UITableView 除了继承自 UIScrollView 的特性外，还有自身 API 的变动。新系统中，UITableView 开启了估算行高，estimatedRowHeight、 estimatedSectionHeaderHeight、estimatedSectionFooterHeight 不再默认是 0，而是 UITableViewAutomaticDimension（这个值打印输出是 -1），这一举措旨在帮助开发者提高性能，减少 heightForRowAtIndexPath: 方法的的调用次数，但是这样会导致 API 执行顺序发生变化。在没有开启估算行高之前 tableView 总是先执行：
 
 ```swift
@@ -538,7 +538,7 @@ heightForRowAt
 
 > PS:由于 iOS11 默认开启了 estimatedRowHeight，导致cellForRowAt比heightForRowAt先执行，注意下业务逻辑。
 
-## 新iPhone的名称
+## :smile:新iPhone的名称
 - @"iPhone10,1" : @"iPhone 8",
 - @"iPhone10,4" : @"iPhone 8",
 - @"iPhone10,2" : @"iPhone 8 Plus",
@@ -546,13 +546,13 @@ heightForRowAt
 - @"iPhone10,3" : @"iPhone X",
 - @"iPhone10,6" : @"iPhone X",
 
-## 无线调试功能(iPhone的电池...)可在Window  -->Devices and Simulators中勾选那两个选项。前提是此设备已run过并处于同一局域网下。
+## :smile:无线调试功能(iPhone的电池...)可在Window  -->Devices and Simulators中勾选那两个选项。前提是此设备已run过并处于同一局域网下。
 
-## 在Asset中，可以创建颜色了。右键选择New Color set，填充RGBA值或十六进制值即可。使用中直接使用新的colorwithname，参数填入创建时的名字即可。不过记得区分系统版本。
+## :smile:在Asset中，可以创建颜色了。右键选择New Color set，填充RGBA值或十六进制值即可。使用中直接使用新的colorwithname，参数填入创建时的名字即可。不过记得区分系统版本。
 
-## command键复原。可在Preferences --> Navigation -->Commadn-click 中选择Jumps to Defintion即可。
+## :smile:command键复原。可在Preferences --> Navigation -->Commadn-click 中选择Jumps to Defintion即可。
 
-## 位置权限
+## :smile:位置权限
 在IOS11，原有的NSLocationAlwaysUsageDeion被降级为NSLocationWhenInUseUsageDeion。因此，在原来项目中使用requestAlwaysAuthorization获取定位权限，而未在plist文件中配置NSLocationAlwaysAndWhenInUseUsageDeion，系统框不会弹出。建议新旧key值都在plist里配置，反正我试下来是没有问题，唯一的区别是使用requestAlwaysAuthorization获取权限 IOS11系统弹框会把几种权限级别全部列出，供用户选择，显然更人性化了。
 
 快去更新你的info.plist
@@ -571,7 +571,7 @@ heightForRowAt
     <string>App需要您的同意,才能始终访问位置</string>
 ```
 
-## UINavigationBar结构改变
+## :smile:UINavigationBar结构改变
 
 ###UINavigationBar的新属性prefersLargeTitles
 
@@ -696,7 +696,7 @@ typedef struct UIEdgeInsets {
 
 还有其他一些更新。自从引入layout margins，当将一个view添加到viewController时，viewController会修复view的layoutMargins为UIKit定义的一个值，这些调整对外是封闭的。从iOS11开始，这些不再是一个固定的值，它们实际是最小值，你可以改变你的view的layoutMargins为任意一个更大的值。而且，viewController新增了一个属性：viewRespectsSystemMinimumLayoutMargins，如果你设置该属性为”false”，你就可以改变你的layout margins为任意你想设置的值，包括0。
 
-## 一些宏
+## :smile:一些宏
 
 ```
 // 判断是否是iPhone X

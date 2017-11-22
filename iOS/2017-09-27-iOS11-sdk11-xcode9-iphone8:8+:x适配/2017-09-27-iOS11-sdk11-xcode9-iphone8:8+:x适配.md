@@ -317,7 +317,7 @@ UITableViewSeparatorInsetFromAutomaticInsets  //表示separatorInset属性值是
 - separatorInset 被自动地关联到 safe area insets，因此，默认情况下，表视图的整个内容避免了其根视图控制器的安全区域的插入。
 - UITableviewCell 和 UITableViewHeaderFooterView的 content view 在安全区域内；因此你应该始终在 content view 中使用add-subviews操作。
 - 所有的 headers 和 footers 都应该使用UITableViewHeaderFooterView，包括 table headers 和 footers、section headers 和 footers。
-## iOS11 UICollectionViewFlowLayout新属性sectionInsetReference
+## :smile:iOS11 UICollectionViewFlowLayout新属性sectionInsetReference
 
 ```swift
 @property (nonatomic) UICollectionViewFlowLayoutSectionInsetReference sectionInsetReference API_AVAILABLE(ios(11.0), tvos(11.0)) API_UNAVAILABLE(watchos);
@@ -573,7 +573,7 @@ heightForRowAt
 
 ## :smile:UINavigationBar结构改变
 
-###UINavigationBar的新属性prefersLargeTitles
+### UINavigationBar的新属性prefersLargeTitles
 
 ```swift
     /// When set to YES, the navigation bar will use a larger out-of-line title view when requested by the current navigation item. To specify when the large out-of-line title view appears, see UINavigationItem.largeTitleDisplayMode. Defaults to NO.
@@ -620,7 +620,7 @@ navigationItem.hidesSearchBarWhenScrolling //决定滑动的时候是否隐藏�
 
 所以，如果你使用navigation bar，组装push和pop体验，你不会得到searchController的集成、大标题的控制更新和Rubber banding效果，因为这些都是由UINavigationController控制的。
 
-###导航栏的图层变化
+### 导航栏的图层变化
 iOS11之前导航栏的title是添加在UINavigationItemView上面，而navigationBarButton则直接添加在navigationBar上面；如果设置了titleView，则titleView也是直接添加在navigationBar上面，如图:
 
 ![navigationbar10](navigationbar10.png)
@@ -640,9 +640,9 @@ iOS11之前导航栏的title是添加在UINavigationItemView上面，而navigati
 如果同时设置了titleView和navigationBarButton，则在iOS11以下，它们之间的间距是6p，在iOS11则无间距。
 
 
-### home指示器
+## :smile:[home指示器](https://github.com/easyui/blog/blob/master/iOS/2017-10-20-iPhoneX%E6%8C%87%E7%A4%BA%E6%9D%A1.md)
 
-### 边缘手势控制:推迟系统（通知中心和控制中心的）手势识别
+## :smile:边缘手势控制:推迟系统（通知中心和控制中心的）手势识别
 
 ```swift
     // Override to return a child view controller or nil. If non-nil, that view controller's screen edges deferring system gestures will be used. If nil, self is used. Whenever the return value changes, -setNeedsScreenEdgesDeferringSystemGesturesUpdate should be called.
@@ -673,7 +673,7 @@ iOS11之前导航栏的title是添加在UINavigationItemView上面，而navigati
 设置后下拉状态栏只会展示指示器，继续下拉才能将通知中心拉出来。如果返回UIRectEdgeNone则会直接下拉出来。
 
 
-### layout margins
+## :smile:layout margins
 基于约束的Auto Layout，使我们搭建能够动态响应内部和外部变化的用户界面。Auto Layout为每一个view都定义了margin。margin指的是控件显示内容部分的边缘和控件边缘的距离。 可以用layoutMargins或者layoutMarginsGuide属性获得view的margin,margin是视图内部的一部分。layoutMargins允许获取或者设置UIEdgeInsets结构的margin。layoutMarginsGuide则获取到只读的UILayoutGuide对象。
 
 在iOS11新增了一个属性：directional layout margins，该属性是NSDirectionalEdgeInsets结构体类型的属性：

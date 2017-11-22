@@ -188,6 +188,9 @@ js 只有一个main thread 主进程和call-stack（一个调用堆栈），所�
 - microtask queue 中的 task 会在事件循环的当前回合中执行，因此 macrotask queue 中的 task 就只能等到事件循环的下一个回合中执行了
 - click ajax setTimeout 的回调是都是 task, 同时，包裹在一个 script 标签中的js代码也是一个 task 确切说是 macrotask。
 
+### 注意点
+Macrotask对比着Microtask来，他们的区别就在于执行的时机，Macrotask在一次task执行完了，然后浏览器进行渲染，然后才执行Macrotask。而Microtask会影响IO回调，要是不断增加Microtask的话，就一直无法渲染视图了，看上去就会卡顿。但是Macrotask就没有这种危险。
+
 ## demo解释
 `demo2解释：`
 流程如下：

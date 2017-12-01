@@ -133,3 +133,11 @@ var langsData = require('../../../res/data/langs.json');
 //ES6/ES2015
 import langsData from '../../../res/data/langs.json'
 ```
+
+## :smile: npm指令发布包的时候出错
+执行`sudo npm publish`出错，原来是安装的时候指定了淘宝的数据源（ https://registry.npm.taobao.org ），所以改为临时使用npmjs的源：
+
+```
+sudo npm publish --registry https://registry.npmjs.org/
+```
+

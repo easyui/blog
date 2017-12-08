@@ -141,3 +141,24 @@ import langsData from '../../../res/data/langs.json'
 sudo npm publish --registry https://registry.npmjs.org/
 ```
 
+## :smile: Animated.View translate动画在android上的奇怪bug（iOS是正常的）
+
+例如：([完整代码地址](https://github.com/easyui/react-native-ezswiper/blob/master/src/EZSwiper.js))
+
+```
+       <View key={i} style={{ flexDirection: this.ezswiper.horizontal ? 'row' : 'column' }}>
+                    <View style={{ [this.ezswiper.horizontal ? 'width' : 'height']: margin, backgroundColor: 'transparent' }} />
+                    <TouchableOpacity onPress={() => this.events.onPress(currentItem, dataSourceIndex)}>
+                        <Animated.View style={{ backgroundColor: 'transparent', width: this.ezswiper.horizontal ? this.ezswiper.cardParams.cardSide : width, height: this.ezswiper.horizontal ? height : this.ezswiper.cardParams.cardSide, transform: [{ [this.ezswiper.horizontal ? 'scaleY' : 'scaleX']: scaleArray[i] }, { [this.ezswiper.horizontal ? 'translateX' : 'translateY']: translateArray[i] }] }} >
+                            {this.events.renderRow(currentItem, dataSourceIndex)}
+                        </Animated.View>
+                    </TouchableOpacity>
+                    <View style={{ [this.ezswiper.horizontal ? 'width' : 'height']: margin, backgroundColor: 'transparent' }} />
+                </View>
+```
+
+Animated.View被TouchableOpacity包裹时，触发translateX动画左右移动时，碰到旁边组件会后动画的组件和旁边重叠的部分会不见了，改什么透明度都不行，换成TouchableWithoutFeedback就好了。
+
+
+
+

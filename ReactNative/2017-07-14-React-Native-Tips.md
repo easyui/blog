@@ -162,7 +162,7 @@ Animated.View被TouchableOpacity包裹时，触发translateX动画左右移动�
 ## :smile: 动画结束后回调更新界面
 例如
 
-、、、
+```
     componentWillUnmount() {
         this.unmount = true
     }
@@ -180,7 +180,7 @@ Animated.View被TouchableOpacity包裹时，触发translateX动画左右移动�
                       this.setState({ show: false })
                  }
            });
-、、、
+```
 
 在android中，组件释放了，但是动画结束后回调还在执行且更新界面会导致crash，所以加unmount防止组件释放后仍更新界面
                         

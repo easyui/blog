@@ -160,7 +160,30 @@ sudo npm publish --registry https://registry.npmjs.org/
 Animated.View被TouchableOpacity包裹时，触发translateX动画左右移动时，碰到旁边组件会后动画的组件和旁边重叠的部分会不见了，改什么透明度都不行，换成TouchableWithoutFeedback就好了。
 
 ## :smile: 动画结束后回调更新界面
+例如
 
+、、、
+    componentWillUnmount() {
+        this.unmount = true
+    }
+                            
+                            
+    Animated.timing(
+           this.animations.image.opacity,
+           {
+               toValue: 1,
+               duration: this.props.duration,
+               easing: Easing.linear,
+            }
+           ).start(() => {
+                 if (!this.unmount) {
+                      this.setState({ show: false })
+                 }
+           });
+、、、
+
+在android中，组件释放了，但是动画结束后回调还在执行且更新界面会导致crash，所以加unmount防止组件释放后仍更新界面
+                        
 
 
 

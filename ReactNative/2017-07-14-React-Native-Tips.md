@@ -159,6 +159,9 @@ sudo npm publish --registry https://registry.npmjs.org/
 
 Animated.View被TouchableOpacity包裹时，触发translateX动画左右移动时，碰到旁边组件会后动画的组件和旁边重叠的部分会不见了，改什么透明度都不行，换成TouchableWithoutFeedback就好了。
 
+## :smile: 动画结束后回调更新界面
+
+
 
 
 

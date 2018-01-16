@@ -212,3 +212,8 @@ for (var score in scores) {
 只有函数对象才有prototype属性;
 
 所有对象都有constructor属性和__proto__属性(对象从原型对象中继承这个属性)
+
+## :smile: 取整效率
+只有函数对象才有prototype属性;
+
+所有对象都有constructor属性和__proto__属性(对象从原型对象中继承这个属性)

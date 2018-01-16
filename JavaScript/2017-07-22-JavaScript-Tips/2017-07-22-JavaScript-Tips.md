@@ -214,6 +214,28 @@ for (var score in scores) {
 所有对象都有constructor属性和__proto__属性(对象从原型对象中继承这个属性)
 
 ## :smile: 取整效率
-只有函数对象才有prototype属性;
+JavaScript中是没有整型概念的，但利用好位操作符可以轻松处理，同时获得效率上的提升。
 
-所有对象都有constructor属性和__proto__属性(对象从原型对象中继承这个属性)
+测试代码：
+
+```javascript
+  Benchmark.prototype.setup = function() {       
+  var a = 89.938 / 293.3;
+  var b = 83784 / 9289.2;
+  var c = 7 / 60;     
+  };
+```  
+
+测试结果：
+
+![取整测试](取整测试.png)
+
+
+结果：
+
+`>>> 0` 、`|0` 和`~~` 性能会更好，在处理像素及动画位移等效果的时候会很有用。（[性能测试](https://jsperf.com/math-floor-vs-math-round-vs-parseint/42)）
+
+> Math.floor是向下取整，Math.ceil是向上取整，Math.round是四舍五入，其他都是截断取整。
+
+
+

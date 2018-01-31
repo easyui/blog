@@ -247,4 +247,11 @@ if (!~names.indexOf(name)){//如果不存在则为true
 }            
 ```
 
+## :smile: 交换两个变量值
+```javascript
+let a = 'world', b = 'hello'
+[a, b] = [b, a]
+console.log(a) // -> hello
+console.log(b) // -> world         
+```
 

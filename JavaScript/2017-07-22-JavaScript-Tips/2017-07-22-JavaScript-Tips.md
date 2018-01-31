@@ -255,3 +255,53 @@ console.log(a) // -> hello
 console.log(b) // -> world         
 ```
 
+## :smile: 等待多个请求返回后处理
+```javascript
+const [user, account] = await Promise.all([
+  fetch('/user'),
+  fetch('/account')
+])     
+```
+
+## :smile: debug的时候输出多个变量
+```
+const a = 5, b = 6, c = 7
+console.log({ a, b, c })
+// outputs this nice object:
+// {
+//    a: 5,
+//    b: 6,
+//    c: 7
+// }
+```
+
+## :smile: debug的时候输出多个变量
+```
+const a = 5, b = 6, c = 7
+console.log({ a, b, c })
+// outputs this nice object:
+// {
+//    a: 5,
+//    b: 6,
+//    c: 7
+// }
+```
+
+## :smile: 合并数组
+```
+const one = ['a', 'b', 'c']
+const two = ['d', 'e', 'f']
+const three = ['g', 'h', 'i']
+// Old way #1
+const result = one.concat(two, three)
+// Old way #2
+const result = [].concat(one, two, three)
+// New
+const result = [...one, ...two, ...three]
+```
+
+## :smile: 克隆对象或数组
+```
+const obj = { ...oldObj }
+const arr = [ ...oldArr ]
+```

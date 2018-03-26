@@ -90,6 +90,12 @@ admin  0.000GB
 local  0.000GB
 ```
 
+- 关闭 mongodb 服务
+```
+> use admin
+> db.shutdownServer()
+```
+
 - mongodb 卸载
 `brew uninstall mongodb`
 
@@ -97,4 +103,4 @@ local  0.000GB
 
 - mongodb配置文件默认在 /usr/local/etc/mongod.conf
 
-
+- 要想获取命令列表，在 mongodb 客户端中输入 db.help()

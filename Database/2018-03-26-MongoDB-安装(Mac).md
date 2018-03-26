@@ -90,7 +90,8 @@ admin  0.000GB
 local  0.000GB
 ```
 
-
+- mongodb 卸载
+`brew uninstall mongodb`
 
 
 

@@ -93,5 +93,8 @@ local  0.000GB
 - mongodb 卸载
 `brew uninstall mongodb`
 
+## note
+
+- mongodb配置文件默认在 /usr/local/etc/mongod.conf
 
 

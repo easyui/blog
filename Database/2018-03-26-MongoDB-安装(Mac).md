@@ -79,6 +79,17 @@ iqiyide:~ iqiyi$ mongod
 
 mongodb 启动成功，正等待着被连接。
 
+- 进入 mongodb 命令行模式
+
+新建终端，执行`mongo`，进入 mongodb 命令行模式，
+
+继续在上面的终端输入 `show dbs`,会列出系统自带的2个数据库：
+```
+> show dbs
+admin  0.000GB
+local  0.000GB
+```
+
 
 
 

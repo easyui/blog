@@ -45,3 +45,9 @@
 - Code：代码类型。用于在文档中存储 JavaScript 代码。
 - Regular expression：正则表达式类型。用于存储正则表达式。
 
+## :smile:save与insert区别
+当主键"_id"不存在时，都是添加一个新的文档，但主健"_id"存在时，就有些不同了：
+
+insert:当主键"_id"在集合中存在时，不做任何处理。
+
+save:当主键"_id"在集合中存在时，进行更新。

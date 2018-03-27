@@ -51,3 +51,10 @@
 insert:当主键"_id"在集合中存在时，不做任何处理。
 
 save:当主键"_id"在集合中存在时，进行更新。
+
+## MongoDB 中的 update() 与 save() 方法都能用于更新集合中的文档。update() 方法更新已有文档中的值，而 save() 方法则是用传入该方法的文档来替换已有文档。
+
+## MongoDB 默认只更新单个文档，要想更新多个文档，需要把参数 multi 设为 true。
+```
+>db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}},{multi:true})
+```

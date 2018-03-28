@@ -77,4 +77,4 @@ save:当主键"_id"在集合中存在时，进行更新。
 | $push | 将值插入到一个结果文档的数组中 | db.mycol.aggregate([{$group : {_id : "$by_user", url : {$push: "$url"}}}])
 | $addToSet | 将值插入到一个结果文档的数组中，但不进行复制 | db.mycol.aggregate([{$group : {_id : "$by_user", url : {$addToSet : "$url"}}}])
 | $first | 根据成组方式，从源文档中获取第一个文档。但只有对之前应用过 $sort 管道操作符的结果才有意义。 | db.mycol.aggregate([{$group : {_id : "$by_user", first_url : {$first : "$url"}}}])
-| $last	根据成组方式，从源文档中获取最后一个文档。但只有对之前进行过 $sort 管道操作符的结果才有意义。 | db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])
+| $last | 根据成组方式，从源文档中获取最后一个文档。但只有对之前进行过 $sort 管道操作符的结果才有意义。 | db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])

@@ -66,3 +66,15 @@ save:当主键"_id"在集合中存在时，进行更新。
 ## :smile:MongoDB 对未经索引的字段进行排序是有大小限制的。就是说，如果你试图对一个非常大的没有经过索引的结果集进行排序的话，你会得到个异常。（通过 limit 和 sort 的配合，可以在对非索引字段进行排序时避免引起问题。）
 
 ## :smile:find 返回的是一个游标，它只有在需要的时候才会执行。但是，你在 shell 中看确实到的是 find 被立刻执行了。这只是 shell 的行为。
+
+## :smile:聚合表达式列表
+| 表达式 | 描述 | 范例
+|-|-|-|
+| $sum | 对集合中所有文档的定义值进行加和操作 | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$sum : "$likes"}}}])
+| $avg | 对集合中所有文档的定义值进行平均值 | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$avg : "$likes"}}}])
+| $min | 计算集合中所有文档的对应值中的最小值 | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$min : "$likes"}}}])
+| $max | 计算集合中所有文档的对应值中的最大值 | db.mycol.aggregate([{$group : {_id : "$by_user", num_tutorial : {$max : "$likes"}}}])
+| $push | 将值插入到一个结果文档的数组中 | db.mycol.aggregate([{$group : {_id : "$by_user", url : {$push: "$url"}}}])
+| $addToSet | 将值插入到一个结果文档的数组中，但不进行复制 | db.mycol.aggregate([{$group : {_id : "$by_user", url : {$addToSet : "$url"}}}])
+| $first | 根据成组方式，从源文档中获取第一个文档。但只有对之前应用过 $sort 管道操作符的结果才有意义。 | db.mycol.aggregate([{$group : {_id : "$by_user", first_url : {$first : "$url"}}}])
+| $last	根据成组方式，从源文档中获取最后一个文档。但只有对之前进行过 $sort 管道操作符的结果才有意义。 | db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])

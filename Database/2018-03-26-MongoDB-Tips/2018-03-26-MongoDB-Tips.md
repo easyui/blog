@@ -59,8 +59,8 @@ save:当主键"_id"在集合中存在时，进行更新。
 >db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}},{multi:true})
 ```
 
-## 虽然这些概念和关系型数据中的概念类似，但是还是有差异的。核心差异在于，关系型数据库是在 table 上定义的 columns，而面向文档数据库是在 document 上定义的 fields。也就是说，在 collection 中的每个 document 都可以有它自己独立的 fields。因此，对于 collection 来说是个简化了的 table ，但是一个 document 却比一 row 有更多的信息。
+## :smile:虽然这些概念和关系型数据中的概念类似，但是还是有差异的。核心差异在于，关系型数据库是在 table 上定义的 columns，而面向文档数据库是在 document 上定义的 fields。也就是说，在 collection 中的每个 document 都可以有它自己独立的 fields。因此，对于 collection 来说是个简化了的 table ，但是一个 document 却比一 row 有更多的信息。
 
-
+## :smile:MongoDB 允许数组作为基本对象(first class objects)处理。
 
 

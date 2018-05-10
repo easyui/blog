@@ -211,7 +211,8 @@ npm install imurmurhash
 npm install mute-stream
 ```
 
-
+## :smile: Error: The <Image> component cannot contain children. If you want to render content on top of the image, consider using the <ImageBackground> component or absolute positioning.
+0.50版本中 Image组件迎来了比较大的一个特性的改变，即在React Native 0.50及以上版本中Image不在支持包裹内容。
 
 
 

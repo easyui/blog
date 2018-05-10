@@ -333,8 +333,7 @@ demoUI：
 
 
 > 感谢: [6) React Native 组件生命周期(ES6)](http://www.jianshu.com/p/72f8c1da0b65)
-> 现在项目中有警告： Warning: componentWillMount is deprecated and will be removed in the next major version. Use componentDidMount instead. As a temporary workaround, you can rename to UNSAFE_componentWillMount.
-
+>
 
 
 

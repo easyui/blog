@@ -34,6 +34,22 @@ var add_the_handlers = function (nodes) {
 - 数字 0
 - 数字 NaN
 
+JavaScript中的真值示例如下（将被转换为true类型，if 后的代码段将被执行）：
+```
+if (true)
+if ({})
+if ([])
+if (42)
+if ("foo")
+if (new Date())
+if (-42)
+if (3.14)
+if (-3.14)
+if (Infinity)
+if (-Infinity)
+```
+
+
 ## :smile:七个数据类型：
 undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）、ES6 引入了一种新的原始数据类型Symbol。
 

@@ -219,9 +219,9 @@ Object.prototype.toString( ) When the toString method is called, the following s
 上面的规范定义了Object.prototype.toString的行为：首先，取得对象的一个内部属性[[Class]]，然后依据这个属性，返回一个类似于"[object Array]"的字符串作为结果（看过ECMA标准的应该都知道，[[]]用来表示语言内部用到的、外部不可直接访问的属性，称为“内部属性”）。利用这个方法，再配合call，我们可以取得任何对象的内部属性[[Class]]，然后把类型检测转化为字符串比较，以达到我们的目的。
 ### 对比
 我们这里先来对比一下上面所有方法检测出的结果，横排是使用的检测方法， 竖排是各个变量
+![类型判断检测结果](类型判断检测结果.png)
 
-
->> 参考 [javascript中对变量类型的判断](https://segmentfault.com/a/1190000002962215)
+> 参考 [javascript中对变量类型的判断](https://segmentfault.com/a/1190000002962215)
 
 ## :smile:可以通过函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象。
 ```javascript

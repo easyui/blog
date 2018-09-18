@@ -213,6 +213,10 @@ npm install mute-stream
 
 ## :smile: Error: The <Image> component cannot contain children. If you want to render content on top of the image, consider using the <ImageBackground> component or absolute positioning.
 0.50版本中 Image组件迎来了比较大的一个特性的改变，即在React Native 0.50及以上版本中Image不在支持包裹内容。使用<ImageBackground>组件代替<Image>组件。
+    
+## :smile: 升级到xcode10 run rn项目报错：error: Build input file cannot be found: '/Users/iqiyi/bitbucket/yihaogonglu/yihaogonglu/node_modules/react-native/Libraries/WebSocket/libfishhook.a
+
+按如下两张图操作后重新run就可：
 
 
 

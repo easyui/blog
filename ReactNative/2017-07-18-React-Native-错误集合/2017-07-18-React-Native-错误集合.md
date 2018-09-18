@@ -217,6 +217,9 @@ npm install mute-stream
 ## :smile: 升级到xcode10 run rn项目报错：error: Build input file cannot be found: '/Users/iqiyi/bitbucket/yihaogonglu/yihaogonglu/node_modules/react-native/Libraries/WebSocket/libfishhook.a
 
 按如下两张图操作后重新run就可：
+![libfishhook1](libfishhook1.jpg)
+
+![libfishhook2](libfishhook2.png)
 
 
 

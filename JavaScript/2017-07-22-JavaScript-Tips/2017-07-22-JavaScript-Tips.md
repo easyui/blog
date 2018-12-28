@@ -497,6 +497,8 @@ async函数的await命令后面，可以是 Promise 对象和原始类型的值�
 
 async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用then方法指定下一步的操作。
 
+进一步说，async函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而await命令就是内部then命令的语法糖。
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

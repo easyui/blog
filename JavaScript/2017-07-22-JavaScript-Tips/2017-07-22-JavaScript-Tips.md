@@ -491,3 +491,16 @@ const result = [...one, ...two, ...three]
 const obj = { ...oldObj }
 const arr = [ ...oldArr ]
 ```
+
+## :smile: 
+async函数的await命令后面，可以是 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时会自动转成立即 resolved 的 Promise 对象）。
+
+async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用then方法指定下一步的操作。
+
+## :smile: 
+## :smile: 
+## :smile: 
+## :smile: 
+## :smile: 
+## :smile: 
+## :smile: 

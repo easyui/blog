@@ -533,6 +533,10 @@ Point === Point.prototype.constructor // true
 使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。
 
 ## :smile: 
+任意一个对象的Symbol.iterator方法，等于该对象的遍历器生成函数，调用该函数会返回该对象的一个遍历器对象。
+
+由于 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

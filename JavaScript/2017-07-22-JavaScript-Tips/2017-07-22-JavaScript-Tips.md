@@ -499,7 +499,25 @@ async函数的返回值是 Promise 对象，这比 Generator 函数的返回值�
 
 进一步说，async函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而await命令就是内部then命令的语法糖。
 
-## :smile: 
+## :smile: 例子使用try...catch结构，实现多次重复尝试
+```
+const superagent = require('superagent');
+const NUM_RETRIES = 3;
+
+async function test() {
+  let i;
+  for (i = 0; i < NUM_RETRIES; ++i) {
+    try {
+      await superagent.get('http://google.com/this-throws-an-error');
+      break;
+    } catch(err) {}
+  }
+  console.log(i); // 3
+}
+
+test();
+```
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

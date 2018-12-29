@@ -561,6 +561,8 @@ var y = new Rectangle(3, 4);  // 正确
 
 注意，在函数外部，使用new.target会报错。
 
+new.target指向当前正在执行的函数。可以看到，在super()执行时，它指向的是子类Rectangle的构造函数，而不是父类Shape的构造函数。也就是说，super()内部的this指向的是Rectangle。
+
 ## :smile: Object.getPrototypeOf方法可以用来从子类上获取父类。
 ```
 Object.getPrototypeOf(ColorPoint) === Point

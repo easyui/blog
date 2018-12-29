@@ -537,7 +537,30 @@ Point === Point.prototype.constructor // true
 
 由于 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口
 
-## :smile: 
+## :smile: 子类继承父类时，new.target会返回子类。利用这个特点，可以写出不能独立使用、必须继承后才能使用的类。
+```
+class Shape {
+  constructor() {
+    if (new.target === Shape) {
+      throw new Error('本类不能实例化');
+    }
+  }
+}
+
+class Rectangle extends Shape {
+  constructor(length, width) {
+    super();
+    // ...
+  }
+}
+
+var x = new Shape();  // 报错
+var y = new Rectangle(3, 4);  // 正确
+```
+上面代码中，Shape类不能被实例化，只能用于继承。
+
+注意，在函数外部，使用new.target会报错。
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

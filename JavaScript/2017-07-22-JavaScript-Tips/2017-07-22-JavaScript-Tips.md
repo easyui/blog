@@ -582,6 +582,9 @@ defer与async的区别是：defer要等到整个页面在内存中正常渲染�
 ## :smile: 浅拷贝与深拷贝
 - [浅拷贝与深拷贝](https://github.com/ljianshu/Blog/issues/5)
 - [深拷贝的终极探索](https://yanhaijing.com/javascript/2018/10/10/clone-deep/)
+- [clone的代码](https://github.com/jsmini/clone)
+- [JavaScript浅拷贝和深拷贝](https://www.kancloud.cn/ljw789478944/interview/397319)
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

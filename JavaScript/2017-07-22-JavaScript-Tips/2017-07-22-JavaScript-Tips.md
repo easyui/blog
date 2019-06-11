@@ -585,7 +585,44 @@ defer与async的区别是：defer要等到整个页面在内存中正常渲染�
 - [clone的代码](https://github.com/jsmini/clone)
 - [JavaScript浅拷贝和深拷贝](https://www.kancloud.cn/ljw789478944/interview/397319)
 
-## :smile: 
+## :smile: [Function sleep in JavaScript](https://github.com/n0ruSh/blogs/issues/27)
+```
+async function sleep(interval) {
+  return new Promise(resolve => {
+    setTimeout(resolve, interval);
+  })
+}
+```
+
+demo:Async & Await implementation
+```
+async function one2FiveInAsync() {
+  for(let i = 1; i <= 5; i++) {
+    console.log(i);
+    await sleep(1000)
+  }
+}
+
+one2FiveInAsync();
+```
+
+demo:Promise implementation
+```
+function one2FiveInPromise() {
+  function logAndSleep(i) {
+    console.log(i);
+    if (i === 5) {
+      return;
+    }
+    return sleep(1000).then(() => logAndSleep(i + 1));
+  }
+
+  logAndSleep(1);
+}
+
+one2FiveInPromise();
+```
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

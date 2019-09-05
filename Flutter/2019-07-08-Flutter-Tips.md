@@ -46,7 +46,9 @@ Expanded：Expanded会尽可能的充满分布在Row, Column, or Flex的主轴�
 
 Flexible：Flexible也是为小部件提供空间的，但是不会要求子空间填满可用空间；
 
-## :smile: 
+## :smile: ConstrainedBox多重限制
+对于minWidth和minHeight来说，是取父子中相应数值较大的；对于maxHeight和maxWidth来说，是取父子中相应数值较小的。
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

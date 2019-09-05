@@ -39,7 +39,13 @@ _state.showSnackBar(
 
 ## :smile: 如果Row里面嵌套Row，或者Column里面再嵌套Column，那么只有对最外面的Row或Column会占用尽可能大的空间，里面Row或Column所占用的空间为实际大小，如果要让里面的Column占满外部Column，可以使用Expanded 组件
 
-## :smile: 
+## :smile: Flexible，Expanded,Spacer这三个小控件用于Row, Column, or Flex这三个容器
+Spacer：顾名思义只是一个间距控件，可以用于调节小部件之间的间距，它有一个flex可以进行设置；
+
+Expanded：Expanded会尽可能的充满分布在Row, Column, or Flex的主轴方向上；
+
+Flexible：Flexible也是为小部件提供空间的，但是不会要求子空间填满可用空间；
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

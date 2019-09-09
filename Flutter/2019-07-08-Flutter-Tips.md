@@ -49,7 +49,15 @@ Flexible：Flexible也是为小部件提供空间的，但是不会要求子空�
 ## :smile: ConstrainedBox多重限制
 对于minWidth和minHeight来说，是取父子中相应数值较大的；对于maxHeight和maxWidth来说，是取父子中相应数值较小的。
 
-## :smile: 实际上AlertDialog和SimpleDialog都使用了Dialog类。由于AlertDialog和SimpleDialog中使用了IntrinsicWidth来尝试通过子组件的实际尺寸来调整自身尺寸，这就导致他们的子组件不能是延迟加载模型的组件（如ListView、GridView 、 CustomScrollView等）
+## :smile: 实际上AlertDialog和SimpleDialog都使用了Dialog类。由于AlertDialog和SimpleDialog中使用了IntrinsicWidth来尝试通过子组件的实际尺寸来调整自身尺寸，这就导致他们的子组件不能是延迟加载模型的组件（如ListView、GridView 、 CustomScrollView等）。如果我们就是需要嵌套一个ListView应该怎么做？这时，我们可以直接使用Dialog类，如：
+
+```
+Dialog(
+  child: ListView(
+    children: ...//省略
+  ),
+);
+```
 
 ## :smile: 
 ## :smile: 

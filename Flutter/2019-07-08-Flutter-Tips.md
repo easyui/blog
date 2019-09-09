@@ -52,11 +52,34 @@ Flexible：Flexible也是为小部件提供空间的，但是不会要求子空�
 ## :smile: 实际上AlertDialog和SimpleDialog都使用了Dialog类。由于AlertDialog和SimpleDialog中使用了IntrinsicWidth来尝试通过子组件的实际尺寸来调整自身尺寸，这就导致他们的子组件不能是延迟加载模型的组件（如ListView、GridView 、 CustomScrollView等）。如果我们就是需要嵌套一个ListView应该怎么做？这时，我们可以直接使用Dialog类，如：
 
 ```
-Dialog(
-  child: ListView(
-    children: ...//省略
-  ),
-);
+Future<void> showListDialog() async {
+  int index = await showDialog<int>(
+    context: context,
+    builder: (BuildContext context) {
+      var child = Column(
+        children: <Widget>[
+          ListTile(title: Text("请选择")),
+          Expanded(
+              child: ListView.builder(
+            itemCount: 30,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                title: Text("$index"),
+                onTap: () => Navigator.of(context).pop(index),
+              );
+            },
+          )),
+        ],
+      );
+      //使用AlertDialog会报错
+      //return AlertDialog(content: child);
+      return Dialog(child: child);
+    },
+  );
+  if (index != null) {
+    print("点击了：$index");
+  }
+}
 ```
 
 ## :smile: 

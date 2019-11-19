@@ -35,11 +35,53 @@ _state.showSnackBar(
 );
 ```
 
-## :smile: 
-## :smile: 
-## :smile: 
-## :smile: 
-## :smile: 
+## :smile: Flutter中的很多Widget是直接继承自StatelessWidget或StatefulWidget，然后在build()方法中构建真正的RenderObjectWidget，如Text，它其实是继承自StatelessWidget，然后在build()方法中通过RichText来构建其子树，而RichText才是继承自LeafRenderObjectWidget。所以为了方便叙述，我们也可以直接说Text属于LeafRenderObjectWidget（其它widget也可以这么描述），这才是本质。读到这里我们也会发现，其实StatelessWidget和StatefulWidget就是两个用于组合Widget的基类，它们本身并不关联最终的渲染对象（RenderObjectWidget）。
+
+## :smile: 如果Row里面嵌套Row，或者Column里面再嵌套Column，那么只有对最外面的Row或Column会占用尽可能大的空间，里面Row或Column所占用的空间为实际大小，如果要让里面的Column占满外部Column，可以使用Expanded 组件
+
+## :smile: Flexible，Expanded,Spacer这三个小控件用于Row, Column, or Flex这三个容器
+Spacer：顾名思义只是一个间距控件，可以用于调节小部件之间的间距，它有一个flex可以进行设置；
+
+Expanded：Expanded会尽可能的充满分布在Row, Column, or Flex的主轴方向上；
+
+Flexible：Flexible也是为小部件提供空间的，但是不会要求子空间填满可用空间；
+
+## :smile: ConstrainedBox多重限制
+对于minWidth和minHeight来说，是取父子中相应数值较大的；对于maxHeight和maxWidth来说，是取父子中相应数值较小的。
+
+## :smile: 实际上AlertDialog和SimpleDialog都使用了Dialog类。由于AlertDialog和SimpleDialog中使用了IntrinsicWidth来尝试通过子组件的实际尺寸来调整自身尺寸，这就导致他们的子组件不能是延迟加载模型的组件（如ListView、GridView 、 CustomScrollView等）。如果我们就是需要嵌套一个ListView应该怎么做？这时，我们可以直接使用Dialog类，如：
+
+```
+Future<void> showListDialog() async {
+  int index = await showDialog<int>(
+    context: context,
+    builder: (BuildContext context) {
+      var child = Column(
+        children: <Widget>[
+          ListTile(title: Text("请选择")),
+          Expanded(
+              child: ListView.builder(
+            itemCount: 30,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                title: Text("$index"),
+                onTap: () => Navigator.of(context).pop(index),
+              );
+            },
+          )),
+        ],
+      );
+      //使用AlertDialog会报错
+      //return AlertDialog(content: child);
+      return Dialog(child: child);
+    },
+  );
+  if (index != null) {
+    print("点击了：$index");
+  }
+}
+```
+
 ## :smile: 
 ## :smile: 
 ## :smile: 

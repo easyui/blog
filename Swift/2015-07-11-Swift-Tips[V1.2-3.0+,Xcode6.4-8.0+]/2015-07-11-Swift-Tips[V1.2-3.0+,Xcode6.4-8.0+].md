@@ -587,6 +587,7 @@ func +* (left: Vector2D, right: Vector2D) -> Double {
 let result = v1 +* v2
 
 ```
+
 ![Swift 3.0操作符定义时需要指定优先级组](Swift 3.0操作符定义时需要指定优先级组.png)
 
 ## :smile:

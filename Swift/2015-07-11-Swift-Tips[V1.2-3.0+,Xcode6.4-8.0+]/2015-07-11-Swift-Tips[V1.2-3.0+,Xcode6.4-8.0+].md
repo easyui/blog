@@ -606,7 +606,7 @@ Showing Recent Issues Command failed due to signal: Segmentation fault: 11
 ## :smile:dispatch_once被废弃
 [Swift 3必看：从使用场景了解GCD新API](http://www.jianshu.com/p/fc78dab5736f)
 
-建议就是一些初始化场景就用懒加载:
+建议就是一些初始化场景就用懒加载（开始推荐大家使用全局let变量，懒加载的全局变量或者静态成员来完成）:
 ```swift
 // Static properties (useful for singletons).
 class Object {

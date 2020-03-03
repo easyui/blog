@@ -1095,6 +1095,52 @@ XCode 9会在运行过程中自行检测类中函数是被 OC 调用，然后提
 >
 > [Swift 4新知：自动清除冗余代码减小包大小](http://www.jianshu.com/p/6c5b45d9d042)
 
+## :smile:Swift 4.1引入了compactMap
+为什么要有CompactMap？
+
+原因1：
+
+旧版的flatMap有两个功能：降维 和 过滤nil（违背了单一职责原则）
+
+1.降维
+```
+let arr = [[1, 2, 3], [4, 5]]
+
+let newArr = arr.flatMap { $0 }
+// newArr 的值为 [1, 2, 3, 4, 5]
+```
+
+2.过滤nil
+```
+let arr = [1, 2, 3, nil, nil, 4, 5]
+
+let newArr = arr.flatMap { $0 }
+// newArr 的值为 [1, 2, 3, 4, 5]
+```
+
+原因2：
+
+除了违背单一职责原则，flatMap还包含了隐藏逻辑。
+对可选的二维数组进行flatMap会得到什么结果呢？
+```
+let arr1 = [[1, 2, 3], [4, 5], nil]
+let flatArr1 = arr1.flatMap{$0}
+        
+let arr2 = [[1, 2, 3], [4, 5]]
+let flatArr2 = arr2.flatMap{$0}
+
+print(flatArr1)  //[[1, 2, 3], [4, 5]]
+print(flatArr2)  //[1, 2, 3, 4, 5]
+```
+
+显而易见，flatMap隐藏了逻辑“如果是可选类型，过滤nil，不降纬；否则降维”
+
+由此提出compactMap，以区分降维和过滤nil:
+
+compactMap -> 过滤nil
+
+flatMap -> 降维
+
 
 # Swift Tips(version5.0+ xcode10.2+)[2019-03-25]
 

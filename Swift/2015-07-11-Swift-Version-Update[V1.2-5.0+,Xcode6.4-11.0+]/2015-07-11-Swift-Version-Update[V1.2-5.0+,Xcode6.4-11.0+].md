@@ -680,6 +680,8 @@ typealias Vec3<T> = (T, T, T)
 ```
 [SE048-Generic Type Aliases](https://github.com/apple/swift-evolution/blob/master/proposals/0048-generic-typealias.md)
 
+## :smile:将flatten()重命名为joined()
+
 # Swift Tips(version4.0+ xcode9.0+)[2017-09-19]
 
 ## :smile:Xcode 9 中同时集成了 Swift 3.2 和 Swift 4。

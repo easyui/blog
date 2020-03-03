@@ -1096,6 +1096,233 @@ XCode 9会在运行过程中自行检测类中函数是被 OC 调用，然后提
 > [Swift 4新知：自动清除冗余代码减小包大小](http://www.jianshu.com/p/6c5b45d9d042)
 
 
-# Swift Tips(version5.0+ xcode11.0+)[2019-03-25]
+# Swift Tips(version5.0+ xcode10.2+)[2019-03-25]
 
 
+## :smile:Swift5:稳定的 ABI 与二进制兼容性
+Swift 5 兼容 Swift 4、Swift 4.1 和 Swift 4.2，Xcode 10.2 中包含了一个代码迁移器，可以自动处理许多迁移需要用到的源码更改。
+
+## :smile:[SE-0200](https://github.com/apple/swift-evolution/blob/master/proposals/0200-raw-string-escaping.md) 原始字符串添加了创建原始字符串的功能，其中\和""被解释为这些文字符号本身，而不是转义字符或字符串终止符。这使得许多功能更加容易实现，比如正则表达式。要使用原始字符串，请在字符串前放置一个或多个#号，如下所示：
+
+```
+//正则表达式 regex1 == regex2
+    let regex1 = "\\\\[A-Z]+[A-Za-z]+\\.[a-z]+"
+    let regex2 = #"\\[A-Z]+[A-Za-z]+\.[a-z]+"#
+    
+ let keypaths = #"Swift 中的 keypaths 格式像这样: \Person.name ."#
+ 
+ //原始字符串中包含#
+ let anotherString = ##"这是一个包含“#”的原始字符串"##
+ //多行字符串的原始字符串
+ let multiline = #"""
+    这是一个多行字符串：,
+    “我才是
+    多行字符串”。
+    """#
+ 
+ //原始字符串中插值
+  let answer = 42
+    let dontpanic = #"宇宙的终极答案是：\#(answer)."#
+```
+
+> 请注意，我如何使用\(answer)来使用字符串插值\(answer)将被解释为字符串中的字符，因此当您希望在原始字符串中进行字符串插值时，必须添加额外的`#'
+
+## :smile:[SE-0235](https://github.com/apple/swift-evolution/blob/master/proposals/0235-add-result.md) 在标准库中引入“Result”类型，使我们能够更简单、更清晰地处理复杂代码（如异步API）中的错误。
+
+swift的“Result”类型实现为具有两种情况的枚举：“success”和“failure”。两者都是使用泛型实现的，这样它们就可以有一个相关值，但是“failure”必须是符合swift的“Error”类型。(如果你之前使用过这个库[Result](https://github.com/antitypical/Result)，你会发现他们几乎一模一样)
+
+## :smile:[SE-0228](https://github.com/apple/swift-evolution/blob/master/proposals/0228-fix-expressiblebystringinterpolation.md)新增表达通过字符串插值协议ExpressibleByStringInterpolation
+旧_ExpressibleByStringInterpolation协议已被删除; 任何使用此协议的代码都需要针对新设计​​进行更新。一个#if compiler块可用于条件化4.2和5.0之间的代码，例如：
+
+```
+#if compiler(<5.0)
+extension MyType : _ExpressibleByStringInterpolation { ... }
+#else
+extension MyType : ExpressibleByStringInterpolation { ... }
+#endif
+```
+
+## :smile:[SE-0216](https://github.com/apple/swift-evolution/blob/master/proposals/0216-dynamic-callable.md)新增语法糖 @dynamicCallable，@dynamicallable是swift 4.2的@dynamicmemberlookup的扩展，其作用相同：使swift代码更容易与动态语言（如python和javascript）一起工作。
+
+## :smile:SE-0192新增 @unknown 关键字
+此关键词可以用在switch语句中，Swift它要求所有switch语句覆盖所有情况，但有时我们需要忽略一些枚举值，我们使用default去处理忽略的情况，但当我们新增一个枚举类型，我们的switch语句没有更改，他也不再会提示错误，因为default以及处理了新的情况，为了更好地提示开发者使用@unknown default和原default具有相同的功能，并且编译器回升弄成一个警告⚠️提醒用户没有处理所有情况：
+
+```
+enum PasswordError: Error {
+        case short
+        case obvious
+        case simple
+    }
+    //这个方法没有任何提示
+    func showOld(error: PasswordError) {
+        switch error {
+        case .short:
+            print("Your password was too short.")
+        case .obvious:
+            print("Your password was too obvious.")
+        default:
+            print("Your password was too simple.")
+        }
+    }
+    
+    func showNew(error: PasswordError) {
+        switch error { //此行警告⚠️Switch must be exhaustive
+        case .short:
+            print("Your password was too short.")
+        case .obvious:
+            print("Your password was too obvious.")
+        @unknown default:
+            print("Your password wasn't suitable.")
+        }
+    }
+```
+
+## :smile:[SE-0230](https://github.com/apple/swift-evolution/blob/master/proposals/0230-flatten-optional-try.md)修改try的嵌套方式:返回值非嵌套可选
+
+```
+struct User {
+    var id: Int
+    init?(id: Int) {
+        if id < 1 {
+            return nil
+        }
+        self.id = id
+    }
+    func getMessages() throws -> String {
+        // complicated code here
+        return "No messages"
+    }
+}
+
+let user = User(id: 1)
+let messages = try? user?.getMessages()
+struct User {
+    var id: Int
+    init?(id: Int) {
+        if id < 1 {
+            return nil
+        }
+        self.id = id
+    }
+    func getMessages() throws -> String {
+        // complicated code here
+        return "No messages"
+    }
+}
+
+let user = User(id: 1)
+let messages = try? user?.getMessages()
+```
+
+在swift4.2中上方代码中messages的类型将会是一个String??类型，在swift5中你会得到一个String？类型，这意味着，链式调用不会再使可选值发生嵌套。
+
+## :smile:[SE-0213](https://github.com/apple/swift-evolution/blob/master/proposals/0213-literal-init-via-coercion.md)通过字面量强制初始化,
+如果T符合其中一个ExpressibleBy*协议并且literal是一个文字表达式，那么T(literal)将使用一个和T的类型相同的构造方法，而不是使用T的默认构造函数
+
+```
+struct Q: ExpressibleByStringLiteral {
+  typealias StringLiteralType =  String
+  var question: String
+
+  init?(_ possibleQuestion: StringLiteralType) {
+    return nil
+  }
+  init(stringLiteral str: StringLiteralType) {
+    self.question = str
+  }
+}
+
+_ = Q("ultimate question")    // 'nil'
+_ = "ultimate question" as Q  // Q(question: 'ultimate question')
+```
+
+## :smile:[SR-5719](https://bugs.swift.org/browse/SR-5719)在Swift 5模式下，@autoclosure参数不能再转发到另一个函数调用中的@autoclosure参数。相反，必须使用（）显式调用函数值；调用本身被包装在隐式闭包中，以确保与swift 4模式中的行为相同。
+
+```
+func foo(_ fn: @autoclosure () -> Int) {}
+func bar(_ fn: @autoclosure () -> Int) {
+  foo(fn)   // ❌ `fn` can't be forwarded and has to be called
+  foo(fn()) // ✅
+}
+```
+
+## :smile:[不透明类型](https://swiftgg.gitbook.io/swift/swift-jiao-cheng/23_opaque_types)：使用不透明类型 `some Class` 作为返回类型
+
+## :smile:@UserDefault
+在以前，会有这样的代码：
+```
+static var usesTouchID: Bool {
+   get {
+     return UserDefaults.standard.bool(forKey: "USES_TOUCH_ID")
+   }
+   set {
+     UserDefaults.standard.set(newValue, forKey: "USES_TOUCH_ID")
+   }
+}
+
+static var isLoggedIn: Bool {
+   get {
+     return UserDefaults.standard.bool(forKey: "LOGGED_IN")
+   }
+   set {
+     UserDefaults.standard.set(newValue, forKey: "LOGGED_IN")
+   }
+}
+```
+
+现在，使用 Swift5.1 可以这样了：
+```
+// Using UserDefault property wrapper to declare and access properties
+@UserDefault("USES_TOUCH_ID", defaultValue: false)
+static var usesTouchID: Bool
+@UserDefault("LOGGED_IN", defaultValue: false)
+static var isLoggedIn: Bool
+
+if !isLoggedIn && usesTouchID {
+ !authenticateWithTouchID()
+}
+```
+
+问题来了：@UserDefault 哪里来的？UserDefault 其实是一个泛型结构体，如下所示：
+```
+// The purpose of property wrappers is to wrap a property, specify its access patterns
+@propertyWrapper
+struct UserDefault<T> {
+ let key: String
+ let defaultValue: T
+ init(_ key: String, defaultValue: T) {
+ …
+   UserDefaults.standard.register(defaults: [key: defaultValue])
+ }
+
+ var value: T {
+   get {
+     return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
+   }
+   set {
+     UserDefaults.standard.set(newValue, forKey: key)
+   }
+ }
+}
+```
+
+定义以上内容之后，我们就可以使用 @UserDefault 这种方式了。
+
+## :smile:使用属性默认值优化结构体的默认构造方法
+swift5.1之后，编译器在为我们生成构造函数时，将自动结合对应属性的默认值，生成优化后的构造方法，如下：
+```
+struct Song {
+    var id : String?
+    var name : String = "Song Name"
+    var url : String?
+
+    // auto-generated 
+    init(id:String,name:String="Song Name",url:String){
+        ...
+    }
+}
+```
+
+## :smile:
+
+## :smile:

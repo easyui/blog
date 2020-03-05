@@ -1143,6 +1143,46 @@ compactMap -> 过滤nil
 
 flatMap -> 降维
 
+## :smile:增加了条件编译判断项：canImport() 和 targetEnvironment()
+新增的canImport()可以判定是否可以引入某个模块。比如通过CocoaPods安装Alamofire后，使用该语句判断是否可以正确引入：
+
+```
+#if canImport(Alamofire) //判断是否可引入Alamofire模块
+    class classWithAlamofire{
+        //......
+    }
+#endif
+```
+
+新增的targetEnvironment()可以判定运行环境是否为虚拟机，当处于虚拟机环境时返回true, 其他情况返回false。它目前有效的参数只有simulator：
+
+```
+#if targetEnvironment(simulator)
+    class classForSimulator{
+        //......
+    }
+#endif
+
+```
+
+## :smile:递归的协议约束(Recursive 递归在我们平时的编程中通常是指函数对自己的调用，所以，当这个概念用在协议定义时，可以理解为协议中对自己的访问。它赋予了协议可以强制要求属性、方法参数和方法返回值也遵循本协议的能力。举个例子：
+```
+
+protocol ExampleProtocol {
+    associatedtype T: ExampleProtocol //关联类型为协议本身
+    func doSomething() -> T //要求方法返回的对象也遵循本协议
+}
+```
+
+以上例子中，我们使用associatedtype关键字定义关联类型时，关联的类型为协议本身，并将它作为一个方法的返回类型。以此便限定了方法的实现者必须返回遵循该协议的对象。协议实现者例子：
+
+```
+struct Example:ExampleProtocol {
+    func doSomething() -> Example { //方法的返回对象也必须遵循了ExampleProtocol协议。
+        return Example()
+    }
+}
+```
 
 # Swift Tips(version5.0+ xcode10.2+)[2019-03-25]
 

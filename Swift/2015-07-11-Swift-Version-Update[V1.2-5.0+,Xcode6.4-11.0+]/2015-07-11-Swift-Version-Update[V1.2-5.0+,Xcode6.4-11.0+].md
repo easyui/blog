@@ -1184,6 +1184,30 @@ struct Example:ExampleProtocol {
 }
 ```
 
+## :smile:[在Swift 4.2中新增的一个新的CaseIterable协议](../2020-03-05-CaseIterable协议.md)
+定义的枚举遵循CaseIterable协议后, 编译时Swift 会自动合成一个allCases属性，是包含枚举的所有case项的数组
+
+这个allCases的自动合成仅替换没有参数的case值, 但是如果需要你需要所有case值, 可以重写allCases属性自己添加
+
+如果有枚举项标记为unavailable，则默认无法合成allCases，只能依靠自己来手动合成
+
+## :smile:#warning和#error编译指令
+- [SE-0196](https://github.com/apple/swift-evolution/blob/master/proposals/0196-diagnostic-directives.md)介绍新的编译指令来强制Xcode在build时生成警告或错误信息
+- 这两个指令是#warning和#error，前者会强制Xcode在生成你的代码时发出一个警告，后者会发出一个编译错误这样你的代码就完全不能编译
+- #warning主要用于提醒你或者别人一些工作还没有完成，Xcode模板常使用#warning标记一些你需要替换成自己代码的方法存根(method stubs)。
+- #error主要用于如果你发送一个库，需要其他开发者提供一些数据。比如，一个网络 API的认证密码，你需要用户输入它们自己的密码，就使用#error在继续之前强制他们更改这行代码
+- #warning和#error可以和已存的#if编译指令共同使用，并且只有在条件为true时才会激活。
+
+## :smile:
+
+## :smile:
+
+## :smile:
+
+## :smile:
+
+> [Swift 4.2 新特性更新](https://www.jianshu.com/p/86ca289a6e47)
+
 # Swift Tips(version5.0+ xcode10.2+)[2019-03-25]
 
 

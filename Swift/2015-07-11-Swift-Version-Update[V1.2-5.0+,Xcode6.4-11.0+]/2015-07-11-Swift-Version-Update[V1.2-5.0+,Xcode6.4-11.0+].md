@@ -1198,7 +1198,7 @@ struct Example:ExampleProtocol {
 - #error主要用于如果你发送一个库，需要其他开发者提供一些数据。比如，一个网络 API的认证密码，你需要用户输入它们自己的密码，就使用#error在继续之前强制他们更改这行代码
 - #warning和#error可以和已存的#if编译指令共同使用，并且只有在条件为true时才会激活。
 
-## :smile:
+## :smile:[@dynamicMemberLookup与](../2020-03-06-@dynamicMemberLookup与@dynamicCallable.md)
 
 ## :smile:
 
@@ -1207,7 +1207,9 @@ struct Example:ExampleProtocol {
 ## :smile:
 
 > [Swift 4.2 新特性更新](https://www.jianshu.com/p/86ca289a6e47)
+
 > [WWDC 2018：Swift 更新了什么？](https://juejin.im/post/5b1cb5805188257d507be5d4#heading-19)
+
  
 # Swift Tips(version5.0+ xcode10.2+)[2019-03-25]
 
@@ -1438,6 +1440,7 @@ struct Song {
 
 ## :smile:[Swift5将 DictionaryLiteral 重命名为:KeyValuePairs](../2020-03-06-KeyValuePairs是轻量化的有序键值对(key-value)集合.md)
 
+## :smile:[@dynamicCallable](../2020-03-06-@dynamicMemberLookup与@dynamicCallable.md)
 
 ## :smile:
 

@@ -1361,7 +1361,7 @@ func bar(_ fn: @autoclosure () -> Int) {
 }
 ```
 
-## :smile:[不透明类型](https://swiftgg.gitbook.io/swift/swift-jiao-cheng/23_opaque_types)：使用不透明类型 `some Class` 作为返回类型
+## :smile:[不透明类型](../2020-03-06-不透明类型.md)：Swift 5.1 在 协议上的改进：Opaque Result Type 不透明结果类型。这个特性增强了 Swift 泛型的能力，影响了 SwiftUI 的设计。
 
 ## :smile:@UserDefault
 在以前，会有这样的代码：

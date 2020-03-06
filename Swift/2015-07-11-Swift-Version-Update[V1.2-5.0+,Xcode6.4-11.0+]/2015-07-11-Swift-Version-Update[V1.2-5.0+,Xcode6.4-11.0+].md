@@ -1207,7 +1207,8 @@ struct Example:ExampleProtocol {
 ## :smile:
 
 > [Swift 4.2 新特性更新](https://www.jianshu.com/p/86ca289a6e47)
-
+> [WWDC 2018：Swift 更新了什么？](https://juejin.im/post/5b1cb5805188257d507be5d4#heading-19)
+ 
 # Swift Tips(version5.0+ xcode10.2+)[2019-03-25]
 
 
@@ -1434,6 +1435,9 @@ struct Song {
     }
 }
 ```
+
+## :smile:[Swift5将 DictionaryLiteral 重命名为:KeyValuePairs](../2020-03-06-KeyValuePairs是轻量化的有序键值对(key-value)集合.md)
+
 
 ## :smile:
 

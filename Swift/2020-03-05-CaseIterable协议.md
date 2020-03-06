@@ -3,7 +3,6 @@
 [SE-0194](https://github.com/apple/swift-evolution/blob/master/proposals/0194-derived-collection-of-enum-cases.md)介绍了在Swift 4.2中新增的一个新的CaseIterable协议
 
 ## 定义的简单枚举遵循CaseIterable协议后, 编译时Swift 会自动合成一个allCases属性，是包含枚举的所有case项的数组
-
 ```
 enum NetState: CaseIterable {
     case wifi
@@ -12,7 +11,6 @@ enum NetState: CaseIterable {
     case none
 }
 ```
-
 之后我们在其他地方调用改枚举时就可以获取到allCase属性, 如下
 
 ```

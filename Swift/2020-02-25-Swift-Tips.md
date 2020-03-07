@@ -15,7 +15,7 @@ Mutating 突变 | Nonmutating 非突变
 y.formUnion(z)	 | x = y.union(z)
 c.formSuccessor(&i)  | j = c.successor(i)(y)
 
-## :smile:
+## :smile:例如包含 associated type 或者Self的协议只能作为泛型的类型约束。例如Equatable只能作为泛型的类型约束，而不能作为可以直接定义某值的类型，也没有Equatable<Int> 的写法，Equatable 不是泛型类型，只是泛型约束。
 
 ## :smile:
 

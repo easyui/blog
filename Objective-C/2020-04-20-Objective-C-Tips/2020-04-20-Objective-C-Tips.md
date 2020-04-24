@@ -15,3 +15,12 @@ NSString const *constString2 = @"I am a NSString const * string";
 // stringConst 地址能修改，stringConst值不能修改
 NSString * const stringConst = @"I am a NSString * const string";
 ```
+
+## :smile:对象类对象元对象
+
+![对象类对象元对象](对象类对象元对象.jpg)
+
+- 每一个Class都有一个isa指针指向一个唯一的Meta Class
+- 每一个Meta Class的isa指针都指向最上层的Meta Class，这个Meta Class是NSObject的Meta Class。(包括NSObject的Meta Class的isa指针也是指向的NSObject的Meta Class，也就是自己，这里形成了个闭环)
+- 每一个Meta Class的super class指针指向它原本Class的 Super Class的Meta Class (这里最上层的NSObject的Meta Class的super class指针还是指向自己)
+- 最上层的NSObject Class的super class指向 nil

@@ -135,9 +135,120 @@ Swift项目：
 
 ## :smile:指定（注册）一个timer到 RunLoops中， 一个timer对象只能够被注册到一个runloop中，在同一时间，在这个runloop中它能够被添加到多个runloop中模式中去。
 
-## :smile:
+## :smile:在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？
+回答这个问题前，我们要搞清楚一个问题，什么情况下不会autosynthesis（自动合成）？
 
-## :smile:
+ 1. 同时重写了 setter 和 getter 时
+ 2. 重写了只读属性的 getter 时
+ 3. 使用了 @dynamic 时
+ 4. 在 @protocol 中定义的所有属性
+ 5. 在 category 中定义的所有属性
+ 6. 重写（overridden）的属性 
+
+  当你在子类中重写（overridden）了父类中的属性，你必须 使用 `@synthesize` 来手动合成ivar。
+
+除了后三条，对其他几个我们可以总结出一个规律：当你想手动管理 @property 的所有内容时，你就会尝试通过实现 @property 的所有“存取方法”（the accessor methods）或者使用 `@dynamic` 来达到这个目的，这时编译器就会认为你打算手动管理 @property，于是编译器就禁用了 autosynthesis（自动合成）。
+
+因为有了 autosynthesis（自动合成），大部分开发者已经习惯不去手动定义ivar，而是依赖于 autosynthesis（自动合成），但是一旦你需要使用ivar，而 autosynthesis（自动合成）又失效了，如果不去手动定义ivar，那么你就得借助 `@synthesize` 来手动合成 ivar。
+
+其实，`@synthesize` 语法还有一个应用场景，但是不太建议大家使用：
+
+可以在类的实现代码里通过 `@synthesize` 语法来指定实例变量的名字:
+ 
+```Objective-C
+@implementation CYLPerson 
+@synthesize firstName = _myFirstName; 
+@synthesize lastName = _myLastName; 
+@end 
+```
+
+
+
+上述语法会将生成的实例变量命名为 `_myFirstName` 与 `_myLastName`，而不再使用默认的名字。一般情况下无须修改默认的实例变量名，但是如果你不喜欢以下划线来命名实例变量，那么可以用这个办法将其改为自己想要的名字。笔者还是推荐使用默认的命名方案，因为如果所有人都坚持这套方案，那么写出来的代码大家都能看得懂。
+
+
+
+举例说明：应用场景：
+
+
+ ```Objective-C
+
+//
+// .m文件
+// http://weibo.com/luohanchenyilong/ (微博@iOS程序犭袁)
+// https://github.com/ChenYilong
+// 打开第14行和第17行中任意一行，就可编译成功
+
+@import Foundation;
+
+@interface CYLObject : NSObject
+@property (nonatomic, copy) NSString *title;
+@end
+
+@implementation CYLObject {
+    //    NSString *_title;
+}
+
+//@synthesize title = _title;
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _title = @"微博@iOS程序犭袁";
+    }
+    return self;
+}
+
+- (NSString *)title {
+    return _title;
+}
+
+- (void)setTitle:(NSString *)title {
+    _title = [title copy];
+}
+
+@end
+ ```
+
+结果编译器报错：
+![http://i.imgur.com/fAEGHIo.png](http://i.imgur.com/fAEGHIo.png)
+
+当你同时重写了 setter 和 getter 时，系统就不会生成 ivar（实例变量/成员变量）。这时候有两种选择：
+
+ 1. 要么如第14行：手动创建 ivar
+ 2. 要么如第17行：使用`@synthesize foo = _foo;` ，关联 @property 与 ivar。
+
+更多信息，请戳- 》[ ***When should I use @synthesize explicitly?*** ](http://stackoverflow.com/a/19821816/3395008)
+
+> from [招聘一个靠谱的iOS](https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88%EF%BC%88%E4%B8%8A%EF%BC%89.md#16-objc%E4%B8%AD%E5%90%91%E4%B8%80%E4%B8%AAnil%E5%AF%B9%E8%B1%A1%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%B0%86%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88)
+
+## :smile: 对象的内存销毁时间表，分四个步骤：
+
+```
+// 对象的内存销毁时间表
+// http://weibo.com/luohanchenyilong/ (微博@iOS程序犭袁)
+// https://github.com/ChenYilong
+// 根据 WWDC 2011, Session 322 (36分22秒)中发布的内存销毁时间表 
+
+ 1. 调用 -release ：引用计数变为零
+     * 对象正在被销毁，生命周期即将结束.
+     * 不能再有新的 __weak 弱引用， 否则将指向 nil.
+     * 调用 [self dealloc] 
+ 2. 子类 调用 -dealloc
+     * 继承关系中最底层的子类 在调用 -dealloc
+     * 如果是 MRC 代码 则会手动释放实例变量们（iVars）
+     * 继承关系中每一层的父类 都在调用 -dealloc
+ 3. NSObject 调 -dealloc
+     * 只做一件事：调用 Objective-C runtime 中的 object_dispose() 方法
+ 4. 调用 object_dispose()
+     * 为 C++ 的实例变量们（iVars）调用 destructors 
+     * 为 ARC 状态下的 实例变量们（iVars） 调用 -release 
+     * 解除所有使用 runtime Associate方法关联的对象
+     * 解除所有 __weak 引用
+     * 调用 free()
+```
+
 
 ## :smile:
 

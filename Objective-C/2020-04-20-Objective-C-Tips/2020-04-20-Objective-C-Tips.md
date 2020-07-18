@@ -232,6 +232,7 @@ Swift项目：
 // 根据 WWDC 2011, Session 322 (36分22秒)中发布的内存销毁时间表 
 
  1. 调用 -release ：引用计数变为零
+
      * 对象正在被销毁，生命周期即将结束.
      * 不能再有新的 __weak 弱引用， 否则将指向 nil.
      * 调用 [self dealloc] 
@@ -250,13 +251,66 @@ Swift项目：
 ```
 
 
-## :smile:
+## :smile:__Block 在 ARC 和 MRC 环境的区别
+
+结论先行：
+
+- MRC 环境下，block 截获外部用 __block 修饰的变量，不会增加对象的引用计数
+- ARC 环境下，block 截获外部用 __block 修饰的变量，会增加对象的引用计数
+
+所以，在 MRC 环境下，可以通过 __block 来打破循环引用，在 ARC 环境下，则需要用 __weak 来打破循环引用。
+
+ps：__block在MRC和ARC中都说明变量可改
+
+## :smile: 在 ARC 中无论是否添加 __block ，block 中的 auto 变量都会被从栈上 copy 到堆上。
+
+## :smile: 我们都知道：Block不允许修改外部变量的值，这里所说的外部变量的值，指的是栈中 auto 变量。__block 作用是将 auto 变量封装为结构体(对象)，在结构体内部新建一个同名 auto 变量，block 内截获该结构体的指针，在 block 中使用自动变量时，使用指针指向的结构体中的自动变量。于是就可以达到修改外部变量的作用。
 
 ## :smile:
 
-## :smile:
+ ```Objective-C
+//判断如下几种情况,是否有循环引用? 是否有内存泄漏?
+//2020-06-01 16:34:43 @iTeaTime(技术清谈)@ChenYilong 
 
-## :smile:
+ //情况❶ UIViewAnimationsBlock
+[UIView animateWithDuration:duration animations:^{ [self.superview layoutIfNeeded]; }]; 
+
+ //情况❷ NSNotificationCenterBlock
+[[NSNotificationCenter defaultCenter] addObserverForName:@"someNotification" 
+                                                  object:nil 
+                           queue:[NSOperationQueue mainQueue]
+                                              usingBlock:^(NSNotification * notification) {
+                                                    self.someProperty = xyz; }]; 
+
+ //情况❸ NSNotificationCenterIVARBlock
+  _observer = [[NSNotificationCenter defaultCenter] addObserverForName:@"testKey"
+                                                                object:nil
+                                                                 queue:nil
+                                                            usingBlock:^(NSNotification *note) {
+      [self dismissModalViewControllerAnimated:YES];
+  }];
+
+ //情况❹ GCDBlock
+    dispatch_group_async(self.operationGroup, self.serialQueue, ^{
+        [self doSomething];
+    });
+
+//情况❺ NSOperationQueueBlock
+[[NSOperationQueue mainQueue] addOperationWithBlock:^{ self.someProperty = xyz; }]; 
+
+ ```
+
+
+情况 | 循环引用 | 内存泄漏
+:-------------:|:-------------:|:-------------:
+情况 1 |不会循环应用 | 不会发生内存泄漏
+情况 2 |不会循环引用 | 会发生内存泄漏
+情况 3 |会循环引用   |会发生内存泄漏
+情况 4 |不会循环引用 |不会发生内存泄漏
+情况 5 |不会循环引用 |不会发生内存泄漏
+
+
+> [《招聘一个靠谱的iOS》面试题参考答案（下）](https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88%EF%BC%88%E4%B8%8B%EF%BC%89.md#37-%E4%BD%BF%E7%94%A8block%E6%97%B6%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%BC%9A%E5%8F%91%E7%94%9F%E5%BC%95%E7%94%A8%E5%BE%AA%E7%8E%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3)
 
 ## :smile:
 

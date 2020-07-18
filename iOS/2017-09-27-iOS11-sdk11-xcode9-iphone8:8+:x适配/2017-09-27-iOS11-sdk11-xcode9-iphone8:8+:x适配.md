@@ -716,6 +716,103 @@ typedef struct UIEdgeInsets {
 
 #define ViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
 ```
+## :smile:设置圆角、指定位置圆角
+1. 使用UIView.layer.cornerRadius 进行圆角设置
+```
+view.layer.cornerRadius = 20;
+view.layer. masksToBounds = YES; // 部分UIView需要设置这个属性
+```
+此处view.layer. masksToBounds = YES; 会触发离屏渲染，如果在UITableViewCell和UICollectionViewCell中使用，严重的会掉帧、不流畅
+
+2.使用贝塞尔曲线画圆角及指定位置圆角
+```
+CGFloat radius = 20; // 圆角大小
+UIRectCorner corner = UIRectCornerAllCorners; // 圆角位置，全部位置
+UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+maskLayer.frame = view.bounds;
+maskLayer.path = path.CGPath;
+view.layer.mask = maskLayer;
+```
+UIRectCorner 的定义如下
+```
+typedef NS_OPTIONS(NSUInteger, UIRectCorner) {
+    UIRectCornerTopLeft     = 1 << 0, // 左上
+    UIRectCornerTopRight    = 1 << 1, // 右上
+    UIRectCornerBottomLeft  = 1 << 2, // 左下
+    UIRectCornerBottomRight = 1 << 3, // 右下
+    UIRectCornerAllCorners  = ~0UL // 全部位置
+};
+```
+UIRectCorner 可以使用位运算进行圆角设置，如：
+```
+UIRectCorner corner = UIRectCornerTopRight | UIRectCornerBottomRight; // 右上和右下进行圆角
+```
+圆角加边框
+```
+CGFloat radius = 20; // 圆角大小
+UIRectCorner corner = UIRectCornerAllCorners; // 圆角位置，全部位置
+UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+maskLayer.frame = view.bounds;
+maskLayer.path = path.CGPath;
+
+// 带边框则两个颜色不要设置成一样即可
+maskLayer.strokeColor = [UIColor redColor].CGColor;
+maskLayer.fillColor = [UIColor yellowColor].CGColor;
+[view.layer addSublayer:maskLayer];
+```
+
+3.iOS11 新特性——改善view圆角
+```
+if (@available(iOS 11.0, *)) {
+        view.layer.cornerRadius = radius;
+        view.layer.maskedCorners = kCALayerMinXMinYCorner; // 左上圆角
+}
+```
+CACornerMask的定义如下：
+```
+typedef NS_OPTIONS (NSUInteger, CACornerMask)
+{
+  kCALayerMinXMinYCorner = 1U << 0, // 左上
+  kCALayerMaxXMinYCorner = 1U << 1, 右上
+  kCALayerMinXMaxYCorner = 1U << 2, // 左下
+  kCALayerMaxXMaxYCorner = 1U << 3, // 右下
+};
+CACornerMask 如同上面的UIRectCorner 可以使用位运算进行圆角设置
+```
+4.对UIView进行自定义圆角分类
+```
+@interface UIView (ACSLayer)
+/**
+ 圆角
+ 使用自动布局，需要在layoutsubviews 中使用
+ @param radius 圆角尺寸
+ @param corner 圆角位置
+ */
+- (void)acs_radiusWithRadius:(CGFloat)radius corner:(UIRectCorner)corner {
+    if (@available(iOS 11.0, *)) {
+        self.layer.cornerRadius = radius;
+        self.layer.maskedCorners = (CACornerMask)corner;
+    } else {
+        UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = self.bounds;
+        maskLayer.path = path.CGPath;
+        self.layer.mask = maskLayer;
+    }
+}
+@end
+```
+此方法在iOS 11 中使用iOS 11中的maskedCorners进行圆角设置，如是iOS 11 一下则使用贝塞尔曲线画圆角。
+
+5.此外，iOS11中，view圆角的圆角也支持动画：
+```
+[UIView animateWithDuration:2 delay:1.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        view1.layer.cornerRadius = 0;
+} completion:nil];
+```
+在iOS11之前，圆角是不支持UIView动画的。
 
 ## :smile:一些教程
 - [《iOS11开发新特性之网络部分》]( https://github.com/ChenYilong/iOS11AdaptationTips/issues/24) 

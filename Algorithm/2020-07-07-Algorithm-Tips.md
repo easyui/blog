@@ -1,5 +1,11 @@
 # Algorithm Tips
 
+## :smile:最快速的刷题模板（Swift版本）
+Github: [https://github.com/easyui/algorithm-pattern-swift](https://github.com/easyui/algorithm-pattern-swift) ⭐️
+
+在线文档 Gitbook：[https://zyj.gitbook.io/algorithm-pattern-swift/ 🔥](https://zyj.gitbook.io/algorithm-pattern-swift/)
+
+
 
 ## :smile:BFS规则
 一、对于 「Tree 的 BFS」 （典型的「单源 BFS」） 大家都已经轻车熟路了：

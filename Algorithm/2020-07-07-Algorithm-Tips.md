@@ -1,9 +1,13 @@
 # Algorithm Tips
 
-## :smile:最快速的刷题模板（Swift版本）
-Github: [https://github.com/easyui/algorithm-pattern-swift](https://github.com/easyui/algorithm-pattern-swift) ⭐️
+## :smile: 开源
+### 最快速的刷题模板（Swift版本）
+- [最快速的刷题模板github](https://github.com/easyui/algorithm-pattern-swift) 
+- [最快速的刷题模板gitbook](https://zyj.gitbook.io/algorithm-pattern-swift/)
 
-在线文档 Gitbook：[https://zyj.gitbook.io/algorithm-pattern-swift/ 🔥](https://zyj.gitbook.io/algorithm-pattern-swift/)
+### labuladong 的算法小抄
+- [labuladong 的算法小抄github](https://github.com/labuladong/fucking-algorithm)
+- [labuladong 的算法小抄gitbook](https://labuladong.gitbook.io/algo/)
 
 
 
@@ -50,9 +54,11 @@ while queue 不空：
 ```
 上面两个是通用模板，在任何题目中都可以用，是要记住的！
 
-## :smile:
-## :smile:
-## :smile:
+## :smile:​ [动态规划详解说过凑零钱问题，暴力解法就是遍历一棵 N 叉树。](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/xue-xi-shu-ju-jie-gou-he-suan-fa-de-gao-xiao-fang-fa)
+
+## :smile: [回溯算法详解干脆直接说了，回溯算法就是个 N 叉树的前后序遍历问题，没有例外。](https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/xue-xi-shu-ju-jie-gou-he-suan-fa-de-gao-xiao-fang-fa)
+
+## :smile: 通常来说，对于二叉搜索树，我们可以通过中序遍历得到一个递增的有序序列。
 ## :smile:
 ## :smile:
 

@@ -23,3 +23,25 @@ func coinChange(_ coins: [Int], _ amount: Int) -> Int {
     return  (dp[amount] == amount + 1) ? -1 : dp[amount]
 }
 //print(coinChange([2],3))
+
+
+func coinChange_a(_ coins: [Int], _ amount: Int) -> Int {
+    
+    func dp(_ amount: Int) -> Int{
+        if(amount == 0){
+            return 0
+        }
+        
+        var res = Int.max
+        for coin in coins {
+            let money = amount - coin
+            if money >= 0 {
+               let n = dp(money)
+               res = min(res,n + 1)
+            }
+        }
+        return res == Int.max ? -1 : res
+    }
+    
+    return dp(amount)
+}

@@ -19,9 +19,9 @@ StatefulWidget 的生命周期比较复杂，依次为：
 - constructor
 - initState
 - didChangeDependencies
+- didUpdateWidget
 - build
 - addPostFrameCallback
-- didUpdateWidget
 - deactivate
 - dispose
 

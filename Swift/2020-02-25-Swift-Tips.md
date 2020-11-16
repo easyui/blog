@@ -76,7 +76,26 @@ Unmanaged.passUnretained(value).toOpaque()//返回指针，可直接print输出�
 
 5、对于没有添加关联值的枚举系统会默认帮我们实现Hashable/Equatable协议。
 
-## :smile:
+## :smile:@available 在存储属性上的实现方法
+@available： 可用来标识计算属性、函数、类、协议、结构体、枚举等类型的生命周期。但是不能用于存储属性。
+
+在存储属性上的实现：
+
+```swift
+//方法一
+private var _selectionFeedbackGenerator: Any? = nil
+@available(iOS 10.0, *)
+public var selectionFeedbackGenerator: UISelectionFeedbackGenerator {
+    if _selectionFeedbackGenerator == nil {
+        _selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+    }
+    return _selectionFeedbackGenerator as! UISelectionFeedbackGenerator
+}
+//方法二 ：use lazy
+@available(iOS 10.0, *)
+private(set) lazy var center = UNUserNotificationCenter.current()
+```
+
 ## :smile:
 ## :smile:
 ## :smile:

@@ -21,7 +21,7 @@ Install the Command Line Tools:
 
 此刻执行 `mongod`启动mongodb服务会报错：
 ```
-2018-03-26T14:29:55.779+0800 I CONTROL  [initandlisten] MongoDB starting : pid=41148 port=27017 dbpath=/data/db 64-bit host=iqiyide.local
+2018-03-26T14:29:55.779+0800 I CONTROL  [initandlisten] MongoDB starting : pid=41148 port=27017 dbpath=/data/db 64-bit host=zhuyangjunde.local
 2018-03-26T14:29:55.780+0800 I CONTROL  [initandlisten] db version v3.6.3
 2018-03-26T14:29:55.780+0800 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
 2018-03-26T14:29:55.780+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2n  7 Dec 2017
@@ -41,12 +41,12 @@ Install the Command Line Tools:
 
 新建目录：`sudo mkdir -p /data/db`
 
-赋予权限：`sudo chown -R iqiyi  /data`
+赋予权限：`sudo chown -R zhuyangjun  /data`
 
 - mongod 启动 mongodb 服务
 ```
-iqiyide:~ iqiyi$ mongod
-2018-03-26T14:34:07.870+0800 I CONTROL  [initandlisten] MongoDB starting : pid=41188 port=27017 dbpath=/data/db 64-bit host=iqiyide.local
+zhuyangjunde:~ zhuyangjun$ mongod
+2018-03-26T14:34:07.870+0800 I CONTROL  [initandlisten] MongoDB starting : pid=41188 port=27017 dbpath=/data/db 64-bit host=zhuyangjunde.local
 2018-03-26T14:34:07.871+0800 I CONTROL  [initandlisten] db version v3.6.3
 2018-03-26T14:34:07.871+0800 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
 2018-03-26T14:34:07.871+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2n  7 Dec 2017

@@ -1,6 +1,7 @@
 # weChat Tips
 ## 开源
 - [awesome-wechat-weapp](https://github.com/justjavac/awesome-wechat-weapp):微信小程序开发资源汇总
+- [xiaochengxu_demos](https://github.com/qiushi123/xiaochengxu_demos):小程序优秀项目源码汇总
 - [weui-wxss](https://github.com/Tencent/weui-wxss):WeUI for 小程序 为微信小程序量身设计
 
 ## 资源

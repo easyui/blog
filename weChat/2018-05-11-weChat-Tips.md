@@ -5,7 +5,7 @@
 - [weui-wxss](https://github.com/Tencent/weui-wxss):WeUI for 小程序 为微信小程序量身设计
 - [ourTalk](https://github.com/BearstOzawa/ourTalk):基于微信小程序的校园论坛；微信小程序；云开发；云数据库；云储存；云函数；纯JS无后台；
 - [mini-blog](https://github.com/CavinCao/mini-blog):mini-blog是一款基于云开发的博客小程序，该小程序完全不依赖任何后端服务，无需自己的网站、服务器、域名等资源，只需要自行注册小程序账号即可。
--[today](https://github.com/GoKu-gaga/today):使用小程序云开发进行开发的一款小程序(口袋工具)
+- [today](https://github.com/GoKu-gaga/today):使用小程序云开发进行开发的一款小程序(口袋工具)
 
 ## 资源
 - [小程序开发指南](https://developers.weixin.qq.com/ebook?action=get_post_info&token=935589521&volumn=1&lang=zh_CN&book=miniprogram&docid=0008aeea9a8978ab0086a685851c0a)

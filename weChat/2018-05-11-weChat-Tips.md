@@ -37,6 +37,43 @@ page{
 
 ### :smile:在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。
 
+### :smile:单行和多行省略号
+在小程序开发过程中，经常会遇到一些数据无法在text中完全展示，所以会使用到隐藏相关文字，并在后方加上省略号(...)。
+
+只需要在对应的text中设置下面的css就可以了：
+```
+.text {
+overflow:hidden; //超出一行文字自动隐藏 
+text-overflow:ellipsis; //文字隐藏后添加省略号
+white-space:nowrap; //强制不换行
+}
+```
+不过上面的css只能保证单行显示隐藏，如果想要2，3，n行隐藏呢？这个要求其实也是可以通过css做到的。下面贴出css：
+```
+.text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;/*行数n*/
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+### :smile:
+
 
 
 

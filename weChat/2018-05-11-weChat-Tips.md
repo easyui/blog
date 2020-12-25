@@ -43,9 +43,9 @@ page{
 只需要在对应的text中设置下面的css就可以了：
 ```
 .text {
-overflow:hidden; //超出一行文字自动隐藏 
-text-overflow:ellipsis; //文字隐藏后添加省略号
-white-space:nowrap; //强制不换行
+overflow:hidden; /*超出一行文字自动隐藏 */
+text-overflow:ellipsis; /*文字隐藏后添加省略号*/
+white-space:nowrap; /*强制不换行*/
 }
 ```
 不过上面的css只能保证单行显示隐藏，如果想要2，3，n行隐藏呢？这个要求其实也是可以通过css做到的。下面贴出css：

@@ -58,8 +58,247 @@ white-space:nowrap; /*强制不换行*/
   text-overflow: ellipsis;
 }
 ```
-### :smile:
-### :smile:
+### :smile:scroll-view标签高度自适应
+一般写法：
+1、
+```
+<view class='header'>
+</view>
+<view class='box' style='height:{{boxHeight}}px;'>
+</view>
+```
+
+```
+/**
+   * 页面的初始数据
+   */
+  data: {
+    boxHeight: 0
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+    let res = wx.getSystemInfoSync();
+    let boxHeight = res.windowHeight - 50;
+    this.setData({
+      'boxHeight': boxHeight
+    });
+
+    wx.setNavigationBarTitle({
+      title: '小程序中动态计算高度',
+    })
+  }
+```
+
+```
+page {
+  width: 100%;
+  height: 100%;
+  background-color: plum;
+}
+
+.header {
+  background: red;
+  height: 50px;
+}
+
+.box {
+  background: yellowgreen;
+}
+```
+
+2、
+
+```
+<view class='header'></view>
+<view class='box' ></view>
+```
+
+```
+page {
+  width: 100%;
+  height: 100%;
+  background-color: plum;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: red;
+  height: 50px;
+}
+
+.box {
+  background: yellowgreen;
+  flex: 1;
+}
+```
+
+方法1和方法2的写法都能使box自适应撑满剩余空间，接下来往方法2里面放一个滚动视图scroll-view，设置为可以垂直滚动，高度设置为100%样式：
+
+```
+<view class='header'>
+</view>
+<view class='box'>
+  <scroll-view class='sv' scroll-y='true' style='height:100%;'>
+  <view>韦神和这位水友打了照面，这样近的距离下连开十枪，但居然全被这位水友完美躲过。连韦酱都露出了一脸不可置信的表情！</view>
+  <view>网友们则不仅因为这位水友的身法表示赞叹，纷纷表示，"被打倒的人总说别人的枪法有多好！拜托，只是你自己的身法没到家好吗！"大家也从韦神被秀一事中收获了无限乐趣。</view>
+  <view>不过，也有网友努力为韦神堪称人体描边挂的十枪辩解，都是因为这位水友喜欢韦神太久了，也太了解韦神了，"当喜欢一个人久了...他的身法、他的枪法、他打的每一颗子弹，甚至每一颗子弹走的路径，我都会了如指掌，所以韦酱他...伤不了我！"</view>
+  <view>对此，韦神也转发肯定了这个逻辑，并推荐各位网友称："男女朋友的可以试一试，打中一枪，说明他不够爱你！" 既然有韦神大力推荐，各位非单身的玩家们不妨一试啊，吃鸡究竟是不是一个爱情杀手游戏就能见分晓了！ 刚不过枪？落地成盒？手把手教你成功吃鸡！快关注兔玩英雄训练营返回搜狐，查看更多
+  </view>
+  <view>韦神和这位水友打了照面，这样近的距离下连开十枪，但居然全被这位水友完美躲过。连韦酱都露出了一脸不可置信的表情！</view>
+  <view>网友们则不仅因为这位水友的身法表示赞叹，纷纷表示，"被打倒的人总说别人的枪法有多好！拜托，只是你自己的身法没到家好吗！"大家也从韦神被秀一事中收获了无限乐趣。</view>
+  <view>不过，也有网友努力为韦神堪称人体描边挂的十枪辩解，都是因为这位水友喜欢韦神太久了，也太了解韦神了，"当喜欢一个人久了...他的身法、他的枪法、他打的每一颗子弹，甚至每一颗子弹走的路径，我都会了如指掌，所以韦酱他...伤不了我！"</view>
+  <view>对此，韦神也转发肯定了这个逻辑，并推荐各位网友称："男女朋友的可以试一试，打中一枪，说明他不够爱你！" 既然有韦神大力推荐，各位非单身的玩家们不妨一试啊，吃鸡究竟是不是一个爱情杀手游戏就能见分晓了！ 刚不过枪？落地成盒？手把手教你成功吃鸡！快关注兔玩英雄训练营返回搜狐，查看更多
+  </view>
+</scroll-view>
+</view>
+```
+
+```
+page {
+  width: 100%;
+  height: 100%;
+  background-color: plum;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: red;
+  height: 50px;
+}
+
+.box {
+  background: yellowgreen;
+  flex: 1;
+}
+```
+
+出现了问题，可以看到一旦加入scroll-view组件，样式被破坏了，header的高度莫名其妙变成了0；小程序的说法是要求scroll-view一定要给一个固定的高度，不然就不行，难道只能用第方法1来实现这个布局了？
+
+我发现一个tip，其实只要给外围的box一个高度即可，随便一个高度，因为设置了flex拉伸级别，这个高度不影响拉伸；在H5中是没意义的，但是这里可以解决问题：
+
+```
+<view class='header'>
+  <view>财经</view>
+  <view>股票</view>
+  <view>商业</view>
+  <view>汽车</view>
+  <view>商业</view>
+</view>
+<view class='box'>
+  <scroll-view class='sv' scroll-y='true'>
+    <view>韦神和这位水友打了照面，这样近的距离下连开十枪，但居然全被这位水友完美躲过。连韦酱都露出了一脸不可置信的表情！</view>
+    <view>网友们则不仅因为这位水友的身法表示赞叹，纷纷表示，"被打倒的人总说别人的枪法有多好！拜托，只是你自己的身法没到家好吗！"大家也从韦神被秀一事中收获了无限乐趣。</view>
+    <view>不过，也有网友努力为韦神堪称人体描边挂的十枪辩解，都是因为这位水友喜欢韦神太久了，也太了解韦神了，"当喜欢一个人久了...他的身法、他的枪法、他打的每一颗子弹，甚至每一颗子弹走的路径，我都会了如指掌，所以韦酱他...伤不了我！"</view>
+    <view>对此，韦神也转发肯定了这个逻辑，并推荐各位网友称："男女朋友的可以试一试，打中一枪，说明他不够爱你！" 既然有韦神大力推荐，各位非单身的玩家们不妨一试啊，吃鸡究竟是不是一个爱情杀手游戏就能见分晓了！ 刚不过枪？落地成盒？手把手教你成功吃鸡！快关注兔玩英雄训练营返回搜狐，查看更多
+
+    </view>
+    <view>韦神和这位水友打了照面，这样近的距离下连开十枪，但居然全被这位水友完美躲过。连韦酱都露出了一脸不可置信的表情！</view>
+    <view>网友们则不仅因为这位水友的身法表示赞叹，纷纷表示，"被打倒的人总说别人的枪法有多好！拜托，只是你自己的身法没到家好吗！"大家也从韦神被秀一事中收获了无限乐趣。</view>
+    <view>不过，也有网友努力为韦神堪称人体描边挂的十枪辩解，都是因为这位水友喜欢韦神太久了，也太了解韦神了，"当喜欢一个人久了...他的身法、他的枪法、他打的每一颗子弹，甚至每一颗子弹走的路径，我都会了如指掌，所以韦酱他...伤不了我！"</view>
+    <view>对此，韦神也转发肯定了这个逻辑，并推荐各位网友称："男女朋友的可以试一试，打中一枪，说明他不够爱你！" 既然有韦神大力推荐，各位非单身的玩家们不妨一试啊，吃鸡究竟是不是一个爱情杀手游戏就能见分晓了！ 刚不过枪？落地成盒？手把手教你成功吃鸡！快关注兔玩英雄训练营返回搜狐，查看更多
+
+    </view>
+  </scroll-view>
+</view>
+```
+
+```
+page {
+  width: 100%;
+  height: 100%;
+  background-color: plum;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: red;
+  height: 50px;
+  width: 100%;
+  display: flex;
+}
+
+.header > view {
+  flex: 1;
+  text-align: center;
+  line-height: 50px;
+  color: white;
+}
+
+.box {
+  background: yellowgreen;
+  flex: 1;
+  height: 100px;/*随便给个高度让scroll-view自适应高度*/
+}
+
+.sv {
+  background-color: #e9e9;
+  height: 100%;
+}
+```
+
+还可以scroll-view不被box套住，demo2:
+
+父级使用flex布局，随便给在scroll-view设置一个高度，并使其样式中flex:1
+```
+<view class="parent">
+  <view class="first-child"></view>
+  <scroll-view class="second-child" scroll-y="true">
+    <view  wx:for="{{100}}" wx:key="index">1</view>
+  </scroll-view>
+  <view class="third-child"></view>
+</view>
+```
+
+```
+/* miniprogram/pages/data/data.wxss */
+.parent{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  /* height: 100vh; */
+}
+.first-child{
+  height: 100rpx;
+  width: 100%;
+  background-color: red;
+}
+.second-child{
+  flex: 1;
+  height: 1rpx;/*随便给个高度让scroll-view自适应高度*/
+  width: 100%;
+  background-color: yellow;
+}
+.third-child{
+  height: 100rpx;
+  width: 100%;
+  background-color: blue;
+}
+```
+
+### :smile:微信小程序的button按钮设置宽度无效
+方法1.
+
+样式中加入!important，即：width: 100% !important;
+
+方法2.
+
+标签内，使用style
+
+```<button class="login-btn" bindclick="login" style="width:100%">登录</button>```
+
+方法3.
+
+删除app.json的配置"style": "v2"，不过这个不推荐哦。
+
 ### :smile:
 ### :smile:
 ### :smile:

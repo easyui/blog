@@ -299,7 +299,38 @@ page {
 
 删除app.json的配置"style": "v2"，不过这个不推荐哦。
 
-### :smile:
+### :smile:setData如何动态修改数组
+有一数组menus=[0,0,0,0]，如果我们想修改menus数组的第2个值
+的话，我们可以直接根据数组的键值修改，如下：
+```
+this.setData({
+  menus[1]:1//修改后的menus=[0,1,0,0]，这里我们知道了具体的键值
+});
+```
+但是如果这个键值是个动态的值的话，我们该如何修改呢？
+```
+let index =  1；
+this.setData({
+       menus[index]:1  //  此方法不行
+});
+```
+如果按照上边的方法肯定不行，可以安照下边的方法：
+```
+Page({
+  data: {
+    menus:[0,0,0,0]
+  },
+  //事件处理函数
+  changeMenus: function(e){
+    let index = e.currentTarget.id;//如果这里取得的index=1，那么此函数运行后menus=[0,1,0,0]
+    let curMenu= "menus["+index+"]";
+    this.setData({
+       [curMenu]:1
+    });
+  }
+})
+```
+
 ### :smile:
 ### :smile:
 ### :smile:

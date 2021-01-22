@@ -1,5 +1,9 @@
 # fitness tips
 
+
+## :smile:资源
+- [ACE-CPT-Notes/ACE 私人教练课程笔记](https://github.com/easyui/ACE-CPT-Notes)
+
 ## :smile:蛋白质在人体内最终消化成氨基酸
 ## :smile:大米缺少一种必须氨基酸：赖氨酸
 ## :smile:碳水化合物最终都是转化为葡萄糖

@@ -8,6 +8,9 @@
 - [today](https://github.com/GoKu-gaga/today):使用小程序云开发进行开发的一款小程序(口袋工具)
 - [Himalayan-lite](https://github.com/Notobey/Himalayan-lite):这是一个模仿喜马拉雅lite的微信小程序 - 简单易上手
 
+## 组件
+- [wx-statuslayout](https://github.com/zzjian/wx-statuslayout):页面状态切换组件
+
 ## 资源
 - [小程序开发指南](https://developers.weixin.qq.com/ebook?action=get_post_info&token=935589521&volumn=1&lang=zh_CN&book=miniprogram&docid=0008aeea9a8978ab0086a685851c0a)
 - [很快：第三方微信开发者平台](http://www.henkuai.com/forum.php)

@@ -11,6 +11,8 @@
 
 ## 组件
 - [wx-statuslayout](https://github.com/zzjian/wx-statuslayout):页面状态切换组件
+- [wx-calendar](https://github.com/749264345/wx-calendar):日历组件;提供平铺与滚动可折叠模式任意切换
+- [wx-calendar](https://github.com/mehaotian/wx-calendar):日历打卡组件
 
 ## 资源
 - [小程序开发指南](https://developers.weixin.qq.com/ebook?action=get_post_info&token=935589521&volumn=1&lang=zh_CN&book=miniprogram&docid=0008aeea9a8978ab0086a685851c0a)

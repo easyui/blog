@@ -352,7 +352,19 @@ Page({
 }
 ```
 
-### :smile:
+### :smile:固定单字符宽度（例如计时器00:00:00数字变化的时候宽度抖动）
+css加入：
+```
+font-variant-numeric: tabular-nums;
+```
+
+ps：
+请注意，这不会禁用使用Segoe UI观察到的可变高度(例如，某些数字仅像小写字母一样是x高度，其他数字则具有上升或下降字符)。这些传统的数字形式也可以使用CSS禁用，例如
+font-variant-numeric: lining-nums;
+
+您可以将两者结合使用:
+font-variant-numeric: tabular-nums lining-nums;
+
 ### :smile:
 ### :smile:
 ### :smile:

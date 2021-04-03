@@ -13,6 +13,8 @@
 - [wx-statuslayout](https://github.com/zzjian/wx-statuslayout):页面状态切换组件
 - [wx-calendar](https://github.com/749264345/wx-calendar):日历组件;提供平铺与滚动可折叠模式任意切换
 - [wx-calendar](https://github.com/mehaotian/wx-calendar):日历打卡组件
+- [miniprogram-gesture](https://github.com/wechat-miniprogram/miniprogram-gesture):这个手势库可以使微信小程序拥有识别手势的能力（自定义组件实现）
+- [mina-touch](https://github.com/Yrobot/mina-touch):一个方便、轻量的 小程序 手势事件监听库（类实现）
 
 ## 资源
 - [小程序开发指南](https://developers.weixin.qq.com/ebook?action=get_post_info&token=935589521&volumn=1&lang=zh_CN&book=miniprogram&docid=0008aeea9a8978ab0086a685851c0a)

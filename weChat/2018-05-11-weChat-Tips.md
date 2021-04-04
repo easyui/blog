@@ -15,6 +15,8 @@
 - [wx-calendar](https://github.com/mehaotian/wx-calendar):日历打卡组件
 - [miniprogram-gesture](https://github.com/wechat-miniprogram/miniprogram-gesture):这个手势库可以使微信小程序拥有识别手势的能力（自定义组件实现）
 - [mina-touch](https://github.com/Yrobot/mina-touch):一个方便、轻量的 小程序 手势事件监听库（类实现）
+- [mina-tool](https://github.com/Yrobot/mina-tool):小程序 开发实用工具集合
+- [wx-extend](https://github.com/wux-weapp/wx-extend):扩展插件集合
 
 ## 资源
 - [小程序开发指南](https://developers.weixin.qq.com/ebook?action=get_post_info&token=935589521&volumn=1&lang=zh_CN&book=miniprogram&docid=0008aeea9a8978ab0086a685851c0a)

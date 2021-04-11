@@ -19,6 +19,8 @@
 - [mina-tools-client](https://github.com/Yrobot/mina-tools-client):主要用于展示 Yrobot 开发的一些微信小程序三方库的效果和交互
 - [wx-extend](https://github.com/wux-weapp/wx-extend):扩展插件集合
 - [weapp-swiper3D](https://github.com/byk04712/weapp-swiper3D):3D滑动
+- [weapp-popover](https://github.com/byk04712/weapp-popover):自定义气泡组件
+
 
 
 ## 资源

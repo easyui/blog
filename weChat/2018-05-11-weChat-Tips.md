@@ -16,6 +16,7 @@
 - [miniprogram-gesture](https://github.com/wechat-miniprogram/miniprogram-gesture):这个手势库可以使微信小程序拥有识别手势的能力（自定义组件实现）
 - [mina-touch](https://github.com/Yrobot/mina-touch):一个方便、轻量的 小程序 手势事件监听库（类实现）
 - [mina-tool](https://github.com/Yrobot/mina-tool):小程序 开发实用工具集合
+- [mina-tools-client](https://github.com/Yrobot/mina-tools-client):主要用于展示 Yrobot 开发的一些微信小程序三方库的效果和交互
 - [wx-extend](https://github.com/wux-weapp/wx-extend):扩展插件集合
 - [weapp-swiper3D](https://github.com/byk04712/weapp-swiper3D):3D滑动
 

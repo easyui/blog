@@ -374,7 +374,12 @@ font-variant-numeric: lining-nums;
 您可以将两者结合使用:
 font-variant-numeric: tabular-nums lining-nums;
 
-### :smile:
+### :smile: 安全距离适配
+```
+  /*https://blog.csdn.net/weixin_44622984/article/details/111572159*/
+  padding-bottom: constant(safe-area-inset-bottom);/*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom);/*兼容 IOS>11.2*/
+```
 ### :smile:
 ### :smile:
 ### :smile:

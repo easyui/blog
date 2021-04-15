@@ -20,7 +20,7 @@
 - [wx-extend](https://github.com/wux-weapp/wx-extend):扩展插件集合
 - [weapp-swiper3D](https://github.com/byk04712/weapp-swiper3D):3D滑动
 - [weapp-popover](https://github.com/byk04712/weapp-popover):自定义气泡组件
-
+- [navigation-bar](https://github.com/lingxiaoyi/navigation-bar):自定义导航栏组件,navigation,完美适配全部手机
 
 
 ## 资源

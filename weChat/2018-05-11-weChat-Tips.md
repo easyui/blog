@@ -3,6 +3,7 @@
 - [awesome-wechat-weapp](https://github.com/justjavac/awesome-wechat-weapp):微信小程序开发资源汇总
 - [xiaochengxu_demos](https://github.com/qiushi123/xiaochengxu_demos):小程序优秀项目源码汇总
 - [weui-wxss](https://github.com/Tencent/weui-wxss):WeUI for 小程序 为微信小程序量身设计
+- [weui-miniprogram](https://github.com/wechat-miniprogram/weui-miniprogram):WeUI组件库简介极demo
 - [juejin](https://github.com/myvin/juejin):掘金小程序
 - [ourTalk](https://github.com/BearstOzawa/ourTalk):基于微信小程序的校园论坛；微信小程序；云开发；云数据库；云储存；云函数；纯JS无后台；
 - [mini-blog](https://github.com/CavinCao/mini-blog):mini-blog是一款基于云开发的博客小程序，该小程序完全不依赖任何后端服务，无需自己的网站、服务器、域名等资源，只需要自行注册小程序账号即可。

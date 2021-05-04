@@ -98,7 +98,21 @@ private(set) lazy var center = UNUserNotificationCenter.current()
 
 ## :smile:Swift 的 nil 和 Objective-C 中的 nil 并不一样。在 Objective-C 中，nil 是一个指向不存在对象的指针。在 Swift 中，nil 不是指针——它是一个确定的值，用来表示值缺失。任何类型的可选状态都可以被设置为 nil，不只是对象类型。
 
-## :smile:
+## :smile:可以把隐式解析可选类型当做一个可以自动解析的可选类型
+一个隐式解析可选类型其实就是一个普通的可选类型，但是可以被当做非可选类型来使用，并不需要每次都使用解析来获取可选值。下面的例子展示了可选类型 String 和隐式解析可选类型 String 之间的区别：
+```
+let possibleString: String? = "An optional string."
+let forcedString: String = possibleString! // 需要感叹号来获取值
+
+let assumedString: String! = "An implicitly unwrapped optional string."
+let implicitString: String = assumedString  // 不需要感叹号
+```
+你可以把隐式解析可选类型当做一个可以自动解析的可选类型。当你使用一个隐式解析可选值时，Swift 首先会把它当作普通的可选值；如果它不能被当成可选类型使用，Swift 会强制解析可选值。在以上的代码中，可选值 assumedString 在把自己的值赋给 implicitString 之前会被强制解析，原因是 implicitString 本身的类型是非可选类型的 String。在下面的代码中，optionalString 并没有显式的数据类型。那么根据类型推断，它就是一个普通的可选类型。
+```
+let optionalString = assumedString
+// optionalString 的类型是 "String?"，assumedString 也没有被强制解析。
+```
+
 ## :smile:
 ## :smile:
 ## :smile:

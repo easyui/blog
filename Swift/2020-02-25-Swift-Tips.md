@@ -113,7 +113,11 @@ let optionalString = assumedString
 // optionalString 的类型是 "String?"，assumedString 也没有被强制解析。
 ```
 
-## :smile:
+## :smile:以下位置添加属性观察器：
+- 自定义的存储属性
+- 继承的存储属性
+- 继承的计算属性
+
 ## :smile:
 ## :smile:
 ## :smile:

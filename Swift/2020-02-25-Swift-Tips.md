@@ -129,6 +129,11 @@ let optionalString = assumedString
 
 ## :smile:在 C 或 Objective-C 中，与某个类型关联的静态常量和静态变量，是作为 global（全局）静态变量定义的。但是在 Swift 中，类型属性是作为类型定义的一部分写在类型最外层的花括号内，因此它的作用范围也就在类型支持的范围内。
 
+## :smile:NSStringFromClass()与String(describing:)的区别
+```
+print(NSStringFromClass(Self.self))//SwiftManExample.TestViewController
+print(String(describing: Self.self))//TestViewController
+```
 ## :smile:
 ## :smile:
 ## :smile:

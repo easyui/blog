@@ -134,14 +134,46 @@ let optionalString = assumedString
 print(NSStringFromClass(Self.self))//SwiftManExample.TestViewController
 print(String(describing: Self.self))//TestViewController
 ```
-## :smile:
-## :smile:
-## :smile:
-## :smile:
-## :smile:
-## :smile:
-## :smile:
-## :smile:
+## :smile:关于 @escaping 最后还有一点想要说明。如果你在协议或者父类中定义了一个接受 @escaping 为 参数方法，那么在实现协议和类型或者是这个父类的子类中，对应的方法也必须被声明为@escaping ，否则两个方法会被认为拥有不同的函数签名。
+
+## :smile:在一个协议加入了像是 associatedtype 或者 Self 的约束 后，它将只能被用为泛型约束，而不能作为独立类型的占位使用，也失去了动态派发的特性。也就是说，这种情况下，我们需要将函数改写为泛型。
+
+## :smile: convenience 的初始化方法是 不能被子类重写或者是从子类中以 super 的方式被调用的。
+
+## :smile:class 关键字相比起来就明白许多，是专⻔用在 class 类型的上下文中的，可以用来修饰类方法 以及类的计算属性。但是有一个例外， class 中现在是不能出现 class 的存储属性的。在 Swift 1.2 及之后，我们可以在 class 中使用 static 来声明一个类作用域的变量。有了这个特性之后，像单例的写法就可以回归到我们所习惯的方式了。
+```swift
+class MyClass {
+    class var bar: Bar?//编译时会得到一个错误: class variables not yet supported,储存属性需使用static
+}
+```
+
+## :smile:和其他很多语言的默认参数相比较，Swift 中的默认参数限制更少，并没有所谓 "默认参数之后不 能再出现无默认值的参数"这样的规则。
+
+## :smile:使用 fr v -R 命令来打印出变量的未加工过时的信息
+
+```swift
+(lldb) fr v -R anotherNil
+(Swift.Optional<Swift.Optional<Swift.String>>)
+    anotherNil = Some {
+... 中略 }
+(lldb) fr v -R literalNil
+(Swift.Optional<Swift.Optional<Swift.String>>)
+    literalNil = None {
+... 中略 }
+```
+## :smile:dump指令：object的内容用其镜像进行标准输出
+
+## :smile:我们⽤ FREE_VERSION 这个编译符号来代表免费版本。为了使之有效，我们需要在项⽬的编译选项中进⾏设置，在项⽬的 Build Settings 中，找到 Swift Compiler - Custom Flags，并在其中的 Other Swift Flags 加上 -D FREE_VERSION 就可以了。
+```swift
+@IBAction func someButtonPressed(sender: AnyObject!) {
+#if FREE_VERSION
+// 弹出购买提示，导航⾄商店等
+#else
+// 实际功能
+#endif
+}
+```
+
 ## :smile:
 ## :smile:
 ## :smile:

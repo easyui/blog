@@ -1,0 +1,69 @@
+# 2019-09-02-iOS-tips
+
+## :smile:屏幕
+
+| Device | Retina | 屏幕点(pt) | 物理像素 (px) | 屏幕英寸 | 发布时的系统 | 年份 |
+| -- | -- | -- | -- | -- | -- | -- |
+| iPhone 12 Pro Max | 3X | 926 x 428 | 2778 x 1284 | 6.7″ | iOS14 | 2020 |
+| iPhone 12 Pro | 3X | 390 x 844 | 2532 x 1170 | 6.1″ | iOS14 | 2020 |
+| iPhone 12 | 3X | 390 x 844 | 2532 x 1170 | 6.1″ | iOS14 | 2020 |
+| iPhone 12 Mini | 3X | 360 x 780 | 2340 x 1080 | 5.4″ | iOS14 | 2020 |
+| iPhone 11 Pro Max | 3X | 414 x 896 | 2688 x 1242 | 6.1″ | iOS13 | 2019 |
+| iPhone XS Max | 3X | 414 x 896| 2688 x 1242 | 6.5″ | iOS12 | 2018 |
+| iPhone XS | 3X | 375 x 812| 2436 x 1125 | 5.8″ | iOS12 | 2018 |
+| iPhone XR | 2X | 414 x 896| 1792 x 828 | 6.1″ | iOS12 | 2018 |
+| iPhone X | 3X | 375 x 812| 2436 x 1125 | 5.8″ | iOS11 | 2017 |
+| iPhone 8 | 2X | 375 x 667| 1334 x 750 | 4.7″ | iOS11 | 2017 |
+| iPhone 8 Plus | 3X | 414 x 736| 2208 x 1242 | 5.5″ | iOS11 | 2017 |
+| iPhone 7 | 2X | 375 x 667| 1334 x 750 | 4.7″ | iOS10 | 2016 |
+| iPhone 7 Plus | 3X | 414 x 736| 2208 x 1242 | 5.5″ | iOS10 | 2016 |
+| iPhone 6s | 2X | 375 x 667| 1334 x 750 | 4.7″ | iOS9 | 2015 |
+| iPhone 6s Plus | 3X | 414 x 736| 2208 x 1242 | 5.5″ | iOS9 | 2015 |
+| iPhone 6 | 2X | 375 x 667| 1334 x 750 | 4.7″ | iOS8| 2014 |
+| iPhone 6 Plus | 3X | 414 x 736| 2208 x 1242 | 5.5″ | iOS8 | 2014 |
+## :smile:什么时候栈上的Block会复制到堆
+- 调用Block的copy实例方法时
+- Block作为函数返回值返回时
+- 将Block赋值给附有__strong修饰符id类型的类或者Block类型成员变量时
+- 在方法名中含有usingBlock的Cocoa框架方法或Grand Central Dispatch 的API中传递Block时
+
+## :smile:看下面的方法执行完之后 ViewController 会被销毁吗，ViewController 的 view 会被销毁吗?为什么?
+```
+- (void)addViewController { 
+UIViewController *viewController = [[UIViewContrnller alloc] init];
+[self.view addSubview: viewController.view]; 
+}
+…
+```
+【答案】view被引用，vc没被引用，所以VC被销毁，view不销毁。
+
+详细解释：
+
+vc引用view，view对vc无引用。 vc在view在，view在与vc可不在。vc为局部变量，方法结束后直接销毁；vc.view被添加在self.view上，所以不会被销毁.
+
+## :smile:正确判断是否是刘海屏
+正确判断是否是刘海屏的方法，苹果会推荐我们使用 safeAreaInsets 来获取。如从 ViewController.view 获取时，时机太迟了，需要从更早创建的地方获取如 keyWindow，如：
+
+```
++ (CGFloat)topOffset{
+    if (@available(iOS 11, *)) {
+        return [UIApplication sharedApplication].keyWindow.safeAreaInsets.top;// 其实也有隐患，如果是从推送打开 App ，可能还不存在 keyWindow
+    }
+    
+    return 20;
+}
+```
+
+直接使用 topOffset 来设置顶部安全距离或者通过判断 bottomOffset 是否大于 0 来确认是否是刘海屏，进而设置不同尺寸。
+
+ps:如果是判断刘海屏然后再加 statusbar 高度的作法（不推荐），你还需要完整的 statusbar 高度的表；
+
+```
+iPhone11: 48
+iPhone12/12 pro/12 pro max: 47
+iPhone12 mini: 50
+iPad Pro、IPad Air: 24
+Other iPhones: 44.
+非刘海屏：20
+```
+

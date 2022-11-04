@@ -1,7 +1,29 @@
-# [一天回顾 The Swift Programming Language](https://github.com/numbbbbb/the-swift-programming-language-in-chinese) ：Swift 5.2
+# [一天回顾 The Swift Programming Language](https://github.com/numbbbbb/the-swift-programming-language-in-chinese) ：
 
+**update:**
++ Swift 5.2
++ Swift 5.7  2022-10-05
+
+## 版本兼容性
+:smile:本书描述的是在 Xcode 14 中默认包含的 Swift 5.7 版本。你可以使用 Xcode 14 来构建 Swift 5.7、Swift 4.2 或 Swift 4 写的项目。
+
+:smile:但以下功能仅支持 Swift 5.7 或更高版本:
++ 返回值是不透明类型的函数依赖 Swift 5.1 运行时。
++ try? 表达式不会为已返回可选类型的代码引入额外的可选类型层级。
++ 大数字的整型字面量初始化代码的类型将会被正确推导，例如 UInt64(0xffff_ffff_ffff_ffff) 将会被推导为整型类型而非溢出。
 
 ## Swift 初见（A Swift Tour）
+:smile:你还可以使用较短的代码解包一个值，并且对该被包装值使用相同的名称。
+```swift
+if let nickname {
+	print("Hey, \(nickName)")
+}
+```
+
+:smile:单个语句闭包会把它语句的值当做结果返回
+
+:smile:如果你不需要计算属性，但是仍然需要在设置一个新值之前或者之后运行代码，使用 willSet 和 didSet。写入的代码会在属性值发生改变时调用，但不包含构造器中发生值改变的情况
+
 :smile:枚举的关联值是实际值，并不是原始值的另一种表达方法。实际上，如果没有比较有意义的原始值，你就不需要提供原始值。
 
 :smile:如果枚举成员的实例有原始值，那么这些值是在声明的时候就已经决定了，这意味着不同的枚举成员总会有一个相同的原始值。
@@ -23,6 +45,54 @@ case let .failure(message):
     print("Failure...  \(message)")
 }
 ```
+
+:smile:并发性 {#concurrency}
+
+使用 `async` 标记异步运行的函数
+
+```swift
+func fetchUserID(from server: String) async -> Int{
+	if server == "primary"
+		return 97
+}
+	return 501
+```
+
+您还可以通过在函数名前添加 `await` 来标记对异步函数的调用
+
+```swift
+func fetchUsername(from server:String) async -> String{
+	let userID = await fetchUserID(from: server)
+	if userID == 501{
+		return "John Appleseed"
+	}
+	return "Guest"
+}
+```
+
+使用 `async let` 来调用异步函数，并让其与其它异步函数并行运行。
+使用 `await` 以使用该异步函数返回的值。
+
+```swift
+func connectUser(to server: String) async{
+	async let userID = fetchUserID(from: server)
+	async let username = fetchUsername(from: server)
+	let greeting = await "Hello \(username), user ID \(userID)"
+	print(greeting)
+}
+```
+
+使用 `Task` 从同步代码中调用异步函数且不等待它们返回结果
+
+```swift
+Task {
+	await connectUser(to: "primary")
+}
+//Prints "Hello Guest, user ID 97"
+```
+
+:smile:使用 defer 代码块来表示在函数返回前，函数中最后执行的代码。无论函数是否会抛出错误，这段代码都将执行。使用 defer，可以把函数调用之初就要执行的代码和函数调用结束时的扫尾代码写在一起，虽然这两者的执行时机截然不同。
+
 :smile:在类型名后面使用 `where` 来指定对类型的需求，比如，限定类型实现某一个协议，限定两个类型是相同的，或者限定某个类必须有一个特定的父类。
 ```swift
 func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
@@ -104,7 +174,18 @@ if let definiteString = assumedString {
 
 :smile:注意： 如果 a 为非空值（non-nil），那么值 b 将不会被计算。这也就是所谓的短路求值。
 
+:smile:单侧区间不止可以在下标里使用，也可以在别的情境下使用。你不能遍历省略了初始值的单侧区间，因为遍历的开端并不明显。你可以遍历一个省略最终值的单侧区间；然而，由于这种区间无限延伸的特性，请保证你在循环里有一个结束循环的分支。你也可以查看一个单侧区间是否包含某个特定的值，就像下面展示的那样。
+
+```swift
+let range = ...5
+range.contains(7)   // false
+range.contains(4)   // true
+range.contains(-1)  // true
+```
+
 ## 字符串和字符（Strings and Characters）
+:smile:Swift 的 String 类型与 Foundation NSString 类进行了无缝桥接。Foundation 还对 String 进行扩展使其可以访问 NSString 类型中定义的方法。这意味着调用那些 NSString 的方法，你无需进行任何类型转换。
+
 :smile:如果你需要一个字符串是跨越多行的，你可以使用多行字符串字面量，它是由三个双引号(`"""`)包裹着的具有固定顺序的文本字符集。
 如果你需要一个字符串是跨越多行的，你可以使用多行字符串字面量，它是由三个双引号(`"""`)包裹着的具有固定顺序的文本字符集。
 
@@ -163,16 +244,30 @@ var anotherEmptyString = String()  // 初始化方法
 
 :smile:使用startIndex属性可以获取一个String的第一个Character的索引。使用endIndex属性可以获取最后一个Character的后一个位置的索引。因此，endIndex属性不能作为一个字符串的有效下标。如果String是空串，startIndex和endIndex是相等的。
 
-:smile:使用 `characters` 属性的 `indices` 属性会创建一个包含全部索引的范围(`Range`)，用来在一个字符串中访问单个字符。
+:smile:使用 indices 属性会创建一个包含全部索引的范围（Range），用来在一个字符串中访问单个字符。
 
 ```swift
-for index in greeting.characters.indices {
+for index in greeting.indices {
    print("\(greeting[index]) ", terminator: "")
 }
 // 打印输出 "G u t e n   T a g ! "
 ```
 
+:smile:你可以使用 startIndex 和 endIndex 属性或者 index(before:) 、index(after:) 和 index(_:offsetBy:) 方法在任意一个确认的并遵循 Collection 协议的类型里面，如上文所示是使用在 String 中，你也可以使用在 Array、Dictionary 和 Set 中。
+
 :smile:注意： 您可以使用 insert(_:at:)、insert(contentsOf:at:)、remove(at:) 和 removeSubrange(_:) 方法在任意一个确认的并遵循 RangeReplaceableCollection 协议的类型里面，如上文所示是使用在 String 中，您也可以使用在 Array、Dictionary 和 Set 中。
+
+:smile:当你从字符串中获取一个子字符串 —— 例如，使用下标或者 prefix(_:) 之类的方法 —— 就可以得到一个 Substring 的实例，而非另外一个 String。Swift 里的 Substring 绝大部分函数都跟 String 一样，意味着你可以使用同样的方式去操作 Substring 和 String。然而，跟 String 不同的是，你只有在短时间内需要操作字符串时，才会使用 Substring。当你需要长时间保存结果时，就把 Substring 转化为 String 的实例：
+```swift
+let greeting = "Hello, world!"
+let index = greeting.firstIndex(of: ",") ?? greeting.endIndex
+let beginning = greeting[..<index]
+// beginning 的值为 "Hello"
+
+// 把结果转化为 String 以便长期存储。
+let newString = String(beginning)
+```
+就像 String，每一个 Substring 都会在内存里保存字符集。而 String 和 Substring 的区别在于性能优化上，Substring 可以重用原 String 的内存空间，或者另一个 Substring 的内存空间（String 也有同样的优化，但如果两个 String 共享内存的话，它们就会相等）。这一优化意味着你在修改 String 和 Substring 之前都不需要消耗性能去复制内存。就像前面说的那样，Substring 不适合长期存储 —— 因为它重用了原 String 的内存空间，原 String 的内存空间必须保留直到它的 Substring 不再被使用为止。
 
 :smile:在 Swift 中，字符串和字符并不区分地域(not locale-sensitive)。
 
@@ -181,8 +276,26 @@ for index in greeting.characters.indices {
 
 :smile:因为Hashable协议符合Equatable协议，所以遵循该协议的类型也必须提供一个"是否相等"运算符(==)的实现。
 
+## 控制流
+:smile:以上示例使用 for-in 循环来遍历范围、数组、字典和字符串。你可以用它来遍历任何的集合，包括实现了 Sequence 协议的自定义类或集合类型。
+
+:smile:不像 C 语言，Swift 允许多个 case 匹配同一个值。实际上，在这个例子中，四个 case 都可以匹配点 (0, 0) 。但是，如果存在多个匹配，那么只会执行第一个被匹配到的 case 分支。考虑点 (0, 0)会首先匹配 case (0, 0)，因此剩下的能够匹配的分支都会被忽视掉。
+
+:smile:除了 #available 以外， Swift 还支持通过不可用性条件来进行不可用性检查。举例如下，两种检查都能实现同样的效果：
+```swift
+if #available(iOS 10, *){
+} else {
+	//回滚代码
+}
+if #unavailable(iOS 10) {
+	//回滚代码
+}
+```
+
 ## 函数（Functions）
 :smile:严格上来说，虽然没有返回值被定义，greet(person:) 函数依然返回了值。没有定义返回类型的函数会返回一个特殊的Void值。它其实是一个空的元组（tuple），没有任何元素，可以写成()。
+
+:smile:作为隐式返回值编写的代码需要返回一些值。例如，你不能使用 print(13) 作为隐式返回值。然而，你可以使用不返回值的函数（如 fatalError("Oh no!")）作为隐式返回值，因为 Swift 知道它们并不会产生任何隐式返回。
 
 :smile:每个函数参数都有一个参数标签( argument label )以及一个参数名称( parameter name )。参数标签在调用函数的时候使用；调用的时候需要将函数的参数标签写在对应的参数前面。参数名称在函数的实现中使用。默认情况下，函数参数使用参数名称来作为它们的参数标签。
 
@@ -220,10 +333,32 @@ someFunction(parameterWithoutDefault: 4) // parameterWithDefault = 12
 * 参数名称缩写
 * 尾随闭包语法
 
+:smile:闭包表达式参数 可以是 in-out 参数，但不能设定默认值。如果你命名了可变参数，也可以使用此可变参数。元组也可以作为参数和返回值。
+
 :smile:如果闭包表达式是函数或方法的唯一参数，则当你使用尾随闭包时，你甚至可以把 `()` 省略掉：
 
 ```swift
 reversedNames = names.sorted { $0 > $1 }
+```
+
+:smile:如果一个函数接受多个闭包，您需要省略第一个尾随闭包的参数标签，并为其余尾随闭包添加标签。例如，以下函数将为图片库加载一张图片：
+```swift
+func loadPicture(from server: Server, completion:(Picture) -> Void,
+		onFailure: () -> Void) {
+	if let picture = download("photo.jpg", from: server){
+		completion(picture)
+	}else{
+		onFailure()
+	}
+}
+```
+当您调用该函数以加载图片时，需要提供两个闭包。第一个闭包是一个完成处理程序，它在成功下载后加载图片；第二个闭包是一个错误处理程序，它向用户显示错误。
+```
+loadPicture(from: someServer){	picture in
+	someView.currentPicture = picture
+} onFailure: {
+	print("Couldn't download the next picture.")
+}
 ```
 
 :smile:函数和闭包都是引用类型。
@@ -271,6 +406,8 @@ print(instance.x)
 
 :smile:如果一个枚举成员的所有关联值都被提取为常量，或者都被提取为变量，为了简洁，你可以只在成员名称前标注一个let或者var
 
+:smile:原始值可以是字符串、字符，或者任意整型值或浮点型值。每个原始值在枚举声明中必须是唯一的。
+
 :smile:原始值和关联值是不同的。原始值是在定义枚举时被预先填充的值，像上述三个 ASCII 码。对于一个特定的枚举成员，它的原始值始终不变。关联值是创建一个基于枚举成员的常量或变量时才设置的值，枚举成员的关联值可以变化。
 
 :smile:递归枚举是一种枚举类型，它有一个或多个枚举成员使用该枚举类型的实例作为关联值。使用递归枚举时，编译器会插入一个间接层。你可以在枚举成员前加上indirect来表示该成员可递归。
@@ -299,6 +436,8 @@ Objective-C 中NSString，NSArray和NSDictionary类型均以类的形式实现�
 
 :smile:属性观察器可以添加到自己定义的存储属性上，也可以添加到从父类继承的属性上。
 
+:smile:你也可以利用属性包装器来复用多个属性的 getter 和 setter 中的代码
+
 :smile:存储属性和实例变量
 
 如果您有过 Objective-C 经验，应该知道 Objective-C 为类实例存储值和引用提供两种方法。除了属性之外，还可以使用实例变量作为属性值的后端存储。
@@ -308,6 +447,8 @@ Swift 编程语言中把这些理论统一用属性来实现。Swift 中的属�
 :smile:可以为除了延迟存储属性之外的其他存储属性添加属性观察器，也可以通过重写属性的方式为继承的属性（包括存储属性和计算属性）添加属性观察器。你不必为非重写的计算属性添加属性观察器，因为可以通过它的 setter 直接监控和响应值的变化。 属性重写请参考重写。
 
 :smile:父类的属性在子类的构造器中被赋值时，它在父类中的 willSet 和 didSet 观察器会被调用，随后才会调用子类的观察器。在父类初始化方法调用之前，子类给属性赋值时，观察器不会被调用。
+
+:smile:如果将带有观察器的属性通过 in-out 方式传入函数，willSet 和 didSet 也会调用。这是因为 in-out 参数采用了拷入拷出内存模式：即在函数内部使用的是参数的 copy，函数结束后，又对参数重新赋值。所以带有in-out方式的函数对in-out参数多次set，只会在函数结束后调用一次willSet 和 didSet！！！！！！
 
 :smile:计算属性和属性观察器所描述的功能也可以用于全局变量和局部变量。全局变量是在函数、方法、闭包或任何类型之外定义的变量。局部变量是在函数、方法或闭包内部定义的变量。
 
@@ -331,7 +472,9 @@ Swift 编程语言中把这些理论统一用属性来实现。Swift 中的属�
 :smile:因为允许在调用advance(to:)时候忽略返回值，不会产生编译警告，所以函数被标注为@ discardableResult属性。
 
 ## 下标
-:smile:下标可以接受任意数量的入参，并且这些入参可以是任意类型。下标的返回值也可以是任意类型。下标可以使用变量参数和可变参数，但不能使用输入输出参数，也不能给参数设置默认值。
+:smile:下标可以接受任意数量的入参，并且这些入参可以是任意类型。下标的返回值也可以是任意类型。
+
+:smile:与函数一样，下标可以接受不同数量的参数，并且为这些参数提供默认值，如在可变参数 和 默认参数值 中所述。但是，与函数不同的是，下标不能使用 in-out 参数。
 
 :smile:一个类或结构体可以根据自身需要提供多个下标实现，使用下标时将通过入参的数量和类型进行区分，自动匹配合适的下标，这就是下标的重载。
 
@@ -344,7 +487,11 @@ Swift 编程语言中把这些理论统一用属性来实现。Swift 中的属�
 
 :smile:你可以通过把方法，属性或下标标记为*final*来防止它们被重写，只需要在声明关键字前加上final修饰符即可（例如：final var，final func，final class func，以及final subscript）。
 
+:smile:在类扩展中的方法，属性或下标也可以在扩展的定义里标记为 final。
+
 ## 构造过程
+:smile:当你为存储型属性分配默认值或者在构造器中设置初始值时，它们的值是被直接设置的，不会触发任何属性观察者。
+
 :smile:对于类的实例来说，它的常量属性只能在定义它的类的构造过程中修改；不能在子类中修改。
 
 :smile:如果结构体或类为所有属性提供了默认值，又没有提供任何自定义的构造器，那么 Swift 会给这些结构体或类提供一个默认构造器。这个默认构造器将简单地创建一个所有属性值都设置为它们默认值的实例。
@@ -369,7 +516,7 @@ Swift 编程语言中把这些理论统一用属性来实现。Swift 中的属�
 
 :smile:相反，如果你编写了一个和父类便利构造器相匹配的子类构造器，由于子类不能直接调用父类的便利构造器（每个规则都在上文类的构造器代理规则有所描述），因此，严格意义上来讲，你的子类并未对一个父类构造器提供重写。最后的结果就是，你在子类中“重写”一个父类便利构造器时，不需要加override前缀。
 
-:smile:如果子类的构造器没有在阶段 2 过程中做自定义操作，并且父类有一个无参数的指定构造器，你可以在所有子类的存储属性赋值之后省略 super.init() 的调用。
+:smile:如果子类的构造器没有在阶段 2 过程中做自定义操作，并且父类有一个同步、无参数的指定构造器，你可以在所有子类的存储属性赋值之后省略 super.init() 的调用。若父类有一个异步的构造器，你就需要明确地写入 await super.init()。
 
 :smile:子类可以在初始化时修改继承来的变量属性，但是不能修改继承来的常量属性。
 
@@ -409,7 +556,9 @@ Swift 编程语言中把这些理论统一用属性来实现。Swift 中的属�
 
 :smile:你可以用非可失败构造器重写可失败构造器，但反过来却不行。
 
-:smile:你可以在init?中代理到init!，反之亦然。你也可以用init?重写init!，反之亦然。你还可以用init代理到init!，不过，一旦init!构造失败，则会触发一个断言。
+:smile:通常来说我们通过在 init 关键字后添加问号的方式（init?）来定义一个可失败构造器，但你也可以通过在 init 后面添加感叹号的方式来定义一个可失败构造器（init!），该可失败构造器将会构建一个对应类型的隐式解包可选类型的对象。
+
+:smile:你可以在 init? 中代理到 init!，反之亦然。你也可以用 init? 重写 init!，反之亦然。你还可以用 init 代理到 init!，不过，一旦 init! 构造失败，则会触发一个断言。
 
 :smile:在类的构造器前添加required修饰符表明所有该类的子类都必须实现该构造器：
 
@@ -426,38 +575,12 @@ Swift 编程语言中把这些理论统一用属性来实现。Swift 中的属�
 
 :smile:析构器是在实例释放发生前被自动调用。你不能主动调用析构器。子类继承了父类的析构器，并且在子类析构器实现的最后，父类的析构器会被自动调用。即使子类没有提供自己的析构器，父类的析构器也同样会被调用。
 
-## 自动引用计数
-:smile:当其他的实例有更短的生命周期时，使用弱引用，也就是说，当其他实例析构在先时。在上面公寓的例子中，很显然一个公寓在它的生命周期内会在某个时间段没有它的主人，所以一个弱引用就加在公寓类里面，避免循环引用。相比之下，当其他实例有相同的或者更长生命周期时，请使用无主引用。
-
-:smile:当 ARC 设置弱引用为nil时，属性观察不会被触发。
-
-:smile:在使用垃圾收集的系统里，弱指针有时用来实现简单的缓冲机制，因为没有强引用的对象只会在内存压力触发垃圾收集时才被销毁。但是在 ARC 中，一旦值的最后一个强引用被移除，就会被立即销毁，
-
-:smile:和弱引用类似，无主引用不会牢牢保持住引用的实例。和弱引用不同的是，无主引用在其他实例有相同或者更长的生命周期时使用。
-
-:smile:无主引用通常都被期望拥有值。不过 ARC 无法在实例被销毁后将无主引用设为 nil，因为非可选类型的变量不允许被赋值为 nil。
-
-:smile:使用无主引用，你必须确保引用始终指向一个未销毁的实例。如果你试图在实例被销毁后，访问该实例的无主引用，会触发运行时错误。
-
-:smile:Customer和CreditCard之间的关系与前面弱引用例子中Apartment和Person的关系略微不同。在这个数据模型中，一个客户可能有或者没有信用卡，但是一张信用卡总是关联着一个客户。为了表示这种关系，Customer类有一个可选类型的card属性，但是CreditCard类有一个非可选类型的customer属性。
-
-:smile:上面的例子展示了如何使用安全的无主引用。对于需要禁用运行时的安全检查的情况（例如，出于性能方面的原因），Swift 还提供了不安全的无主引用。与所有不安全的操作一样，你需要负责检查代码以确保其安全性。 你可以通过 unowned(unsafe) 来声明不安全无主引用。如果你试图在实例被销毁后，访问该实例的不安全无主引用，你的程序会尝试访问该实例之前所在的内存地址，这是一个不安全的操作。
-
-:smile:
-
-`Person`和`Apartment`的例子展示了两个属性的值都允许为`nil`，并会潜在的产生循环强引用。这种场景最适合用弱引用来解决。
-
-`Customer`和`CreditCard`的例子展示了一个属性的值允许为`nil`，而另一个属性的值不允许为`nil`，这也可能会产生循环强引用。这种场景最适合通过无主引用来解决。
-
-然而，存在着第三种场景，在这种场景中，两个属性都必须有值，并且初始化完成后永远不会为`nil`。在这种场景中，需要一个类使用无主属性，而另外一个类使用隐式解析可选属性。
-
-:smile:Swift 有如下要求：只要在闭包内使用 self 的成员，就要用 self.someProperty 或者 self.someMethod()（而不只是 someProperty 或 someMethod()）。这提醒你可能会一不小心就捕获了 self。
-
-:smile:
-
-在闭包和捕获的实例总是互相引用并且总是同时销毁时，将闭包内的捕获定义为无主引用。
-
-相反的，在被捕获的引用可能会变为nil时，将闭包内的捕获定义为弱引用。弱引用总是可选类型，并且当引用的实例被销毁后，弱引用的值会自动置为nil。这使我们可以在闭包体内检查它们是否存在。
+:smile:在类的定义中，每个类最多只能有一个析构器，而且析构器不带任何参数和圆括号，如下所示：
+```
+deinit {
+    // 执行析构过程
+}
+```
 
 ## 可选链式调用
 :smile:如果在可选值上通过可选链式调用来调用这个方法，该方法的返回类型会是`Void?`，而不是`Void`，因为通过可选链式调用得到的返回值都是可选的。这样我们就可以使用`if`语句来判断能否成功调用`printNumberOfRooms()`方法，即使方法本身没有定义返回值。通过判断返回值是否为`nil`可以判断调用是否成功：
@@ -501,6 +624,10 @@ john.residence?.address = createAddress()
 
 
 ## 错误处理
+:smile:Swift 中有 4 种处理错误的方式。你可以把函数抛出的错误传递给调用此函数的代码、用 do-catch 语句处理错误、将错误作为可选类型处理、或者断言此错误根本不会发生。
+
+:smile:Swift 中的错误处理和其他语言中用 try，catch 和 throw 进行异常处理很像。和其他语言中（包括 Objective-C ）的异常处理不同的是，Swift 中的错误处理并不涉及解除调用栈，这是一个计算代价高昂的过程。就此而言，throw 语句的性能特性是可以和 return 语句相媲美的。
+
 :smile:throwing 构造器能像 throwing 函数一样传递错误。例如下面代码中的 PurchasedSnack 构造器在构造过程中调用了 throwing 函数，并且通过传递到它的调用者来处理这些错误。
 ```
 struct PurchasedSnack {
@@ -514,7 +641,21 @@ struct PurchasedSnack {
 
 :smile:defer语句将代码的执行延迟到当前的作用域退出之前。该语句由defer关键字和要被延迟执行的语句组成。延迟执行的语句不能包含任何控制转移语句，例如break或是return语句，或是抛出一个错误。延迟执行的操作会按照它们被指定时的顺序的相反顺序执行——也就是说，第一条defer语句中的代码会在第二条defer语句中的代码被执行之后才执行，以此类推。
 
+## 并发
+:smile:如果你曾经写过并发的代码的话，那可能使用过线程。Swift 中的并发模型是基于线程的，但你不会直接和线程打交道。在 Swift 中，一个异步函数可以交出它在某个线程上的运行权，这样另一个异步函数在这个函数被阻塞时就能获得此线程的运行权。但是，Swift并不能确定当异步函数恢复运行时其将在哪条线程上运行。
+
+:smile:因为有 await 标记的代码可以被挂起，所以在程序中只有特定的地方才能调用异步方法或函数：
+- 异步函数，方法或变量内部的代码
+- 静态函数 main() 中被打上 @main 标记的结构体、类或者枚举中的代码
+- 非结构化的子任务中的代码，之后会在 非结构化并行 中说明
+
+:smile:想让自己创建的类型使用 for-in 循环需要遵循 Sequence 协议，这里也同理，如果想让自己创建的类型使用 for-await-in 循环，就需要遵循 AsyncSequence 协议。
+
 ## 类型转换
+:smile:转换没有真的改变实例或它的值。根本的实例保持不变；只是简单地把它作为它被转换成的类型来使用。
+
+:smile:你可以在 switch 表达式的 case 中使用 is 和 as 操作符来找出只知道是 Any 或 AnyObject 类型的常量或变量的具体类型。
+
 :smile:`Any`类型可以表示所有类型的值，包括可选类型。Swift 会在你用`Any`类型来表示一个可选值的时候，给你一个警告。如果你确实想使用`Any`类型来承载可选值，你可以使用`as`操作符显式转换为`Any`，如下所示：
 
 ```swift
@@ -524,6 +665,8 @@ things.append(optionalNumber as Any) // 没有警告
 ```
 
 ## 扩展（Extensions）
+:smile:扩展可以给一个类型添加新的功能，但是不能重写已经存在的功能。
+
 :smile:扩展可以添加新的计算型属性，但是不可以添加存储型属性，也不可以为已有属性添加属性观察器。
 
 :smile:扩展能为类添加新的便利构造器，但是它们不能为类添加新的指定构造器或析构器。指定构造器和析构器必须总是由原始的类实现来提供。
@@ -572,6 +715,8 @@ class SomeSubClass: SomeSuperClass, SomeProtocol {
 ```
 
 :smile:遵循协议的类型可以通过可失败构造器（init?）或非可失败构造器（init）来满足协议中定义的可失败构造器要求。协议中定义的非可失败构造器要求可以通过非可失败构造器（init）或隐式解包可失败构造器（init!）来满足。
+
+:smile:若要声明类专属的协议就必须继承于 AnyObject 
 
 :smile:Swift 为以下几种自定义类型提供了 Equatable 协议的合成实现：
 - 遵循 Equatable 协议且只有存储属性的结构体。
@@ -633,6 +778,44 @@ func makeProtocolContainer<T, C: Container>(item: T) -> C {
 }
 ```
 
+## 自动引用计数
+:smile:当其他的实例有更短的生命周期时，使用弱引用，也就是说，当其他实例析构在先时。在上面公寓的例子中，很显然一个公寓在它的生命周期内会在某个时间段没有它的主人，所以一个弱引用就加在公寓类里面，避免循环引用。相比之下，当其他实例有相同的或者更长生命周期时，请使用无主引用。
+
+:smile:当 ARC 设置弱引用为nil时，属性观察不会被触发。
+
+:smile:在使用垃圾收集的系统里，弱指针有时用来实现简单的缓冲机制，因为没有强引用的对象只会在内存压力触发垃圾收集时才被销毁。但是在 ARC 中，一旦值的最后一个强引用被移除，就会被立即销毁，
+
+:smile:和弱引用类似，无主引用不会牢牢保持住引用的实例。和弱引用不同的是，无主引用在其他实例有相同或者更长的生命周期时使用。
+
+:smile:但和弱引用不同，无主引用通常都被期望拥有值。所以，将值标记为无主引用不会将它变为可选类型，ARC 也不会将无主引用的值设置为 nil。
+
+:smile:使用无主引用，你必须确保引用始终指向一个未销毁的实例。如果你试图在实例被销毁后，访问该实例的无主引用，会触发运行时错误。
+
+:smile:Customer和CreditCard之间的关系与前面弱引用例子中Apartment和Person的关系略微不同。在这个数据模型中，一个客户可能有或者没有信用卡，但是一张信用卡总是关联着一个客户。为了表示这种关系，Customer类有一个可选类型的card属性，但是CreditCard类有一个非可选类型的customer属性。
+
+:smile:上面的例子展示了如何使用安全的无主引用。对于需要禁用运行时的安全检查的情况（例如，出于性能方面的原因），Swift 还提供了不安全的无主引用。与所有不安全的操作一样，你需要负责检查代码以确保其安全性。 你可以通过 unowned(unsafe) 来声明不安全无主引用。如果你试图在实例被销毁后，访问该实例的不安全无主引用，你的程序会尝试访问该实例之前所在的内存地址，这是一个不安全的操作。
+
+:smile:
+可选值的底层类型是 Optional，是 Swift 标准库里的枚举。然而，可选是值类型不能被标记为 unowned 的唯一例外。
+
+可选值包装的类不使用引用计数，所以不需要维持对可选值的强引用。
+
+:smile:
+
+`Person`和`Apartment`的例子展示了两个属性的值都允许为`nil`，并会潜在的产生循环强引用。这种场景最适合用弱引用来解决。
+
+`Customer`和`CreditCard`的例子展示了一个属性的值允许为`nil`，而另一个属性的值不允许为`nil`，这也可能会产生循环强引用。这种场景最适合通过无主引用来解决。
+
+然而，存在着第三种场景，在这种场景中，两个属性都必须有值，并且初始化完成后永远不会为`nil`。在这种场景中，需要一个类使用无主属性，而另外一个类使用隐式解析可选属性。
+
+:smile:Swift 有如下要求：只要在闭包内使用 self 的成员，就要用 self.someProperty 或者 self.someMethod()（而不只是 someProperty 或 someMethod()）。这提醒你可能会一不小心就捕获了 self。
+
+:smile:
+
+在闭包和捕获的实例总是互相引用并且总是同时销毁时，将闭包内的捕获定义为无主引用。
+
+相反的，在被捕获的引用可能会变为nil时，将闭包内的捕获定义为弱引用。弱引用总是可选类型，并且当引用的实例被销毁后，弱引用的值会自动置为nil。这使我们可以在闭包体内检查它们是否存在。
+
 ## 内存安全
 :smile:内存访问冲突时，要考虑内存访问上下文中的这三个性质：访问是读还是写，访问的时长，以及被访问的存储地址。特别是，冲突会发生在当你有两个访问符合下列的情况：
 - 至少有一个是写访问
@@ -653,6 +836,12 @@ func makeProtocolContainer<T, C: Container>(item: T) -> C {
 - 结构体要么没有被闭包捕获，要么只被非逃逸闭包捕获了
 
 ## 访问控制
+:smile:为了简单起见，对于代码中可以设置访问级别的特性（属性、基本类型、函数等），在下面的章节中我们会统一称之为“实体”。
+
+:smile:private 限制实体只能在其定义的作用域，以及同一文件内的 extension 访问。如果功能的部分细节只需要在当前作用域内使用时，可以使用 private 来将其隐藏。
+
+:smile:open 只能作用于类和类的成员，它和 public 的区别主要在于 open 限定的类和成员能够在模块外能被继承和重写
+
 :smile:Swift 中的访问级别遵循一个基本原则：实体不能定义在具有更低访问级别（更严格）的实体中。
 - 一个 public 的变量，其类型的访问级别不能是 internal，fileprivate 或是 private。因为无法保证变量的类型在使用变量的地方也具有访问权限。
 - 函数的访问级别不能高于它的参数类型和返回类型的访问级别。因为这样就会出现函数可以在任何地方被访问，但是它的参数类型和返回类型却不可以的情况。
@@ -670,6 +859,10 @@ func makeProtocolContainer<T, C: Container>(item: T) -> C {
 :smile:枚举成员的访问级别和该枚举类型相同，你不能为枚举成员单独指定不同的访问级别。
 
 :smile:枚举定义中的任何原始值或关联值的类型的访问级别至少不能低于枚举类型的访问级别。
+
+:smile:嵌套类型的访问级别和包含它的类型的访问级别相同，嵌套类型是 public 的情况除外。在一个 public 的类型中定义嵌套类型，那么嵌套类型自动拥有 internal 的访问级别。如果你想让嵌套类型拥有 public 访问级别，那么必须显式指定该嵌套类型的访问级别为 public。
+
+:smile:你可以继承同一模块中的所有有访问权限的类，也可以继承不同模块中被 open 修饰的类。一个子类的访问级别不得高于父类的访问级别。例如，父类的访问级别是 internal，子类的访问级别就不能是 public。
 
 :smile:如果在 private 级别的类型中定义嵌套类型，那么该嵌套类型就自动拥有 private 访问级别。如果在 public 或者 internal 级别的类型中定义嵌套类型，那么该嵌套类型自动拥有 internal 访问级别。
 
@@ -696,6 +889,12 @@ internal class B: A {
 因为父类 `A` 和子类 `B` 定义在同一个源文件中，所以在子类 `B` 可以在重写的 `someMethod()` 方法中调用 `super.someMethod()`。
 
 :smile:常量、变量、属性不能拥有比它们的类型更高的访问级别。例如，你不能定义一个 public 级别的属性，但是它的类型却是 private 级别的。同样，下标也不能拥有比索引类型或返回类型更高的访问级别
+
+如果常量、变量、属性、下标的类型是 private 级别的，那么它们必须明确指定访问级别为 private：
+
+```swift
+private var privateInstance = SomePrivateClass()
+```
 
 :smile:
 
@@ -749,6 +948,8 @@ internal class B: A {
 :smile:你定义的任何类型别名都会被当作不同的类型，以便于进行访问控制。类型别名的访问级别不可高于其表示的类型的访问级别。
 
 ## 高级运算符
+:smile:与 C 语言中的算术运算符不同，Swift 中的算术运算符默认是不会溢出的。所有溢出行为都会被捕获并报告为错误。如果想让系统允许溢出行为，可以选择使用 Swift 中另一套默认支持溢出的运算符，比如溢出加法运算符（&+）。所有的这些溢出运算符都是以 & 开头的。
+
 :smile:在默认情况下，当向一个整数赋予超过它容量的值时，Swift 默认会报错，而不是生成一个无效的数。
 
 :smile:不能对默认的赋值运算符（=）进行重载。只有复合赋值运算符可以被重载。同样地，也无法对三元条件运算符 （a ? b : c） 进行重载。
@@ -806,6 +1007,11 @@ print(type(of: z.f()))
 :smile:在嵌套类型声明时，Self 类型引用的是最内层声明的类型。
 
 :smile:Self 类型引用的类型和 Swift 标准库中 type(of:) 函数的结果一样。使用 Self.someStaticMember 访问当前类型中的成员和使用 type(of: self).someStaticMember 是一样的。
+
+## 特性
+
+
+## 模式
 
 :smile:
 :smile:
